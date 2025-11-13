@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cultura - Kyoto, Japan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ee8c2b",
+                        "background-light": "#fcfaf8",
+                        "background-dark": "#1b140d",
+                        "teal": "#008080",
+                        "sand": "#F4A261",
+                        "off-white": "#F8F9FA",
+                        "charcoal-gray": "#343A40",
+                        "light-gray": "#E9ECEF",
+                        "dark-text": "#1b140d",
+                        "light-text": "#fcfaf8",
+                        "dark-subtle": "#9a734c",
+                        "light-subtle": "#e7dbcf",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-off-white dark:bg-background-dark font-display text-charcoal-gray dark:text-light-text">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- TopNavBar Component -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-light-gray dark:border-dark-subtle/20 px-4 sm:px-10 py-3 bg-off-white dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-charcoal-gray dark:text-light-text">
+<div class="size-6 text-teal">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">Cultura</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-sm font-medium leading-normal hover:text-teal dark:hover:text-sand" href="#">Destinations</a>
+<a class="text-sm font-medium leading-normal hover:text-teal dark:hover:text-sand" href="#">My Trip</a>
+<a class="text-sm font-medium leading-normal hover:text-teal dark:hover:text-sand" href="#">Community</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<label class="hidden sm:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-charcoal-gray/60 dark:text-light-text/60 flex border-none bg-light-gray dark:bg-charcoal-gray/50 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg focus:outline-0 focus:ring-2 focus:ring-teal dark:focus:ring-sand border-none bg-light-gray dark:bg-charcoal-gray/50 h-full placeholder:text-charcoal-gray/60 dark:placeholder:text-light-text/60 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+<div class="flex items-center gap-2">
+    <a href="./login.html" id="login-btn" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-light-gray dark:bg-charcoal-gray/50 text-charcoal-gray dark:text-light-text text-sm font-bold leading-normal tracking-[0.015em] hover:bg-light-gray/80 dark:hover:bg-charcoal-gray/70">
+        <span class="truncate">Log In</span>
+    </a>
+    <a href="./registration.html" id="signup-btn" class="hidden md:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-sand text-charcoal-gray text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+        <span class="truncate">Sign Up</span>
+    </a>
+    <div id="profile-container" class="hidden items-center gap-2">
+        <span id="user-name" class="text-sm font-medium"></span>
+        <div id="user-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar"></div>
+        <button id="logout-btn" class="flex items-center justify-center h-10 px-2 text-muted-light dark:text-muted-dark hover:text-primary"><span class="material-symbols-outlined">logout</span></button>
+    </div>
+</div>
+</div>
+</header>
+<main class="layout-container flex h-full grow flex-col">
+<div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<!-- Hero Section Component -->
+<div class="@container">
+<div class="w-full">
+<div class="bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-xl min-h-[500px]" data-alt="Golden Pavilion Temple (Kinkaku-ji) in Kyoto surrounded by autumn foliage and reflected in a pond" style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 40%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuChojj8m7zx0by5kvmg-HbZW3AmTaXRK9rJtmuNI9c7qGmoXL8JMC_SBbf8jt19mwhDTRxdh-4Y3bmr3PqWpORUul8TdkLWPzjn1e9Hm8Z8_6BKj19pz3ffVbtmIvJyH3Xxz_2P7sFk-JCfjO11S4lOSpFU9AWqcb-4pMqzvT50y8tnJ3aw7PWfgIa08b3TVPVGTFtc_ZVy6EHrTlv_bnIDOAX2Vkr3E6bDKhKDBf3fVTDc_fAvtVO9iBNxLEixVhsl6RUpfFMciSo");'>
+<div class="p-8 text-white">
+<h1 class="text-5xl font-bold leading-tight tracking-tight">Kyoto, Japan</h1>
+<p class="mt-2 text-xl font-light">Where Ancient Traditions Meet Modern Wonders</p>
+<div class="mt-4 flex items-center gap-4 text-lg">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sand !text-2xl">star</span>
+<span class="font-bold">4.8</span>
+<span class="text-white/80">(1,284 reviews)</span>
+</div>
+<div class="w-px h-5 bg-white/50"></div>
+<span>Best time to visit: Mar-May, Sep-Nov</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8 lg:gap-12 mt-10">
+<!-- Sticky Sidebar -->
+<aside class="lg:w-1/4 lg:sticky top-24 self-start space-y-8">
+<div class="bg-white dark:bg-charcoal-gray/50 p-6 rounded-xl border border-light-gray dark:border-dark-subtle/20 shadow-sm">
+<h3 class="font-bold text-lg mb-4">Quick Navigation</h3>
+<ul class="space-y-3">
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-teal dark:hover:text-sand" href="#overview"><span class="material-symbols-outlined">description</span> Overview</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-teal dark:hover:text-sand" href="#attractions"><span class="material-symbols-outlined">attractions</span> Attractions</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-teal dark:hover:text-sand" href="#ar-vr"><span class="material-symbols-outlined">view_in_ar</span> AR/VR Previews</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-teal dark:hover:text-sand" href="#reviews"><span class="material-symbols-outlined">rate_review</span> Reviews</a></li>
+</ul>
+</div>
+<div class="bg-white dark:bg-charcoal-gray/50 p-6 rounded-xl border border-light-gray dark:border-dark-subtle/20 shadow-sm space-y-3">
+<button class="w-full flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-teal text-white text-md font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+<span class="material-symbols-outlined">add_location_alt</span>
+<span class="truncate">Add to My Trip</span>
+</button>
+<button class="w-full flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-sand text-charcoal-gray text-md font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+<span class="material-symbols-outlined">explore</span>
+<span class="truncate">Explore Tours</span>
+</button>
+<button class="w-full flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-light-gray dark:bg-charcoal-gray text-charcoal-gray dark:text-light-text text-md font-bold leading-normal tracking-[0.015em] hover:bg-light-gray/80 dark:hover:bg-charcoal-gray/80">
+<span class="material-symbols-outlined">share</span>
+<span class="truncate">Share</span>
+</button>
+</div>
+<div class="rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm">
+<img class="w-full h-48 object-cover" data-alt="Map of Kyoto showing key districts and landmarks" data-location="Kyoto, Japan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4stKslytP7rUOi2nwhUyAODg859tbmfJPio7s3avM9IUFiyDuLfGuXV9pO9fB2FvcERaOu5dfVC-L-X-0wuSr3MTDdmJle1oUmkZk6fSIOSJIzhxfDWahiptUwW0zlz-97uuJBKnf3Vty3EejbC6Q8FSNfdlN8E3dCi19g8mtawivPCYKgJ3SNV_f0abpzwL47N_MF45yIJf5Z6bELC4aDPYm9hxpnxPq6mCaVnWzN5k6UQTfkrMRgU-fHfNUmYgdh4AyHunwoJs"/>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="lg:w-3/4">
+<!-- Overview Section -->
+<section class="scroll-mt-24" id="overview">
+<h2 class="text-3xl font-bold mb-4">Welcome to Kyoto</h2>
+<p class="text-charcoal-gray/80 dark:text-light-text/80 text-lg leading-relaxed">
+                                Explore the heart of Japan, a city that gracefully blends imperial history with modern marvels. From the serene temples and enchanting geishas of Gion to the vibrant energy of its contemporary cityscapes, Kyoto offers a journey through time. Discover ancient traditions, breathtaking natural beauty, and a culinary scene that will delight your senses.
+                            </p>
+</section>
+<!-- Tabbed Content Section -->
+<section class="mt-12 scroll-mt-24" id="attractions">
+<div class="pb-3">
+<div class="flex border-b border-light-gray dark:border-dark-subtle/20 px-4 gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-teal text-teal pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Historical Facts</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-charcoal-gray/60 dark:text-light-text/60 hover:text-teal dark:hover:text-sand pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Natural Attractions</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-charcoal-gray/60 dark:text-light-text/60 hover:text-teal dark:hover:text-sand pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Adventure Activities</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-charcoal-gray/60 dark:text-light-text/60 hover:text-teal dark:hover:text-sand pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Food &amp; Lifestyle</p>
+</a>
+</div>
+</div>
+<div class="pt-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Content Card 1 -->
+<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
+<img class="w-full h-48 object-cover" data-alt="Fushimi Inari Shrine with its iconic red torii gates" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBJ0owYcGamXc3FV02PeoFZMli-BWzr7obU_0NeY_nE1_FDCf_Tr2MRYKVFb1R6BfGbJKPBDSt0mhb8EK1v-SFkioR_nOEVdqjG0CQv9sL77_vd9xJnbhessze2KlGc0VfkkF10M1dhNIyB4SFehwdRYybWsimvoQ78Za9RVxZXIVxeitiQgo4riGZQg5IYW-piYJh8_bsWU27J2nRVHOL7CGDTCFAkLEAAQJwOqDX80Ke6f7H6t_B-eafJQTWtv6_vt1jDsdtNAk"/>
+<div class="p-4">
+<h4 class="font-bold text-lg">Fushimi Inari Shrine</h4>
+<p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">Famous for its thousands of vibrant red torii gates that create a mesmerizing path up a mountain.</p>
+<div class="flex items-center gap-1 mt-2 text-sand">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star_half</span>
+<span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">4.9</span>
+</div>
+</div>
+</div>
+<!-- Content Card 2 -->
+<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
+<img class="w-full h-48 object-cover" data-alt="Kiyomizu-dera Temple wooden stage overlooking cherry blossoms" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSEnjj7UkD2I3tcVUzyQ0lMqF9-0iCQdRClCO8-NMH2HcVE0zmEEydSaJSMRMfjuUNurtm_YUH2O2J7B0vYRDwAD6EYF7ru9cbn74MLmEER61yR0QC_TbjpthYDCmYY0FFMA_kOEC4qqh6trC3ahSPzkVExf2QUTEEsyGLKehp2MzfgrfWgA1t9ffNnDEdfBDL7bc7y5UK9ddFZtGk4hA6Jg_R8fGshoxt5rqLb9OP-hYVD9i4-ZjKiCnw1u0PwqUSp4YAvG2dqt8"/>
+<div class="p-4">
+<h4 class="font-bold text-lg">Kiyomizu-dera Temple</h4>
+<p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">A historic Buddhist temple known for its massive wooden stage, offering panoramic city views.</p>
+<div class="flex items-center gap-1 mt-2 text-sand">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star_half</span>
+<span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">4.7</span>
+</div>
+</div>
+</div>
+<!-- Content Card 3 -->
+<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
+<img class="w-full h-48 object-cover" data-alt="Arashiyama Bamboo Grove with towering bamboo stalks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo7M7EjEUwLwRs3ggRGoOqoVojUsLm8B27Fkzrdp73C_0GHF7G0ykSi-NKRGGzo1RjhJx1en8UcV7Jr7OxNH6Dqyxa0JQRnxp3prglD_rhhGZG3zBJRB4KCgeylaNiPnLvXCpU442dNGwYwCUNqdKvaZHqKOh5bHPuV3DORJwvMSUw80dPLaLax-Kt-v1UGs_bOAae8bUKbPJ6B5L6L8HOQExV3FSQDzkBMo436Lsiq5AsZeR4FR4jrRVgLymxiBBHZsTRE_Jvuzo"/>
+<div class="p-4">
+<h4 class="font-bold text-lg">Arashiyama Bamboo Grove</h4>
+<p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">An ethereal bamboo forest that creates a tranquil, otherworldly walking experience.</p>
+<div class="flex items-center gap-1 mt-2 text-sand">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">4.8</span>
+</div>
+</div>
+</div>
+<!-- Content Card 4 -->
+<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
+<img class="w-full h-48 object-cover" data-alt="Traditional street in the Gion district at dusk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs4BIepfDDLpnKrpcmhWQrSdddmSKwbo3IOXcjRxRMPKksyQzvFpcqgEGDdX8KNQpxOSDgw4kaf_LA04zszTLnoX7Bg9MGzU5wjVCrTq8f4hgbZBzKC953jEXBP03lPHC8dz-2yibH_kH_Fpq_ZBEBwfOFzujrpwj59zMHsqvK9whMqkL5dYd7rCtifEan7tDmKqOohzMpNprGB6kBGBkIjhZMFm_UQWVaoUj6-fHu49Vxqy1_SLq2h8IBakriOqqLxQqbByDiIkY"/>
+<div class="p-4">
+<h4 class="font-bold text-lg">Gion District</h4>
+<p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">Kyoto's famous geisha district, filled with traditional wooden machiya houses and teahouses.</p>
+<div class="flex items-center gap-1 mt-2 text-sand">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star_half</span>
+<span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">4.6</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AR/VR Preview Module -->
+<section class="mt-12 scroll-mt-24" id="ar-vr">
+<h2 class="text-3xl font-bold mb-4">Immersive Previews</h2>
+<p class="text-charcoal-gray/80 dark:text-light-text/80 text-lg leading-relaxed mb-6">
+                                Step inside Kyoto's most iconic landmarks before you even arrive. Launch our augmented and virtual reality experiences for a truly immersive preview.
+                            </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="relative rounded-xl overflow-hidden group">
+<img class="w-full h-60 object-cover" data-alt="Virtual walk through Gion District" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb8nPyvNAwWkK4trluLUVyaXuWaW2-7maiCUhsOp76PoggyDwx0kINbmY1-huAO2ii_lH_nFgVUHgMmdudaTc2-nG4YMVeMupvyt_-KL7mSxnY31IyHeeirjn6NLiGLNTyED3m-qbxCR-Vg7N-ib-0dAs_EOdqpHWPwVNUDVu1rOPTnX7fO4kKwx57vwaR6I4cBb8OGfkymFWPL5zx0kLnGagYlGH6ZpV2ynJ9KEwOtFlBEUcSwFmL0KvaSNWtRc4VXqypDO0ycqA"/>
+<div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<h4 class="text-white text-lg font-bold text-center">Virtual Walk Through Gion District</h4>
+<button class="mt-4 flex items-center gap-2 px-4 py-2 bg-teal text-white rounded-lg font-semibold text-sm">
+<span class="material-symbols-outlined">vrpano</span> Launch VR Experience
+                                        </button>
+</div>
+</div>
+<div class="relative rounded-xl overflow-hidden group">
+<img class="w-full h-60 object-cover" data-alt="AR overlay of Heian Jingu Shrine" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN8tQ2mhNSK8WzbTQ6gSR6RQtIBUJ477dTAvY6Ii72_LY7wy9z_rV1EvFbNWY8c0nsE2KCv5O-tOdoXewxe3GqmyR8Y2Hwavb-_WYiyIBjvD0W47YJXva8Bv1FVeM0W9LXmmVh5kdlMwdvV11PoKGxpSni9oLZMPERHYjhZhed6VfTdk6qWnv2tSZLuyp8qd8Xzcp8T49zP-u507sC76ILJiIy2uqHzWuNWM0WITZHVfKaS4a9sKwE1zm3uJTSh86g7vPS4IDLhIg"/>
+<div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<h4 class="text-white text-lg font-bold text-center">AR Overlay of Heian Jingu Shrine</h4>
+<button class="mt-4 flex items-center gap-2 px-4 py-2 bg-teal text-white rounded-lg font-semibold text-sm">
+<span class="material-symbols-outlined">view_in_ar</span> View in AR
+                                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- User Reviews & Ratings Component -->
+<section class="mt-12 scroll-mt-24" id="reviews">
+<h2 class="text-3xl font-bold mb-4">Reviews &amp; Ratings</h2>
+<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl border border-light-gray dark:border-dark-subtle/20 shadow-sm p-6">
+<div class="flex flex-wrap gap-x-8 gap-y-6">
+<div class="flex flex-col gap-2">
+<p class="text-4xl font-black leading-tight tracking-[-0.033em]">4.8</p>
+<div class="flex gap-0.5">
+<span class="material-symbols-outlined text-sand">star</span>
+<span class="material-symbols-outlined text-sand">star</span>
+<span class="material-symbols-outlined text-sand">star</span>
+<span class="material-symbols-outlined text-sand">star</span>
+<span class="material-symbols-outlined text-sand">star_half</span>
+</div>
+<p class="text-charcoal-gray/70 dark:text-light-text/70 text-base font-normal leading-normal">Based on 1,284 reviews</p>
+</div>
+<div class="grid min-w-[200px] max-w-[400px] flex-1 grid-cols-[20px_1fr_40px] items-center gap-y-3">
+<p class="text-sm font-normal leading-normal">5</p>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 85%;"></div></div>
+<p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">85%</p>
+<p class="text-sm font-normal leading-normal">4</p>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 10%;"></div></div>
+<p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">10%</p>
+<p class="text-sm font-normal leading-normal">3</p>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 3%;"></div></div>
+<p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">3%</p>
+<p class="text-sm font-normal leading-normal">2</p>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 1%;"></div></div>
+<p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">1%</p>
+<p class="text-sm font-normal leading-normal">1</p>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 1%;"></div></div>
+<p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">1%</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script type="module" src="./firebase_config.js"></script>
+<script type="module" src="./auth_ui.js"></script>
+</body></html>

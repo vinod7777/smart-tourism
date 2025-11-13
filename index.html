@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cultura - Cultural Tourism Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ee8c2b",
+              "background-light": "#fcfaf8",
+              "background-dark": "#1b140d",
+              "text-light": "#1b140d",
+              "text-dark": "#f3ede7",
+              "card-light": "#ffffff",
+              "card-dark": "#2a221a",
+              "border-light": "#f3ede7",
+              "border-dark": "#393027",
+              "muted-light": "#9a734c",
+              "muted-dark": "#a89078"
+            },
+            fontFamily: {
+              "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="flex min-h-screen w-full flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-20 flex w-full items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 px-6 py-3 backdrop-blur-sm md:px-10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">
+                    travel_explore
+                </span>
+<h2 class="text-xl font-bold tracking-[-0.015em] text-text-light dark:text-text-dark">Cultura</h2>
+</div>
+<div class="hidden items-center gap-9 md:flex">
+<a class="text-sm font-medium text-text-light dark:text-text-dark" href="#">Home</a>
+<a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="#">My Trips</a>
+<a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="#">Blog</a>
+</div>
+<div class="flex items-center gap-2">
+    <a href="./login.html" id="login-btn" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-text-light text-sm font-bold leading-normal tracking-[0.015em]">
+        <span class="truncate">Log In</span>
+    </a>
+    <a href="./registration.html" id="signup-btn" class="hidden md:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent border border-primary text-primary text-sm font-bold">
+        <span class="truncate">Sign Up</span>
+    </a>
+    <div id="profile-container" class="hidden items-center gap-2">
+        <span id="user-name" class="text-sm font-medium"></span>
+        <div id="user-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture"></div>
+        <button id="logout-btn" class="flex items-center justify-center h-10 px-2 text-muted-light dark:text-muted-dark hover:text-primary"><span class="material-symbols-outlined">logout</span></button>
+    </div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Persistent Left Sidebar -->
+<aside class="sticky top-[69px] h-[calc(100vh-69px)] w-80 flex-shrink-0 border-r border-border-light dark:border-border-dark p-6 hidden lg:flex flex-col gap-6">
+<div class="flex flex-col">
+<h1 class="text-lg font-bold text-text-light dark:text-text-dark">Search &amp; Filter</h1>
+<p class="text-sm text-muted-light dark:text-muted-dark">Find your next journey</p>
+</div>
+<label class="flex flex-col w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-12">
+<div class="text-muted-light dark:text-muted-dark flex bg-card-light dark:bg-card-dark items-center justify-center pl-4 rounded-l-lg border border-border-light dark:border-border-dark border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-1 focus:ring-primary border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark h-full placeholder:text-muted-light dark:placeholder:text-muted-dark px-4 border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search destinations..." value=""/>
+</div>
+</label>
+<!-- Accordion Filters -->
+<div class="flex flex-col">
+<details class="flex flex-col border-t border-border-light dark:border-border-dark py-2 group" open="">
+<summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-2">
+<p class="text-sm font-medium text-text-light dark:text-text-dark">Interest</p>
+<span class="material-symbols-outlined text-text-light dark:text-text-dark group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="flex flex-col gap-2 pt-2">
+<label class="flex gap-x-3 items-center">
+<input checked="" class="h-5 w-5 rounded border-border-light dark:border-border-dark border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<p class="text-sm font-normal text-text-light dark:text-text-dark">History &amp; Heritage</p>
+</label>
+<label class="flex gap-x-3 items-center">
+<input class="h-5 w-5 rounded border-border-light dark:border-border-dark border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<p class="text-sm font-normal text-text-light dark:text-text-dark">Culinary Delights</p>
+</label>
+<label class="flex gap-x-3 items-center">
+<input class="h-5 w-5 rounded border-border-light dark:border-border-dark border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<p class="text-sm font-normal text-text-light dark:text-text-dark">Local Lifestyle</p>
+</label>
+<label class="flex gap-x-3 items-center">
+<input class="h-5 w-5 rounded border-border-light dark:border-border-dark border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<p class="text-sm font-normal text-text-light dark:text-text-dark">Art &amp; Artisans</p>
+</label>
+</div>
+</details>
+<details class="flex flex-col border-t border-border-light dark:border-border-dark py-2 group">
+<summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-2">
+<p class="text-sm font-medium text-text-light dark:text-text-dark">Accommodation</p>
+<span class="material-symbols-outlined text-text-light dark:text-text-dark group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<!-- Content for Accommodation filter -->
+</details>
+<details class="flex flex-col border-t border-t-border-light dark:border-t-border-dark py-2 group">
+<summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-2">
+<p class="text-sm font-medium text-text-light dark:text-text-dark">Price Range</p>
+<span class="material-symbols-outlined text-text-light dark:text-text-dark group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<!-- Content for Price Range filter -->
+</details>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 bg-primary text-text-light text-sm font-bold">Apply Filters</button>
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 text-sm font-medium text-muted-light dark:text-muted-dark">Reset</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="w-full flex-1 p-6 lg:p-10">
+<!-- Hero Section -->
+<section class="relative flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-cover bg-center p-8 text-center text-white">
+<div class="absolute inset-0 bg-black/50 z-0"></div>
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A vibrant, sunlit Italian coastal town with colorful houses built into the cliffside." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAuj52fR33bcl2j7R4mJMI-K3YHNBAcX3gkqQnHBXtRvFHE-w63v9eJYmf0owQBa-Y0zcQ0N8bAXUzEfLlFOMvmjNczWGPkL0W8ZBnoAE1Lcx5EWtcNi3RCMVv8PmyNAtLgaguSp8rZ8NLmZgjaOIwyoSSqxKREsQ88HjQ945gtaHiOxsHOPge7uCo37DMJHuLQqaOg1gDsvvTqYt5r3tBudhBUXp55kbmAWwWaQqW4wAQiGdHM-B2I1xe7xacpb4aI-GBOJ9Ps2qg')"></div>
+<div class="relative z-10 flex flex-col items-center gap-4">
+<h1 class="text-4xl font-extrabold md:text-5xl">Your Authentic Cultural Journey Starts Here.</h1>
+<p class="max-w-xl text-lg text-white/90">Discover the world's richest history, food, and traditions.</p>
+</div>
+</section>
+<!-- Tab Navigation -->
+<nav class="mt-8 border-b border-border-light dark:border-border-dark">
+<div class="flex items-center gap-6">
+<a class="border-b-2 border-primary py-3 text-sm font-semibold text-text-light dark:text-text-dark" href="#">Explore All</a>
+<a class="border-b-2 border-transparent py-3 text-sm font-medium text-muted-light dark:text-muted-dark hover:text-text-light dark:hover:text-text-dark" href="#">Destinations</a>
+<a class="border-b-2 border-transparent py-3 text-sm font-medium text-muted-light dark:text-muted-dark hover:text-text-light dark:hover:text-text-dark" href="#">Food Trails</a>
+<a class="border-b-2 border-transparent py-3 text-sm font-medium text-muted-light dark:text-muted-dark hover:text-text-light dark:hover:text-text-dark" href="#">Stays</a>
+</div>
+</nav>
+<!-- Content Grid Section -->
+<section class="mt-8">
+<div class="flex items-center justify-between">
+<h3 class="text-2xl font-bold">Featured Destinations</h3>
+<a class="text-sm font-medium text-primary hover:underline" href="#">See All</a>
+</div>
+<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="destinations-grid">
+<!-- Card 1 -->
+<div class="group flex cursor-pointer flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
+<div class="relative overflow-hidden">
+<img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="The Taj Mahal in Agra, India, reflected in its pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD034tjIKxo_IdFmv8DU3YfLqGqQpQWLVrED33QYbfnyw0TImyvIsZ6-AV3nUobz8CDY015Q3HeBUi_WKqn-THoxyXA_C9ohwZ1-AuKK-oNK0UEIgUygsDPfNUbiHNV-roGcFs87LFdPpoQ7SFG2KPBRyl5TXbZWrGUyBlTHu48BxZRtMEXu36A22XiXTtomsSIwfKNa5jfzAp40SsWG3m6Xp_kRQTgxj_LrKuxCqhHSQCvy_XETPmWeP1VYjKu6Oi1wB4Yy6iTlEQ"/>
+<button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
+<span class="material-symbols-outlined text-xl">favorite_border</span>
+</button>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h4 class="text-lg font-bold">The Taj Mahal, Agra</h4>
+<p class="mt-1 text-sm text-muted-light dark:text-muted-dark">An ivory-white marble mausoleum, a symbol of eternal love.</p>
+<div class="mt-4 flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">History</span>
+<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Architecture</span>
+<span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
+<span class="material-symbols-outlined !text-sm text-amber-500">star</span>4.9
+                                    </span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex cursor-pointer flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
+<div class="relative overflow-hidden">
+<img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Hawa Mahal in Jaipur, the Pink City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjEoQFTbxYFgSiAhq_FoSZ2b6YL03qKHIfx6Gt16Mv1Xe4Hj-4zc7WZ3vFtBR1vYSYZxlzzJ6jsfPp0tOvWM0EhSJEQRIA3LXAtxU1Z12t7ThPvKvY-xczYt2CzlwMyQlJg3kKc_U8T6CGQVTA25O8yzMW3HyDreoi3gUYeORhj4SBkzJ16J5VMV54kxYvZfBk153taZqZkWPFWkCM3p0LNdDzQRl9_9SU_j8qxCHw07smWroMl0wwldsj2XxObAM9P4IabCBxEp4"/>
+<button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
+<span class="material-symbols-outlined text-xl">favorite_border</span>
+</button>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h4 class="text-lg font-bold">Jaipur, The Pink City</h4>
+<p class="mt-1 text-sm text-muted-light dark:text-muted-dark">Explore royal palaces and vibrant markets.</p>
+<div class="mt-4 flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">History</span>
+<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Culture</span>
+<span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
+<span class="material-symbols-outlined !text-sm text-amber-500">star</span>4.8
+                                    </span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex cursor-pointer flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
+<div class="relative overflow-hidden">
+<img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Ghats along the Ganges river in Varanasi at sunrise" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcV0GlJt-rVnLNxaGZUFrbCJxSmk4gOrGoNW_PKZAbIoLFTDcH0yrxXAHVhbpDjIHh0x0itBASt1UGibElyq5JQzpn4mz2rW0ffYwqxxnhcF4q6TXmhCxE8TidRA0Y-0qMYIs8kc9l5CMT47EA4W23nKKKs089nrkNq9GrkGpjQcYw0JYfNw6WceM51OqMhdKtyuGJ13oDTVsZ_Ysx1KwfIb9Eca60jplwGL8OkCJsIOETfm-oX3Io5BkJn28YvHJlx6PaZAnWWJw"/>
+<button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
+<span class="material-symbols-outlined text-xl">favorite_border</span>
+</button>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h4 class="text-lg font-bold">Varanasi's Spiritual Ghats</h4>
+<p class="mt-1 text-sm text-muted-light dark:text-muted-dark">Experience the spiritual heart of India.</p>
+<div class="mt-4 flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Spiritual</span>
+<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Culture</span>
+<span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
+<span class="material-symbols-outlined !text-sm text-amber-500">star</span>4.9
+                                    </span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex cursor-pointer flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
+<div class="relative overflow-hidden">
+<img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Houseboat on the serene Kerala backwaters" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaCf8A6iabWoFkilI_ZwqUZwHyucWkQXXpnbwl0ovLz4mMN4HEA5-HTsWKpqfVAoiolouTT9wypapKOaYiV7fnn28cwdB0OPmL43e8lgWEQFpa9XSfyt50OuakLzXXoYpo1imXxWPuGcOrNc_XP7asQ_IAfwRNNUCe2kQ83I9-zB4EoCXahaRyTx_PXxWutKw9yPA6KoLE9bVX6i60sHytpqeXtqnN4HGT_hP4Ry1-FzImVK-JpJOYtO8X1TKKmVGg34bpQyKCdBg"/>
+<button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
+<span class="material-symbols-outlined text-xl">favorite_border</span>
+</button>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<h4 class="text-lg font-bold">Kerala Backwaters</h4>
+<p class="mt-1 text-sm text-muted-light dark:text-muted-dark">Cruise through tranquil palm-fringed canals.</p>
+<div class="mt-4 flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Nature</span>
+<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Relaxation</span>
+<span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
+<span class="material-symbols-outlined !text-sm text-amber-500">star</span>4.8
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Curated Food Trails Section -->
+<section class="mt-12">
+<div class="flex items-center justify-between">
+<h3 class="text-2xl font-bold">Curated Food Trails</h3>
+<a class="text-sm font-medium text-primary hover:underline" href="#">See All</a>
+</div>
+<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+<!-- Placeholder for food trail cards -->
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Tuscan Wine &amp; Dine</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Tokyo Ramen Tour</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Bangkok Street Food</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Peruvian Ceviche Quest</div>
+</div>
+</section>
+<!-- Unique Stays Section -->
+<section class="mt-12">
+<div class="flex items-center justify-between">
+<h3 class="text-2xl font-bold">Unique Stays</h3>
+<a class="text-sm font-medium text-primary hover:underline" href="#">See All</a>
+</div>
+<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+<!-- Placeholder for accommodation cards -->
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Stay in a French Chateau</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Japanese Ryokan Experience</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Tuscan Farmhouse</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script type="module" src="./firebase_config.js"></script>
+<script type="module" src="./auth_ui.js"></script>
+</body></html>

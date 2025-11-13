@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CulturaTrip - Itinerary Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#008080",
+                        "secondary": "#E2725B",
+                        "background-light": "#F5F5DC",
+                        "background-dark": "#36454F",
+                        "text-light": "#36454F",
+                        "text-dark": "#F5F5DC",
+                        "subtle-light": "#D3D3D3",
+                        "subtle-dark": "#4a5a67",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#2d3a44",
+                        "accent-light": "#f0eade",
+                        "accent-dark": "#4a5a67",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+<div class="flex h-screen w-full flex-col">
+<!-- TopNavBar -->
+<header class="flex shrink-0 items-center justify-between whitespace-nowrap border-b border-solid border-subtle-light/50 dark:border-subtle-dark/50 px-6 md:px-10 py-3 bg-card-light dark:bg-card-dark shadow-sm">
+<div class="flex items-center gap-4">
+<div class="h-8 w-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">CulturaTrip</h2>
+</div>
+<div class="hidden items-center gap-8 md:flex">
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Explore</a>
+<a class="text-sm font-medium leading-normal text-primary dark:text-primary" href="#">My Trips</a>
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Profile</a>
+<a href="./login.html" id="login-btn" class="flex md:hidden">Log In</a>
+<a href="./registration.html" id="signup-btn" class="flex md:hidden">Sign Up</a>
+</div>
+<div class="flex flex-1 items-center justify-end gap-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-secondary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+<span class="truncate">Save Itinerary</span>
+</button>
+<div id="profile-container" class="hidden items-center gap-2">
+    <span id="user-name" class="text-sm font-medium hidden md:block"></span>
+    <div id="user-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image"></div>
+    <button id="logout-btn" class="flex items-center justify-center h-10 px-2 text-muted-light dark:text-muted-dark hover:text-primary"><span class="material-symbols-outlined">logout</span></button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex flex-1 overflow-hidden">
+<!-- Left Panel: Search, Filters, and Browsing -->
+<div class="flex w-full flex-col overflow-y-auto border-r border-subtle-light/50 dark:border-subtle-dark/50 p-6 lg:w-3/5">
+<!-- PageHeading -->
+<div class="flex flex-col gap-3 pb-6">
+<h1 class="text-4xl font-black leading-tight tracking-[-0.033em]">Craft Your Cultural Journey</h1>
+<p class="text-text-light/70 dark:text-text-dark/70 text-base font-normal leading-normal">Select destinations, food, and lodging to build your perfect trip.</p>
+</div>
+<!-- TextField: Search & Dates -->
+<div class="grid grid-cols-1 gap-4 pb-4 md:grid-cols-2">
+<label class="flex flex-col">
+<p class="pb-2 text-base font-medium leading-normal">Destination</p>
+<div class="relative">
+<span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-light/50 dark:text-text-dark/50">search</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark h-12 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 pl-10 pr-4 text-base font-normal leading-normal focus:border-primary focus:ring-1 focus:ring-primary" placeholder="e.g., Rome, Italy" value=""/>
+</div>
+</label>
+<label class="flex flex-col">
+<p class="pb-2 text-base font-medium leading-normal">Travel Dates</p>
+<div class="relative">
+<span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-light/50 dark:text-text-dark/50">calendar_month</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark h-12 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 pl-10 pr-4 text-base font-normal leading-normal focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Select your dates" value=""/>
+</div>
+</label>
+</div>
+<!-- Chips: Filters -->
+<div class="flex flex-wrap gap-3 py-4">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark px-4 hover:border-primary dark:hover:border-primary">
+<span class="material-symbols-outlined text-lg">tune</span>
+<p class="text-sm font-medium leading-normal">Interests</p>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark px-4 hover:border-primary dark:hover:border-primary">
+<span class="material-symbols-outlined text-lg">hotel</span>
+<p class="text-sm font-medium leading-normal">Accommodation</p>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark px-4 hover:border-primary dark:hover:border-primary">
+<span class="material-symbols-outlined text-lg">payments</span>
+<p class="text-sm font-medium leading-normal">Budget</p>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark px-4 hover:border-primary dark:hover:border-primary">
+<span class="material-symbols-outlined text-lg">restaurant_menu</span>
+<p class="text-sm font-medium leading-normal">Dietary</p>
+</button>
+</div>
+<!-- ImageGrid: Card-Based Browsing -->
+<div class="grid flex-1 grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6 pt-6">
+<div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
+<div class="relative w-full">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A view of the Roman Forum ruins under a clear blue sky." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBV7z99k5U0iqC5l8aQJdo4sMBPATlAGk8tSve-Td698-JHvMn4KVXDKZ7MP33-_hMmIDfaKGreA1dYKDzyOBzbVV9r-xUNtCEQbaUo5uKi07lEakwzVeCyBC3HIg-Yyc0UpH2OxM5rsiASfPb_LfLVowMxEmVuX1FNXiIathkpUXB3nujIKkuA6-7fNLCdzEnIqRv41QoyDvswccnnEL-C8Z1JFsnPYsd95jew7Lb87vY7O_O-RcyXLhPjHx4NpmZhJl7E1wJ5iBw");'></div>
+<button class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-primary">
+<span class="material-symbols-outlined text-lg">add</span>
+</button>
+</div>
+<div>
+<p class="text-base font-bold leading-normal">Roman Forum Guided Tour</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Rome, Italy</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★★★★☆ (1,230) • $75</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
+<div class="relative w-full">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A large pan of paella with seafood and vegetables being cooked outdoors." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBbTwFS1QYKbMzYsa2_5296M0VqdnQv1pAjGC8N5dGAtFiG2ez3XHsCa1qiflyr_TxPgM6UgzljgUsmnh8fpPD-VUafkEJwnNaKaDoL6l_qPjSj3zvG8PXzJrwsvZ55gxzuGvwjmMdTpJwm7iv5qxFZZ3ybaU9W-g3qCfp1DZL2Z7-RaLJdoCawSZy05oKmoMpLaC_asikagjo4C2TCQJBab13MjVIo_iiheOD76BZzK2XNwWyjLgwvDmuk7RRRfbCyZSE4hZDs4gQ");'></div>
+<button class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-primary">
+<span class="material-symbols-outlined text-lg">add</span>
+</button>
+</div>
+<div>
+<p class="text-base font-bold leading-normal">Paella Cooking Class</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Valencia, Spain</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★★★★★ (890) • $90</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
+<div class="relative w-full">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="The elegant exterior of the Grand Hotel Miramare with a view of the sea." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBYML96_PHYMrEh-W6roAwLsIrlHyEp_Xl5bsyXLJ5m-oy4y6OgAG1PbfSwc68L0_PnM3hA-qnMigtIa_yoIqYPd3vKidGDORkh7aFhLAK6xSVpEGvk2ZMH9I6iqhJ18da2PAoIr10H2FQG-2ateNVdUt_3cXDg1Q4-NFv7SGYrLTIR_CV36ii5aF571nESrs5X2JzS215F12x8M86kgq0lkKdaG5P_V8GrK6JNmCnuY3tTuuqSHlFuy1VtfJait18puuDCWORhkSM");'></div>
+<button class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white backdrop-blur-sm">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+</div>
+<div>
+<p class="text-base font-bold leading-normal">Grand Hotel Miramare</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Santa Margherita, Italy</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★★★★★ (950) • $350/night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
+<div class="relative w-full">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A traditional Japanese tea ceremony setting with matcha tea and sweets." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCK0vObpwhUBKDI1vAl21KcsOSJ-CYvBcCR3vZlOmwkAwr4gWX-RvUNVj8w6Cr2N3pN3oFH-yoT80PaWGMWk0nlMkepSpaa_WmMnt63d3ViJoVFpA7JaukbY0aU_mv6NxltT81qZrGi1g3H4LXPSc7wX1voYLlqismRhgWD8MjASxsBSsnBVm_xqmThDBJkDbudeIV0idC6Q_RlC24WSntaKp7fK7ZvOUOsLM4X9Ra1Y1PakmFeBAYVBwTASjx5P-1zzXx7x8uIhOc");'></div>
+<button class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-primary">
+<span class="material-symbols-outlined text-lg">add</span>
+</button>
+</div>
+<div>
+<p class="text-base font-bold leading-normal">Traditional Tea Ceremony</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Kyoto, Japan</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★★★★★ (1,540) • $60</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Itinerary and Map -->
+<div class="hidden w-2/5 flex-col bg-accent-light dark:bg-accent-dark lg:flex">
+<div class="flex-1 overflow-y-auto p-6">
+<h2 class="text-2xl font-bold">Your Itinerary: Rome</h2>
+<p class="pb-6 text-sm text-text-light/70 dark:text-text-dark/70">Drag and drop to reorder your plans.</p>
+<!-- Itinerary Item -->
+<div class="mb-4">
+<h3 class="font-bold text-lg mb-2">Day 1: Arrival &amp; Ancient Wonders</h3>
+<div class="space-y-3">
+<div class="flex items-start gap-4 rounded-lg bg-card-light dark:bg-card-dark p-4 shadow-sm">
+<span class="material-symbols-outlined mt-1 text-primary">drag_indicator</span>
+<div class="w-16 shrink-0 bg-center bg-no-repeat aspect-square bg-cover rounded-md" data-alt="Exterior view of the Grand Hotel Miramare" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDjPRYnKitV5BztBAPDHullETg1bUAgRAyntKjVE1LDE1eu_4QF4LEmDoRqjwLYF4wTq0KFqZpwWZZ4DfPqsHzJns0P8vvkgboYtxADqoQsqExdbAnmYaP4YJNBgbcoViGr3zOCMinPXA9YWAxbyH99YMi-qZesRU2ZgRemaaFGWIdjo0w042D9ziJVY-I-E-L-qCIXI1r_2RNwqFoiYfBH-o_e68vRlUFg_aUNCrw-ZTL2WeWLCMVVGh49YTImUvTT_DyYu97yaHU");'></div>
+<div class="flex-1">
+<p class="text-sm text-text-light/70 dark:text-text-dark/70">Afternoon</p>
+<p class="font-semibold">Check-in: Grand Hotel Miramare</p>
+</div>
+<button class="text-text-light/50 dark:text-text-dark/50 hover:text-secondary dark:hover:text-secondary">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Empty State Example -->
+<div class="mt-4">
+<h3 class="font-bold text-lg mb-2">Day 2: Culinary &amp; Culture</h3>
+<div class="flex h-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-subtle-light dark:border-subtle-dark text-center">
+<span class="material-symbols-outlined text-4xl text-text-light/50 dark:text-text-dark/50">add_location_alt</span>
+<p class="font-semibold">Your adventure awaits!</p>
+<p class="text-sm text-text-light/70 dark:text-text-dark/70">Add an experience to plan your day.</p>
+</div>
+</div>
+</div>
+<!-- Map View Toggle -->
+<div class="relative h-64 shrink-0">
+<div class="h-full w-full bg-cover bg-center" data-location="Rome, Italy" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB4AKKzkRiVHZ1Q3GMs8Z0_JErTuHCKxVMu48RuNh4u1U9s2t1xWX1Wv1InhGx2Yv3vtnqA4doczIUkRLmXGNW-Z4mfvDleGKSqHG_1RXaTK2Ab5tzQ9kMcn0pdf-juPvFLVQqKagKIN2ck7sPHvjkFkgcTEjQcetV5gVYVmwriSiEujc_YqwcKidI9SYwimL9R7JJYkDkTCEPDAI0aLlhSsjeoMtjmyXAhF9BOG_nB_K4bU6HEVTj8MyXAD-bttRYPPVtbzUCvd7c');"></div>
+<button class="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-card-light dark:bg-card-dark px-4 py-2 text-sm font-semibold shadow-lg hover:bg-background-light dark:hover:bg-background-dark">
+<span class="material-symbols-outlined text-lg">map</span>
+                        Show Map
+                    </button>
+</div>
+<!-- Summary & Booking Module -->
+<div class="shrink-0 border-t border-subtle-light/50 dark:border-subtle-dark/50 bg-card-light dark:bg-card-dark p-6">
+<div class="flex justify-between items-center mb-4">
+<p class="text-lg font-bold">Estimated Total</p>
+<p class="text-2xl font-black">$425.00</p>
+</div>
+<button class="flex w-full min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+<span class="truncate">Proceed to Book</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+<script type="module" src="./firebase_config.js"></script>
+<script type="module" src="./auth_ui.js"></script>
+</body></html>

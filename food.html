@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cultura - Culinary Experiences</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#ee8c2b",
+            "background-light": "#f8f7f6",
+            "background-dark": "#221910",
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 dark:border-primary/10 px-10 py-3 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-gray-900 dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">Cultura</h2>
+</div>
+<nav class="flex items-center gap-9">
+<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">History</a>
+<a class="text-primary dark:text-primary text-sm font-bold leading-normal" href="#">Food</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">Lifestyle</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">Plan a Trip</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4">
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-gray-500 dark:text-gray-400 flex border-none bg-primary/10 dark:bg-primary/20 items-center justify-center pl-3 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-primary/10 dark:bg-primary/20 focus:border-none h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+<div class="flex items-center gap-2">
+    <a href="./login.html" id="login-btn" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+        <span class="truncate">Log In</span>
+    </a>
+    <a href="./registration.html" id="signup-btn" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/10 dark:bg-primary/20 text-gray-800 dark:text-white text-sm font-bold leading-normal tracking-[0.015em]">
+        <span class="truncate">Sign Up</span>
+    </a>
+    <div id="profile-container" class="hidden items-center gap-4">
+        <span id="user-name" class="text-sm font-medium"></span>
+        <div id="user-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image"></div>
+        <button id="logout-btn" class="flex items-center justify-center h-10 px-2 text-muted-light dark:text-muted-dark hover:text-primary"><span class="material-symbols-outlined">logout</span></button>
+    </div>
+</div>
+</div>
+</header>
+<main class="layout-content-container flex flex-col flex-1 w-full max-w-6xl mx-auto px-4 py-8">
+<!-- HeroSection -->
+<div class="@container mb-8">
+<div class="@[480px]:p-0">
+<div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 rounded-xl items-center justify-center p-4 text-center" data-alt="A vibrant, colorful spread of various delicious foods on a rustic wooden table." style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnNWzCbsz7ZYewLyjUBjtEG8XMWl-RvF_r7fE9qXEsYFG4hEoBSg2yv2rvzhGuvDIb4jC6mDSv4TBPWzCFqzynaefaBjRMYM_vqDPhETVE34uhiZgIwFH9Zdz2-svN_LlyjuBPvnxjfYHp2KGCBc3l32b2wyJugBCMPIBQUYWeJ7iy1LXL87VDfqHE5X_GT0_NCAMXlQzb3jdmrDipL87I1i16-ulhaa2d_1sk-3ryjvsrYcXM86qo6k7IA1HmT5OCu8j6eevQ_QA");'>
+<div class="flex flex-col gap-4 text-center max-w-3xl">
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-6xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
+                  Taste the Authentic Flavors
+                </h1>
+<h2 class="text-white/90 text-base font-normal leading-normal @[480px]:text-lg @[480px]:font-normal @[480px]:leading-normal">
+                  Discover authentic food trails, regional specialties, and the stories of local vendors who bring the culture to life. Your culinary adventure starts here.
+                </h2>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Explore Food Trails</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="pb-3 sticky top-[68px] bg-background-light dark:bg-background-dark z-40">
+<div class="flex border-b border-primary/20 dark:border-primary/10 px-4 gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-gray-900 dark:text-white pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Food Trails</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Regional Specialties</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Local Vendors</p>
+</a>
+</div>
+</div>
+<!-- Chips / Filters -->
+<div class="flex gap-3 p-4 flex-wrap pr-4">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/10 dark:bg-primary/20 pl-4 pr-3 text-gray-800 dark:text-white hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<p class="text-sm font-medium leading-normal">Region</p>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/10 dark:bg-primary/20 pl-4 pr-3 text-gray-800 dark:text-white hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<p class="text-sm font-medium leading-normal">Cuisine Type</p>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/10 dark:bg-primary/20 pl-4 pr-3 text-gray-800 dark:text-white hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<p class="text-sm font-medium leading-normal">Dietary</p>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/10 dark:bg-primary/20 pl-4 pr-3 text-gray-800 dark:text-white hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<p class="text-sm font-medium leading-normal">Price Range</p>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary/10 dark:bg-primary/20 pl-4 pr-3 text-gray-800 dark:text-white hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+<p class="text-sm font-medium leading-normal">Rating</p>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+</div>
+<!-- ImageGrid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="A narrow, cobblestone street in a historic European old town." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCU87MV8aiWhQOrjOwhBpNqsKLKYhfPt5FmBq1bTIJHLk3M41VYN6Tjgd7r2v34fc4uLmxlqm8qtETViRDOmTjGphUdhvmEkJwMNH159RT70P--d4dkNTvCDsh7KdLe4ItZV2e3ytHZ-c1xv6J1j9nGwNhohBfiWGrqVvQ9RQwmODCoh9j7K70pglABzru2vZwDBSA76Di5VrmRgq6WcUWXhrd-_E1SAw6AHFE9g6IOyLaJhZ-BQZxG7HZCStwohplfTFW7y6xQ01Q");'></div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-bold leading-normal">Old Town Spice Route</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Old Town, 8 stops</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Rating: 4.8</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="A platter of fresh seafood including shrimp, oysters, and crab legs on a bed of ice." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDe6UUmP1KbE-D10BuPlu9ehqn--21nDCzDk4uF9rxiACi7Se0nhnhxFo-K71362thP-ICz2U_0PvOxgCF8XYAuNMB08OIPgRBypsIWMAUzgi0CpppSIlvNNoaucUxV9CYIOMGU3z3Y3Gz12DhJo1Ss3PizeuPtSQNJbnNw6RUtZu0r4iKBQqydNXm58JEZUcMSY_5Bcf8v6wZ4pK5UWAn0fWtQ-fOSboOQO9P4u_eT25bEtCpez5E21XsbSOfhDq1vYKMHQWoeH5E");'></div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-bold leading-normal">Seafood Lover's Journey</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Coastal Region, 5 stops</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Rating: 4.9</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="A rustic wooden table in a mountain village laden with local cheeses, bread, and wine." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPadX4ApzNYf09LgsqlNvX0fNy-3-1nhwwd-fULR4jGhP62jtk1imlV-3_agdyp0TxZ7pApddskcmsAhECFeAgLWnqQXUCrvY5cfbXLSzho9Z35EGrO5T6s2qbqvUDapVQv2wnKJzsPDO6w4wrFyZ5xASlXwyJ0l1aWLCK6DCaiVfL5-Eo8dJdam3GGfglyXclBZeLM2TjUGdeaEhmejLKP3USMhnSia_yJkMGRSVpfkJALR3mMgGwfjaV6FNvtIbG41FSzMy0YBA");'></div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-bold leading-normal">Mountain Village Tastings</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Mountain Range, 6 stops</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Rating: 4.7</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="A bustling night market with street food vendors selling various local snacks." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjbaxihwgIALy8B21bColjzp0imQXywG9DPfYmcbQTxHBc0BI0AMyIW1VhetLuV4fqOva4edDSo5RRnbTWK0rbMlc2LEb5nN1L0ne-vB1ZhW3PJomera6pSggyuVHcI48B895uairaxCX0lFAyQPrWaZvn1UVVonP06JVR0xETFlL-31_QNRuky8T2pZ6ydJSfSJlQmd5ePQMPbl_gDHZRiz5RjgRZFVhFKodPqVPuO2eT39MW5Ma6Jp-PibkeqOeU9eh9Mdt23sM");'></div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-bold leading-normal">City Street Food Crawl</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Downtown, 10 stops</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Rating: 4.6</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="A beautifully plated dish of grilled fish with vegetables on a white plate, with the sea in the background." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcV76VA-KwF42FvXXBS1MRtkBqtTLFntObzVI26T0Ar-j6_MY-fLELSXbh1sN5hdiAb_QRT-bMqJ5m2dojXyN0GJuNb_iobhnrQE2W0njY8lgSstPSd0QcrfXG9c9a47PouvAdorRFia16xHhrnk1mHNAIShevdFZ9bTdo33ryPezg0h6KRLPF9bpf4VVvMVQAADpsoRcXQCE1NA_HIcvweM-UKRAyvBLRJ8uhDK9vjKc-4_JiPB9ccKnjDH99Z5l2xD0LAyfwJKo");'></div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-bold leading-normal">Coastal Delicacies Tour</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Seaside, 7 stops</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Rating: 4.8</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="A sunlit vegetable garden with fresh produce growing." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD_5aCH9J7wiRc0x1UOcoJuu1fpJGI_8Zn3-F54qT0ifwcmXk8UDpzVXo0MZ72DaU7xpAuRFfNBMDlLmH9T512hsiuccCfNMW7s95gB3vspjdqeDPY6VWR8Q33c1x1o9AghNxc-ovY0EKMmC8iGFd293y8-VMwDNB_cw66HxQVVgKVnH-LjRQ2_F4dGw-IOLVhcz7Nwt_ZpxQE6iD1SB8pECjIp7QggNVjJOcpTOwzOJ5y6Nu5ElTdcKvpR69VYMg_bGQL1AlyCVv0");'></div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-bold leading-normal">Farm-to-Table Experience</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Countryside, 4 stops</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Rating: 4.9</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="The cozy, dimly lit interior of a historic pub with wooden furniture." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAcyPT6Bl32pkhW9LtlMlruAzX9xjT2UAWOEwWbrZA9JzPLf0RS56Wj_AGyW6q8wgZaLZ1CuvTMESAyhk4gxE6uH8YAMXN9W7A5YafScEaEBmlwF5ATG9dn7inTuJHwM-KTJ4yPWsmoftPEOtGojII2zdygyyDUsGj4foplsMOcbN8gw2zfcHoM7jnKRS9JbTxfG0iU3eUQplfU2F36P9rbms8ze6M5dLYC-t7ZS0FjIJCrNxMNq6fd0PZrzvg19N5sLNOdb6tJLCA");'></div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-bold leading-normal">Historic Pub Walk</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Historic Quarter, 5 stops</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Rating: 4.5</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/5] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="A variety of artisanal cheeses displayed on a wooden board with grapes and crackers." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBvM06p3aKSW4mPLZmNBGlWDJZ2mEpZiMYIB1dIV707HUtDA1YPPy6z-anpRE4dfx_CqKdLl6KiRhpLTdCEuiUkJOYqjx6dxUahKD7VXKbvAWYC46xdkStkMu_YN9bfB4bSN-zqLe-8ren-A3GEKnAaAlH8ERaofuvJpQeQcWvoapIYzATcqnZzd1lDIcth2-0yf-AL8eSdocF8ht90O7H9Vs5seOfpdi_TZmQLlXClMk0p4tWsX3SmQ5KsmN9j4iQdPQ5G0aZYkWE");'></div>
+<div>
+<p class="text-gray-900 dark:text-white text-base font-bold leading-normal">Artisanal Cheese Trail</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Valley Region, 6 stops</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Rating: 4.7</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<script type="module" src="./firebase_config.js"></script>
+<script type="module" src="./auth_ui.js"></script>
+</body></html>

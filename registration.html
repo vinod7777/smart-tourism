@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Account - Cultura</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#ee8c2b",
+            "background-light": "#fcfaf8",
+            "background-dark": "#1b140d",
+            "text-light": "#1b140d",
+            "text-dark": "#f3ede7",
+            "card-light": "#ffffff",
+            "card-dark": "#2a221a",
+            "border-light": "#f3ede7",
+            "border-dark": "#393027",
+            "muted-light": "#9a734c",
+            "muted-dark": "#a89078"
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "0.75rem",
+            "xl": "1rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="flex min-h-screen w-full items-center justify-center p-4 lg:p-0">
+<div class="flex w-full max-w-5xl overflow-hidden rounded-xl bg-card-light dark:bg-card-dark shadow-xl">
+<div class="w-full p-8 md:w-1/2 lg:p-12">
+<div class="flex flex-col items-start mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">
+              travel_explore
+            </span>
+<h1 class="text-2xl font-bold tracking-[-0.015em] text-text-light dark:text-text-dark">Cultura</h1>
+</div>
+<h2 class="mt-4 text-3xl font-bold text-text-light dark:text-text-dark">Create your account</h2>
+<p class="mt-2 text-muted-light dark:text-muted-dark">Start your next cultural adventure.</p>
+</div>
+<form id="registrationForm" class="flex flex-col gap-5">
+<label class="flex flex-col w-full gap-2">
+<span class="text-sm font-medium text-text-light dark:text-text-dark">Full Name</span>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined absolute left-4 text-muted-light dark:text-muted-dark">person</span>
+<input id="fullName" class="form-input w-full rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark h-12 px-11 placeholder:text-muted-light dark:placeholder:text-muted-dark focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="e.g. Alex Doe" type="text" required/>
+</div>
+</label>
+<label class="flex flex-col w-full gap-2">
+<span class="text-sm font-medium text-text-light dark:text-text-dark">Email Address</span>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined absolute left-4 text-muted-light dark:text-muted-dark">mail</span>
+<input id="email" class="form-input w-full rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark h-12 px-11 placeholder:text-muted-light dark:placeholder:text-muted-dark focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="you@example.com" type="email" required/>
+</div>
+</label>
+<label class="flex flex-col w-full gap-2">
+<span class="text-sm font-medium text-text-light dark:text-text-dark">Password</span>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined absolute left-4 text-muted-light dark:text-muted-dark">lock</span>
+<input id="password" class="form-input w-full rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark h-12 px-11 placeholder:text-muted-light dark:placeholder:text-muted-dark focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="••••••••••••" type="password" required/>
+</div>
+</label>
+<div class="flex items-start gap-3 mt-2">
+<input class="mt-0.5 h-5 w-5 flex-shrink-0 rounded border-2 border-border-light dark:border-border-dark bg-transparent text-primary checked:border-primary checked:bg-primary focus:ring-0 focus:ring-offset-0" id="terms" type="checkbox" required/>
+<label class="text-sm text-muted-light dark:text-muted-dark" for="terms">
+              I agree to the <a class="font-medium text-primary hover:underline" href="#">Terms and Conditions</a> and <a class="font-medium text-primary hover:underline" href="#">Privacy Policy</a>.
+            </label>
+</div>
+<button class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-lg h-12 px-4 bg-primary text-text-light text-base font-bold">Create Account</button>
+</form>
+<div class="mt-6 text-center text-sm text-muted-light dark:text-muted-dark">
+          Already have an account? <a class="font-medium text-primary hover:underline" href="./login.html">Log in</a>
+</div>
+</div>
+<div class="relative hidden w-1/2 md:block">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-black/0"></div>
+<img alt="A vibrant, sunlit Italian coastal town with colorful houses built into the cliffside." class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuj52fR33bcl2j7R4mJMI-K3YHNBAcX3gkqQnHBXtRvFHE-w63v9eJYmf0owQBa-Y0zcQ0N8bAXUzEfLlFOMvmjNczWGPkL0W8ZBnoAE1Lcx5EWtcNi3RCMVv8PmyNAtLgaguSp8rZ8NLmZgjaOIwyoSSqxKREsQ88HjQ945gtaHiOxsHOPge7uCo37DMJHuLQqaOg1gDsvvTqYt5r3tBudhBUXp55kbmAWwWaQqW4wAQiGdHM-B2I1xe7xacpb4aI-GBOJ9Ps2qg"/>
+<div class="absolute bottom-10 left-10 text-white">
+<h3 class="text-4xl font-bold">"Travel is the only thing you buy that makes you richer."</h3>
+<p class="mt-2 text-lg text-white/80">- Anonymous</p>
+</div>
+</div>
+</div>
+</div>
+
+<script type="module" src="./firebase_config.js"></script>
+<script type="module">
+    import { auth, db } from './firebase_config.js';
+    import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+    import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+    const registrationForm = document.getElementById('registrationForm');
+
+    registrationForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const terms = document.getElementById('terms').checked;
+
+        if (!fullName || !email || !password) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        if (!terms) {
+            alert('You must agree to the Terms and Conditions and Privacy Policy.');
+            return;
+        }
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            
+            // Store additional user data in Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                fullName: fullName,
+                email: email,
+                createdAt: new Date()
+            });
+
+            console.log('User registered and data stored:', user);
+            alert('Registration successful! Please log in.');
+            window.location.href = './login.html'; // Redirect to login page
+        } catch (error) {
+            console.error("Error during registration: ", error);
+            alert(`Registration failed: ${error.message}`);
+        }
+    });
+</script>
+</body></html>

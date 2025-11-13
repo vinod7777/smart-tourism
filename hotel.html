@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CulturaStay - Stays in Kyoto</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#ee8c2b",
+            "background-light": "#f8f7f6",
+            "background-dark": "#221910",
+            "text-light": "#1b140d",
+            "text-light-secondary": "#9a734c",
+            "border-light": "#f3ede7",
+            "text-dark": "#f8f7f6",
+            "text-dark-secondary": "#a8a29e",
+            "border-dark": "#44403c"
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 w-full border-b border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
+<div class="mx-auto flex max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-text-light dark:text-text-dark">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z"></path>
+</svg>
+</div>
+<h2 class="text-text-light dark:text-text-dark text-lg font-bold leading-tight tracking-[-0.015em]">CulturaStay</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Explore</a>
+<a class="text-primary dark:text-primary text-sm font-bold leading-normal" href="#">Stays</a>
+<a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Food</a>
+<a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Lifestyle</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4">
+<label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-text-light-secondary dark:text-text-dark-secondary flex border-none bg-border-light dark:bg-border-dark items-center justify-center pl-3 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-0 border-none bg-border-light dark:bg-border-dark focus:border-none h-full placeholder:text-text-light-secondary dark:placeholder:text-text-dark-secondary px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search destinations" value=""/>
+</div>
+</label>
+<div class="flex items-center gap-2" id="auth-container">
+    <a href="./login.html" id="login-btn" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+        <span class="truncate">Log In</span>
+    </a>
+    <a href="./registration.html" id="signup-btn" class="hidden"></a>
+</div>
+<div id="profile-container" class="hidden items-center gap-2 flex">
+    <span id="user-name" class="text-sm font-medium"></span>
+    <div id="user-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar"></div>
+    <button id="logout-btn" class="flex items-center justify-center h-10 px-2 text-muted-light dark:text-muted-dark hover:text-primary"><span class="material-symbols-outlined">logout</span></button>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- SideNavBar / Filters -->
+<aside class="w-full lg:w-1/4 xl:w-1/5 flex-shrink-0">
+<div class="sticky top-24 flex h-full flex-col justify-between bg-background-light dark:bg-background-dark p-4 rounded-xl border border-border-light dark:border-border-dark">
+<div class="flex flex-col gap-6">
+<div class="flex gap-3 items-center">
+<span class="material-symbols-outlined text-3xl text-primary">filter_alt</span>
+<div class="flex flex-col">
+<h1 class="text-text-light dark:text-text-dark text-lg font-bold leading-normal">Filters</h1>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Refine your search</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark group" href="#">
+<span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary group-hover:text-primary">calendar_month</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Dates</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark group" href="#">
+<span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary group-hover:text-primary">group</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Guests</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 dark:bg-primary/30" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<p class="text-primary font-bold text-sm leading-normal">Accommodation Type</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark group" href="#">
+<span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary group-hover:text-primary">payments</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Price Range</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark group" href="#">
+<span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary group-hover:text-primary">auto_awesome</span>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Amenities</p>
+</a>
+</div>
+</div>
+<button class="mt-6 flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Apply Filters</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1">
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between gap-3 p-4">
+<div class="flex min-w-72 flex-col gap-1">
+<p class="text-text-light dark:text-text-dark text-4xl font-black leading-tight tracking-[-0.033em]">Stays in Kyoto, Japan</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal">250+ stays found</p>
+</div>
+</div>
+<!-- Tabs -->
+<div class="pb-3 sticky top-20 bg-background-light dark:bg-background-dark z-40">
+<div class="flex border-b border-border-light dark:border-border-dark px-4 gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-light-secondary dark:text-text-dark-secondary gap-1 pb-[7px] pt-2.5" href="#">
+<span class="material-symbols-outlined">recommend</span>
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Recommended</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-text-light dark:text-text-dark gap-1 pb-[7px] pt-2.5" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Grid View</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-light-secondary dark:text-text-dark-secondary gap-1 pb-[7px] pt-2.5" href="#">
+<span class="material-symbols-outlined">list</span>
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">List View</p>
+</a>
+</div>
+</div>
+<!-- ImageGrid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-4">
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Exterior view of The Silk Road Inn" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDijETLXtP7QJo2g7lVmNhvwsNqtkwv2y5qORszj5CqRsRwcOLDZbXMoyZm6OEo2yLocrGwfnMVUIWLbXJrP2IBiUQQOBRN_cFZPuAVsR-yErpaaHvs9zrIvdv5xkibY-DtNVbibUe22wRLyqFBe54UnS4UdC2joNrc7u0-Yc3Q1bZQ-l1Gvo3udv_dF1CO5GN2ynsgMSVSVqt_lSKKvwx2iDeN_aUQC2AGPsFr6fqlLpSXJlYiyl27jUyjBQNZFxj0bmh1NT07TOA");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">The Silk Road Inn</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Restored 18th-century merchant house</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$150 / night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Ocean view from Azure Coast Resort" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCicuh-2pW2gRPtHLLolVUV5dJxNr4YgKJWXhTpaISCj8w3lJzMGMH1Prr9yPB3Z64X5h7sOI4Jdal6Wk17uI-8mks71SRUG2uF33Yy7avAsk5A-RvndDw3rNCV0jqfelejawdGO-EMWb9EqhAh-aetnveftjEYptONRO_VM3q3fj_5W4O3xW14_cPqFRXAWQfEFW960zgHUTIUz0apArppgIFQ9KP-sRSbSCMHe34CEK0afGb0yfsP-4nbbrxpsLO_6C2V6j3GYd4");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Azure Coast Resort</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">5-star luxury with panoramic ocean views</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$450 / night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Cabin in a bamboo forest" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCktFdZa35Y7ZbCFJBZ4XSjfdYV4M_w5FKwO7I6b_a6mqd8JYkffMWV9z07zSYQRuekSEqiDqgF2JeTrv0BR-nzM3v-ICv5WMHHe15ihGAvt1ct3dbbakL5xRfhN1SYxvyd2LFGjB_uScQuWFcXUS7bF66Hvu3zVypjhSGXFezZ9NM-ou_u8zXdF7IW9W-gKm33tVSpUoTZE_GycDP-WdGEzCE5cEchgeBhEyn7aMmUTHKcOM2Xo1OG8JBEFcaO_a5i7aVLC0tpOQU");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Bamboo Grove Eco-Lodge</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Sustainable living in nature's embrace</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$180 / night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Common area of a modern hostel" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhOxV4TeOcBH8k44EpnVaAhihIYH7K3gmSRNCGDa9X1bdiMwDDnFIcTadmtngVoEwhLSaGPrpJEXp7au3NInW5JwNq-wi1NucOyFMHcPmmlqXgKNXkz1QtZR5wDxYwyZ6ZQqyP2xvSQFydNhwok5gQ-eXZU7HkYcQ9XEWpfMwwU8ThMNDQ5yXyI7PIez-9BT3FddaSM1ILS6tdZRutiVP0X4gPGrwmvmjikFQCxlIw86cwardImEEhX6Hxvl15RSxF3aXM3VuYHaw");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Wanderer's Hub Hostel</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Meet fellow travelers in a friendly atmosphere</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$40 / night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Grand hotel with historic architecture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVm_ggQpEGh-7gnGBCYYBcUqJ-dnKPy_QPz94t8cH4OZBpOm-SMb7vb5Uyhh1t8IfQMCpB3NLPYZ8KmOROaVYTCUWI2e7le7ScJuMs1kLPyxBbCP3kpgUNF0c4afnYYbl78crLmxu4LnuV3E0wHbgGopDM8MWkRsh4ZtxGWx8MDuFMrBDpgwtEmS4aee44Pp_U087NgjxdUa4GmZ-QCJwcrYgewccoOQrZPAW20hkND5jDoEzd7-uJtmj9XEpYyx9XhrEfpG8Dyyc");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Imperial Heritage Hotel</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Experience history in a Meiji-era building</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$250 / night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Modern spa and resort" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMWAdUvDPp02wkg634STkE7LVR16nMx9-jAcNQO-agg8zo1VLUndphqoKRpDRuZZAAQe5kbfdofSmLDd4rsI1526DXM2s4DIYHNcOuogGVh_ilXSj5Dv72fPjvKLiJQGNCLi2CgxASUzsMGVvtaeOgIlvGjlonOc8Y8n_x0U5aFB43a1iwa-I7iOsVTTcsCgHHZC0EIqqFWKlCCsROs--3ufn3H0bIG1h_vrV7ItaYNlmHfKdhOyIYgSj1pGxnNoTHGhk0Kt8Kiyw");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Skyline Resort &amp; Spa</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Unwind with top-tier amenities and service</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$380 / night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Clean and simple budget room" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB0kYaey5zai5d6BwUTEe82NxeJhLCsZ5O_6eNVPRkjv9a1mdkBfyLv5WLGKmIbuA5x3gh72rbhSRmK1hI35kT9IAijlaQO3ArXR_607BIrKRaXUMxYjLTfZLKgatuv7GcuaQxu6pTDxBb2OVt57tBTddL-HgBKRkPt5Vw-nzq54DU4lGI1eJ-VpuXiUT72vBwllar-BFjHL3Frw39iqEA_0GLyHhVSZ8p8Gp_km-cb_xfuSlbxzlsCJGXlkNH6wqMtdzPZxXwZaAk");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Kyoto Budget Stays</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Clean, simple, and centrally located</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$60 / night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Elegant hotel lobby with sakura theme" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDq50TSvjfg9ZJZx0AsIAbJLys9XUb7vDxCpQHOY3_TGy98xQ4YmlRPTXnfrgyZmdXfgTVoGlYhFmxWe_l4rbO_tom-Jm648M4DCG0yMK8ItjjQW_0AXisYcS2J8YrVyH6ZISvDl3EEFwCVvtusGqb_apThPXHFVc0v4OFp6AoCTmyNO3rSuBS5b7QwBUxr6oDEmiYNzV-XU5DjLXjRUsYXwBSgBU8oOtBNqyswb4zRfroV5MrW8x6k3piL_1nCvangb8QtOAKc8tU");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">The Grand Sakura</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Unparalleled elegance and classic luxury</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$500 / night</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 pb-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Traditional Japanese guesthouse in Gion" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBTZpLMJKf8a6RKB9hTWEpHy2G_DztJ7T6Pw502GVyF29-kQqSbcSpc_SYlmlrTrFOn3FElXdnMENsAefLehIdB14rIcqzkgS13b2AwYH8hTW-cFtdB_PjTiK85GgSQGVRzb4i-kx6zNtZqEmeT27fkQWtdrg1HrNyR4n9fsoQmpLtJpdAcOFA-C0WwSpkNosnDfyUPllYVOlbXO7TFsisB_iDvmGcdSfegyjZ8BIfvrHqq5OjZd_bNgOLtXpQabcw-HImdxm96RtY");'></div>
+<div>
+<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Gion Corner Guesthouse</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Authentic stay in the heart of the Geisha district</p>
+<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$120 / night</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script type="module" src="./firebase_config.js"></script>
+<script type="module" src="./auth_ui.js"></script>
+</body></html>
