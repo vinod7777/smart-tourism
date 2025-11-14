@@ -7,15 +7,14 @@
 
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyB5yuDRUBEQSOyZq4-ytP5kBn5xUW5XVhA",
-    authDomain: "smart-tourism-791af.firebaseapp.com",
-    projectId: "smart-tourism-791af",
-    storageBucket: "smart-tourism-791af.firebasestorage.app",
-    messagingSenderId: "937804238380",
-    appId: "1:937804238380:web:f8d7532cfa7b89afe28b89",
-    measurementId: "G-XTZMZ94865"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyDtL71aTloB_Oh7iOF1jZgJjzHS2D1QzDU",
+  authDomain: "smart-tourism-6929c.firebaseapp.com",
+  projectId: "smart-tourism-6929c",
+  storageBucket: "smart-tourism-6929c.firebasestorage.app",
+  messagingSenderId: "601993917766",
+  appId: "1:601993917766:web:b587d4faf96c09e027a147"
+};
 
   // Initialize Firebase
   export const app = initializeApp(firebaseConfig);

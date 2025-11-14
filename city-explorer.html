@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Smart Tourism — City Explorer</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ee8c2b", "background-light": "#fcfaf8", "background-dark": "#1b140d", "text-light": "#1b140d", "text-dark": "#f3ede7", "card-light": "#ffffff", "card-dark": "#2a221a", "border-light": "#f3ede7", "border-dark": "#393027", "muted-light": "#9a734c", "muted-dark": "#a89078"
+                    },
+                    fontFamily: { "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+        /* Custom animation for the hero section */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .home-hero-bg {
+            background: linear-gradient(135deg, #ee8c2b, #d97706, #9a3412, #451a03);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-content { animation: fadeIn 1.2s ease-out; }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+    <header class="sticky top-0 z-20 flex w-full items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 px-6 py-3 backdrop-blur-sm md:px-10">
+        <a href="./index.html" class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-primary text-2xl">travel_explore</span>
+            <h2 class="text-xl font-bold tracking-[-0.015em] text-text-light dark:text-text-dark">Cultura Explorer</h2>
+        </a>
+        <nav class="flex items-center gap-2">
+            <button id="homeBtn" class="text-sm font-medium text-primary">Home</button>
+            <button id="searchBtn" class="text-sm font-medium text-muted-light dark:text-muted-dark">Search</button>
+            <div id="profile-container" class="hidden items-center gap-2">
+                <span id="user-name" class="text-sm font-medium"></span>
+                <div id="user-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"></div>
+                <button id="logout-btn" class="flex items-center justify-center h-10 px-2 text-muted-light dark:text-muted-dark hover:text-primary"><span class="material-symbols-outlined">logout</span></button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="w-full">
+        <!-- HOME SECTION -->
+        <section id="home" class="relative flex h-[calc(100vh-68px)] items-center justify-center text-center text-white overflow-hidden home-hero-bg">
+            <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+            <div class="relative z-10 max-w-4xl p-8 fade-in-content">
+                <div class="bg-black/20 rounded-xl shadow-2xl p-8">
+                    <h1 class="text-5xl font-extrabold">Welcome to Smart Indian Tourism</h1>
+                    <p class="mt-4 text-lg text-white/90">
+                        Discover the beauty, culture, food, and heritage of India — all in one intelligent travel guide.
+                    </p>
+                    <button id="gotoSearch" class="mt-8 rounded-full bg-primary px-8 py-3 text-lg font-bold text-white shadow-lg transition-transform hover:scale-105">Explore India Now</button>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-xl font-bold text-white">Or explore our featured cities:</h3>
+                    <div id="featured-cities" class="mt-4 flex flex-wrap justify-center gap-4">
+                        <!-- Featured cities will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEARCH SECTION -->
+        <section id="search" style="display:none;" class="p-4 md:p-6 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
+                <!-- Left Panel -->
+                <aside class="bg-card-light dark:bg-card-dark p-4 rounded-xl shadow-sm border border-border-light dark:border-border-dark">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="font-bold text-text-light dark:text-text-dark">Choose State (India)</label>
+                            <select id="stateSelect" class="mt-2 w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:ring-primary">
+                                <option value="">-- Any State --</option>
+                                <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option>
+                                <option>Bihar</option><option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option>
+                                <option>Haryana</option><option>Himachal Pradesh</option><option>Jharkhand</option>
+                                <option>Karnataka</option><option>Kerala</option><option>Madhya Pradesh</option>
+                                <option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+                                <option>Mizoram</option><option>Nagaland</option><option>Odisha</option>
+                                <option>Punjab</option><option>Rajasthan</option><option>Sikkim</option>
+                                <option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option>
+                                <option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
+                                <option>Andaman and Nicobar Islands</option><option>Chandigarh</option><option>Dadra and Nagar Haveli and Daman and Diu</option>
+                                <option>Delhi</option><option>Lakshadweep</option><option>Puducherry</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="font-bold text-text-light dark:text-text-dark">Enter City / Place</label>
+                            <input id="cityInput" placeholder="e.g., Jaipur or 'Goa'" class="mt-2 w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary focus:ring-primary">
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button class="flex-1 rounded-lg bg-primary py-2.5 text-sm font-bold text-white" id="searchCityBtn">Search</button>
+                            <button id="clearBtn" class="rounded-lg border border-border-light dark:border-border-dark bg-transparent px-4 py-2.5 text-sm font-medium text-muted-light dark:text-muted-dark">Clear</button>
+                        </div>
+
+                        <div>
+                            <strong class="text-sm font-medium">Budget</strong>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <div class="chip active" data-price="all">All</div>
+                                <div class="chip" data-price="low">Low</div>
+                                <div class="chip" data-price="medium">Medium</div>
+                                <div class="chip" data-price="high">High</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <strong class="text-sm font-medium">Category</strong>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <div class="chip active" data-type="tourist_attraction">Places</div>
+                                <div class="chip" data-type="restaurant">Food</div>
+                                <div class="chip" data-type="lodging">Stay</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Results List -->
+                    <div id="results" class="mt-4 pt-4 border-t border-border-light dark:border-border-dark max-h-[50vh] lg:max-h-[calc(100vh-450px)] overflow-y-auto pr-2 space-y-2">
+                        <!-- Dynamic results here -->
+                    </div>
+                </aside>
+
+                <!-- Right Panel -->
+                <div class="flex flex-col">
+                    <div class="mb-4 flex items-center justify-between">
+                        <div>
+                            <h3 id="cityTitle" class="text-lg font-bold">Search a city to see results</h3>
+                            <p id="citySubtitle" class="text-sm text-muted-light dark:text-muted-dark">Results will appear here and on the map</p>
+                        </div>
+                        <div class="hidden sm:flex items-center gap-2 rounded-lg bg-card-light dark:bg-card-dark p-1 border border-border-light dark:border-border-dark">
+                            <div class="tab active" data-tab="all">All</div>
+                            <div class="tab" data-tab="places">Places</div>
+                            <div class="tab" data-tab="food">Food</div>
+                            <div class="tab" data-tab="stay">Stay</div>
+                        </div>
+                    </div>
+                    <div id="map" class="h-[60vh] lg:h-[calc(100vh-150px)] w-full rounded-xl overflow-hidden shadow-sm border border-border-light dark:border-border-dark"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <script>
+        const homeBtn = document.getElementById('homeBtn'), searchBtn = document.getElementById('searchBtn');
+        const homeSection = document.getElementById('home'), searchSection = document.getElementById('search');
+        const gotoSearch = document.getElementById('gotoSearch');
+        const searchCityBtn = document.getElementById('searchCityBtn'), cityInput = document.getElementById('cityInput'), stateSelect = document.getElementById('stateSelect');
+        const resultsEl = document.getElementById('results'), cityTitle = document.getElementById('cityTitle'), citySubtitle = document.getElementById('citySubtitle');
+        const clearBtn = document.getElementById('clearBtn');
+        const priceChips = Array.from(document.querySelectorAll('.chip[data-price]')), typeChips = Array.from(document.querySelectorAll('.chip[data-type]'));
+        const tabs = Array.from(document.querySelectorAll('.tab'));
+
+        let mapInitialized = false;
+
+        const showHome = () => {
+            homeSection.style.display = '';
+            searchSection.style.display = 'none';
+        };
+
+        const showSearch = () => {
+            homeSection.style.display = 'none';
+            searchSection.style.display = '';
+            // Initialize map only once, when it's first shown
+            if (!mapInitialized) {
+                initMap();
+                mapInitialized = true;
+            } else {
+                // On subsequent views, just invalidate its size
+                setTimeout(() => map && map.invalidateSize(), 10);
+            }
+        };
+
+        homeBtn.onclick = showHome;
+        searchBtn.onclick = showSearch;
+        gotoSearch.onclick = () => {
+            showSearch();
+            cityInput.focus();
+        };
+
+        priceChips.forEach(c => c.addEventListener('click', () => { priceChips.forEach(x => x.classList.remove('active')); c.classList.add('active'); renderFiltered(); }));
+        typeChips.forEach(c => c.addEventListener('click', () => { typeChips.forEach(x => x.classList.remove('active')); c.classList.add('active'); renderFiltered(); }));
+        tabs.forEach(t => t.addEventListener('click', () => { tabs.forEach(x => x.classList.remove('active')); t.classList.add('active'); renderFiltered(); }));
+
+        clearBtn.onclick = () => {
+            cityInput.value = ''; stateSelect.value = ''; resultsEl.innerHTML = ''; markers.forEach(m => m.remove()); markers = []; placesData = []; map.setView(defaultCenter, 5);
+            cityTitle.innerText = 'Search a city to see results'; citySubtitle.innerText = 'Results will appear here and on the map';
+        };
+
+        // Leaflet Map objects
+        let map;
+        let markers = [], placesData = [];
+        const defaultCenter = [22.5937, 78.9629]; // India approx
+        
+        // --- INTERNAL DATABASE ---
+        // This large dataset acts as our internal database for the explorer.
+        const internalDB = {
+            "jaipur": {
+                lat: 26.9124, lon: 75.7873, displayName: "Jaipur, Rajasthan, India",
+                places: [
+                    { id: 'attr_jp_1', name: 'Hawa Mahal', type: 'tourist_attraction', vicinity: 'Hawa Mahal Rd, Badi Choupad', rating: 4.8, user_ratings_total: 15000, price_level: 1, location: { lat: 26.9239, lng: 75.8267 } },
+                    { id: 'attr_jp_2', name: 'Amber Fort', type: 'tourist_attraction', vicinity: 'Devisinghpura, Amer', rating: 4.9, user_ratings_total: 25000, price_level: 2, location: { lat: 26.9855, lng: 75.8513 } },
+                    { id: 'hotel_jp_1', name: 'Rambagh Palace', type: 'lodging', vicinity: 'Bhawani Singh Rd, Rambagh', rating: 5.0, user_ratings_total: 3000, price_level: 4, location: { lat: 26.8973, lng: 75.8095 } },
+                    { id: 'hotel_jp_2', name: 'Zostel Jaipur', type: 'lodging', vicinity: 'MI Road, Panch Batti', rating: 4.5, user_ratings_total: 1200, price_level: 1, location: { lat: 26.9153, lng: 75.8091 } },
+                    { id: 'food_jp_1', name: 'Laxmi Misthan Bhandar', type: 'restaurant', vicinity: 'Johari Bazar Rd, Bapu Bazar', rating: 4.6, user_ratings_total: 8000, price_level: 2, location: { lat: 26.9185, lng: 75.8245 } },
+                    { id: 'food_jp_2', name: 'Rawat Misthan Bhandar', type: 'restaurant', vicinity: 'Station Rd, Sindhi Camp', rating: 4.8, user_ratings_total: 9500, price_level: 1, location: { lat: 26.9213, lng: 75.7984 } }
+                ]
+            },
+            "goa": {
+                lat: 15.2993, lon: 74.1240, displayName: "Goa, India",
+                places: [
+                    { id: 'attr_goa_1', name: 'Baga Beach', type: 'tourist_attraction', vicinity: 'Baga, North Goa', rating: 4.6, user_ratings_total: 18000, price_level: 2, location: { lat: 15.5583, lng: 73.7525 } },
+                    { id: 'attr_goa_2', name: 'Old Goa (Velha Goa)', type: 'tourist_attraction', vicinity: 'Velha Goa, North Goa', rating: 4.8, user_ratings_total: 12000, price_level: 1, location: { lat: 15.5033, lng: 73.9117 } },
+                    { id: 'hotel_goa_1', name: 'The Leela Goa', type: 'lodging', vicinity: 'Mobor, Cavelossim', rating: 4.9, user_ratings_total: 2500, price_level: 4, location: { lat: 15.1586, lng: 73.9572 } },
+                    { id: 'food_goa_1', name: 'Britto\'s Bar & Restaurant', type: 'restaurant', vicinity: 'Baga Beach, Calangute', rating: 4.5, user_ratings_total: 15000, price_level: 3, location: { lat: 15.5601, lng: 73.7518 } }
+                ]
+            },
+            "delhi": {
+                lat: 28.7041, lon: 77.1025, displayName: "Delhi, NCT, India",
+                places: [
+                    { id: 'attr_del_1', name: 'Qutub Minar', type: 'tourist_attraction', vicinity: 'Mehrauli, New Delhi', rating: 4.8, user_ratings_total: 30000, price_level: 1, location: { lat: 28.5245, lng: 77.1855 } },
+                    { id: 'attr_del_2', name: 'Humayun\'s Tomb', type: 'tourist_attraction', vicinity: 'Mathura Road, Nizamuddin', rating: 4.9, user_ratings_total: 22000, price_level: 1, location: { lat: 28.5933, lng: 77.2507 } },
+                    { id: 'hotel_del_1', name: 'The Imperial', type: 'lodging', vicinity: 'Janpath Lane, Connaught Place', rating: 4.9, user_ratings_total: 2800, price_level: 4, location: { lat: 28.6232, lng: 77.2186 } },
+                    { id: 'food_del_1', name: 'Karim\'s', type: 'restaurant', vicinity: 'Gali Kababian, Jama Masjid', rating: 4.7, user_ratings_total: 11000, price_level: 2, location: { lat: 28.6498, lng: 77.2333 } }
+                ]
+            },
+            "mumbai": {
+                lat: 19.0760, lon: 72.8777, displayName: "Mumbai, Maharashtra, India",
+                places: [
+                    { id: 'attr_mum_1', name: 'Gateway of India', type: 'tourist_attraction', vicinity: 'Apollo Bandar, Colaba', rating: 4.8, user_ratings_total: 45000, price_level: 1, location: { lat: 18.9220, lng: 72.8347 } },
+                    { id: 'hotel_mum_1', name: 'The Taj Mahal Palace', type: 'lodging', vicinity: 'Apollo Bandar, Colaba', rating: 5.0, user_ratings_total: 5000, price_level: 4, location: { lat: 18.9217, lng: 72.8333 } },
+                    { id: 'food_mum_1', name: 'Vada Pav at a local stall', type: 'restaurant', vicinity: 'Dadar West', rating: 4.9, user_ratings_total: 25000, price_level: 0, location: { lat: 19.0187, lng: 72.8428 } }
+                ]
+            },
+            "srikakulam": {
+                lat: 18.2978, lon: 83.8988, displayName: "Srikakulam, Andhra Pradesh, India",
+                places: [
+                    { id: 'attr_skl_1', name: 'Arasavalli Sun Temple', type: 'tourist_attraction', vicinity: 'Arasavalli', rating: 4.9, user_ratings_total: 5000, price_level: 1, location: { lat: 18.2945, lng: 83.8732 } },
+                    { id: 'attr_skl_2', name: 'Srikurmam Temple', type: 'tourist_attraction', vicinity: 'Srikurmam Village', rating: 4.8, user_ratings_total: 3000, price_level: 1, location: { lat: 18.2667, lng: 84.0167 } },
+                    { id: 'attr_skl_3', name: 'Kalingapatnam Beach', type: 'tourist_attraction', vicinity: 'Kalingapatnam', rating: 4.5, user_ratings_total: 1500, price_level: 0, location: { lat: 18.3333, lng: 84.1333 } },
+                    { id: 'hotel_skl_1', name: 'Hotel Nagavali', type: 'lodging', vicinity: 'Palakonda Road', rating: 4.0, user_ratings_total: 500, price_level: 2, location: { lat: 18.3011, lng: 83.8999 } },
+                    { id: 'hotel_skl_2', name: 'Varam Residency', type: 'lodging', vicinity: 'Day & Night Junction', rating: 4.2, user_ratings_total: 400, price_level: 1, location: { lat: 18.2989, lng: 83.9012 } },
+                    { id: 'food_skl_1', name: 'Hotel City Inn', type: 'restaurant', vicinity: 'Near RTC Complex', rating: 4.3, user_ratings_total: 800, price_level: 2, location: { lat: 18.2965, lng: 83.9001 } },
+                    { id: 'food_skl_2', name: 'Subbaya Gari Hotel', type: 'restaurant', vicinity: 'GT Road', rating: 4.5, user_ratings_total: 1200, price_level: 2, location: { lat: 18.2995, lng: 83.8975 } }
+                ]
+            },
+            "araku": {
+                lat: 18.3325, lon: 82.8639, displayName: "Araku Valley, Andhra Pradesh, India",
+                places: [
+                    { id: 'attr_ark_1', name: 'Borra Caves', type: 'tourist_attraction', vicinity: 'Ananthagiri Hills', rating: 4.7, user_ratings_total: 12000, price_level: 1, location: { lat: 18.2808, lng: 83.0398 } },
+                    { id: 'attr_ark_2', name: 'Katiki Waterfalls', type: 'tourist_attraction', vicinity: 'Near Borra Caves', rating: 4.6, user_ratings_total: 5000, price_level: 1, location: { lat: 18.2931, lng: 83.0453 } },
+                    { id: 'attr_ark_3', name: 'Padmapuram Gardens', type: 'tourist_attraction', vicinity: 'Araku Valley', rating: 4.4, user_ratings_total: 4500, price_level: 1, location: { lat: 18.3310, lng: 82.8780 } },
+                    { id: 'attr_ark_4', name: 'Araku Tribal Museum', type: 'tourist_attraction', vicinity: 'Araku Valley', rating: 4.3, user_ratings_total: 3500, price_level: 1, location: { lat: 18.3298, lng: 82.8705 } },
+                    { id: 'hotel_ark_1', name: 'Haritha Valley Resort', type: 'lodging', vicinity: 'Near Padmapuram Gardens', rating: 4.1, user_ratings_total: 800, price_level: 2, location: { lat: 18.3315, lng: 82.8790 } },
+                    { id: 'hotel_ark_2', name: 'Ushodaya Resorts', type: 'lodging', vicinity: 'Ananthagiri', rating: 4.3, user_ratings_total: 600, price_level: 2, location: { lat: 18.2260, lng: 83.0100 } },
+                    { id: 'food_ark_1', name: 'Bamboo Chicken Stall', type: 'restaurant', vicinity: 'Chaparai Road', rating: 4.8, user_ratings_total: 2000, price_level: 1, location: { lat: 18.3350, lng: 82.8810 } },
+                    { id: 'food_ark_2', name: 'Araku Coffee House', type: 'restaurant', vicinity: 'Araku Main Road', rating: 4.6, user_ratings_total: 1500, price_level: 1, location: { lat: 18.3305, lng: 82.8715 } }
+                ]
+            },
+            "tekkali": {
+                lat: 18.6833, lon: 84.2333, displayName: "Tekkali, Andhra Pradesh, India",
+                places: [
+                    { id: 'attr_tek_1', name: 'Jagannath Swamy Temple, Tekkali', type: 'tourist_attraction', vicinity: 'Temple Street, Tekkali', rating: 4.7, user_ratings_total: 1500, price_level: 0, location: { lat: 18.6830, lng: 84.2330 } },
+                    { id: 'attr_tek_2', name: 'Telineelapuram Bird Sanctuary', type: 'tourist_attraction', vicinity: 'Near Tekkali', rating: 4.5, user_ratings_total: 800, price_level: 1, location: { lat: 18.5833, lng: 84.2167 } },
+                    { id: 'hotel_tek_1', name: 'Hotel Varam', type: 'lodging', vicinity: 'Main Road, Tekkali', rating: 4.0, user_ratings_total: 200, price_level: 2, location: { lat: 18.6840, lng: 84.2340 } },
+                    { id: 'hotel_tek_2', name: 'Sri Sai Ram Lodge', type: 'lodging', vicinity: 'Near Bus Stand, Tekkali', rating: 3.8, user_ratings_total: 150, price_level: 1, location: { lat: 18.6820, lng: 84.2320 } },
+                    { id: 'food_tek_1', name: 'Ruchi Restaurant', type: 'restaurant', vicinity: 'Main Road, Tekkali', rating: 4.1, user_ratings_total: 400, price_level: 2, location: { lat: 18.6845, lng: 84.2345 } }
+                ]
+            }
+            // Add more cities here...
+        };
+
+        function initMap() {
+            map = L.map('map').setView(defaultCenter, 5);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        }
+
+        function getPhotoUrl(photo, maxWidth = 400) {
+            return `https://source.unsplash.com/random/${maxWidth}x${maxWidth-100}/?${photo}`;
+        }
+
+        function priceBucket(price_level) {
+            if (price_level === undefined || price_level === null) return 'all'; // Default to all
+            if (price_level <= 1) return 'low';
+            if (price_level === 2) return 'medium';
+            return 'high';
+        }
+
+        async function searchCity() {
+            const rawCity = cityInput.value.trim();
+            const state = (stateSelect.value || '').trim();
+            let query = rawCity;
+            if (!query && !state) { alert('Please type a city name to search.'); return; }
+            
+            const searchKey = (rawCity || state).trim().toLowerCase();
+
+            cityTitle.innerText = `Searching: ${searchKey}...`;
+            citySubtitle.innerText = 'Geocoding and fetching places...';
+
+            // Flexible search: check if the search key is part of any city name in the DB
+            const foundCityKey = Object.keys(internalDB).find(key => key.includes(searchKey));
+
+            if (foundCityKey) {
+                const cityData = internalDB[foundCityKey];
+                const latLng = [cityData.lat, cityData.lon];
+                map.setView(latLng, 13);
+                fetchPlacesForCity(cityData.places, cityData.displayName);
+            } else {
+                // Fallback to live API if not in internal DB
+                cityTitle.innerText = `Could not find "${searchKey}" in our database.`;
+                citySubtitle.innerText = `Try searching for Jaipur, Goa, Delhi, Mumbai, or Srikakulam.`;
+                resultsEl.innerHTML = '';
+                markers.forEach(m => m.remove());
+                markers = [];
+                placesData = [];
+            }
+        }
+
+        function fetchPlacesForCity(places, displayName) {
+            placesData = []; markers.forEach(m => m.remove()); markers = []; resultsEl.innerHTML = '';
+            
+            placesData = places;
+            cityTitle.innerText = `Results for ${displayName}`;
+            citySubtitle.innerText = `Showing ${placesData.length} places. Use filters to refine.`;
+
+            if (placesData.length === 0) {
+                resultsEl.innerHTML = '<div class="text-muted-light dark:text-muted-dark">No results found for this location.</div>';
+            } else {
+                placesData.forEach(addMarkerForPlace);
+                renderFiltered();
+            }
+        }
+
+        function addMarkerForPlace(place) {
+            try {
+                const pos = [place.location.lat, place.location.lng];
+                const marker = L.marker(pos, { title: place.name }).addTo(map);
+                marker.bindPopup(() => buildInfoWindowContent(place));
+                markers.push(marker);
+            } catch (e) { console.warn('Marker error for place:', place.name, e); }
+        }
+
+        function buildInfoWindowContent(place) {
+            const photoUrl = getPhotoUrl(place.name, 300);
+            const rating = place.rating ? `⭐ ${place.rating} (${place.user_ratings_total || 0})` : 'No rating';
+            const address = place.vicinity || 'Address not available';
+            return `
+              <div style="max-width:280px;font-family:Plus Jakarta Sans, Arial, sans-serif; color: #1b140d;">
+                <div style="font-weight:700;margin-bottom:6px; font-size: 16px;">${escapeHtml(place.name)}</div>
+                <div style="font-size:13px;color:#9a734c;">${escapeHtml(address)}</div>
+                <div style="margin-top:6px;font-size:13px;">${rating}</div>
+                <div style="margin-top:8px"><img src="${photoUrl}" style="width:100%; height:140px; object-fit:cover; border-radius:8px"></div>
+              </div>
+            `;
+        }
+
+        function escapeHtml(s) { return (s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]); }
+
+        function renderFiltered() {
+            const activePrice = document.querySelector('.chip[data-price].active').dataset.price;
+            const activeType = document.querySelector('.chip[data-type].active').dataset.type;
+            const activeTab = document.querySelector('.tab.active').dataset.tab;
+
+            let filtered = placesData.filter(p => {
+                if (activeType && p.type !== activeType) return false;
+                if (activePrice && activePrice !== 'all') {
+                    const bucket = priceBucket(p.price_level);
+                    if (bucket !== activePrice) return false;
+                }
+                if (activeTab === 'places' && p.type !== 'tourist_attraction') return false;
+                if (activeTab === 'food' && p.type !== 'restaurant') return false;
+                if (activeTab === 'stay' && p.type !== 'lodging') return false;
+                return true;
+            });
+
+            filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0) || (b.user_ratings_total || 0) - (a.user_ratings_total || 0));
+
+            resultsEl.innerHTML = '';
+            if (filtered.length === 0) { resultsEl.innerHTML = '<div class="text-muted-light dark:text-muted-dark">No places match your filters.</div>'; return; }
+
+            filtered.forEach(p => {
+                const photoUrl = getPhotoUrl(p.name, 200);
+                const rating = p.rating ? `⭐ ${p.rating}` : 'No rating';
+                const priceLabel = p.price_level !== undefined ? (['Free', '₹', '₹₹', '₹₹₹', '₹₹₹₹'][p.price_level] || '') : '';
+                const el = document.createElement('div');
+                el.className = 'flex items-start gap-3 p-2.5 rounded-lg border border-border-light dark:border-border-dark cursor-pointer hover:bg-background-light dark:hover:bg-background-dark';
+                el.innerHTML = `
+                <img src="${photoUrl}" alt="${escapeHtml(p.name)}" class="w-24 h-20 object-cover rounded-md flex-shrink-0" />
+                <div class="flex-1">
+                  <h4 class="font-bold text-sm leading-tight">${escapeHtml(p.name)}</h4>
+                  <p class="text-xs text-muted-light dark:text-muted-dark mt-1 truncate">${escapeHtml(p.vicinity || 'Location details unavailable')}</p>
+                  <div class="mt-1.5 flex justify-between items-center">
+                    <div class="text-xs text-muted-light dark:text-muted-dark">${rating} · ${escapeHtml(priceLabel)}</div>
+                    <div class="text-xs text-muted-light dark:text-muted-dark">${(p.user_ratings_total || 0)} reviews</div>
+                  </div>
+                </div>
+              `;
+                el.addEventListener('click', () => {
+                    map.setView([p.location.lat, p.location.lng], 15);
+                    const marker = markers.find(m => {
+                        const pos = m.getLatLng();
+                        return pos && pos.lat.toFixed(6) === p.location.lat.toFixed(6) && pos.lng.toFixed(6) === p.location.lng.toFixed(6);
+                    });
+                    if (marker) { marker.openPopup(); }
+                });
+                resultsEl.appendChild(el);
+            });
+        }
+
+        searchCityBtn.onclick = searchCity;
+        
+        // Initialize the Leaflet map on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Populate featured cities on the home screen
+            const featuredContainer = document.getElementById('featured-cities');
+            if (featuredContainer) {
+                Object.keys(internalDB).forEach(cityKey => {
+                    const button = document.createElement('button');
+                    button.className = 'px-4 py-2 bg-white/10 rounded-full text-white font-semibold backdrop-blur-sm hover:bg-white/20 transition-colors';
+                    button.textContent = cityKey.charAt(0).toUpperCase() + cityKey.slice(1);
+                    button.onclick = () => {
+                        cityInput.value = cityKey;
+                        showSearch();
+                        // Use a small delay to ensure the map is ready before searching
+                        setTimeout(() => searchCity(), 50);
+                    };
+                    featuredContainer.appendChild(button);
+                });
+            }
+        });
+    </script>
+    <script type="module" src="./auth_ui.js"></script>
+</body>
+
+</html>

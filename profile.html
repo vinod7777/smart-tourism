@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>My Trips - Cultura</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ee8c2b", "background-light": "#fcfaf8", "background-dark": "#1b140d", "text-light": "#1b140d", "text-dark": "#f3ede7", "card-light": "#ffffff", "card-dark": "#2a221a", "border-light": "#f3ede7", "border-dark": "#393027", "muted-light": "#9a734c", "muted-dark": "#a89078"
+                    },
+                    fontFamily: { "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+    <div class="flex min-h-screen w-full flex-col">
+        <!-- Header -->
+        <header class="sticky top-0 z-20 flex w-full items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 px-6 py-3 backdrop-blur-sm md:px-10">
+            <a href="./index.html" class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-2xl">travel_explore</span>
+                <h2 class="text-xl font-bold tracking-[-0.015em] text-text-light dark:text-text-dark">Cultura</h2>
+            </a>
+            <div class="hidden items-center gap-9 md:flex">
+                <a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="./index.html">Home</a>
+                <a class="text-sm font-medium text-text-light dark:text-text-dark" href="./profile.html">My Trips</a>
+                <a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="./city-explorer.html">Search Location</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="./login.html" id="login-btn" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-text-light text-sm font-bold">Log In</a>
+                <div id="profile-container" class="hidden items-center gap-2">
+                    <span id="user-name" class="text-sm font-medium"></span>
+                    <div id="user-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"></div>
+                    <button id="logout-btn" class="flex items-center justify-center h-10 px-2 text-muted-light dark:text-muted-dark hover:text-primary"><span class="material-symbols-outlined">logout</span></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="w-full flex-1 p-6 lg:p-10 max-w-7xl mx-auto">
+            <h1 class="text-4xl font-extrabold">My Trips</h1>
+            <p class="mt-2 text-lg text-muted-light dark:text-muted-dark">Here are all your planned and booked adventures.</p>
+
+            <div id="trips-container" class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Trips will be loaded here -->
+                <p id="loading-state" class="col-span-full text-center text-muted-light dark:text-muted-dark">Loading your trips...</p>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="./firebase_config.js"></script>
+    <script type="module" src="./auth_ui.js"></script>
+    <script type="module">
+        import { db, auth } from './firebase_config.js';
+        import { collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+
+        function createTripCard(tripData) {
+            const tripId = tripData.id;
+            const trip = tripData.itineraryData;
+            const allItems = Object.values(trip.days).flatMap(day => day.items);
+            const firstImage = allItems.length > 0 ? allItems[0].imageUrl : `https://source.unsplash.com/random/800x600/?travel`;
+
+            // Format the date
+            const travelDate = new Date(tripData.travelDate).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            return `
+                <div class="group flex flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
+                    <div class="relative h-48 w-full object-cover overflow-hidden">
+                        <img class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="${firstImage}" alt="${tripData.tripName}">
+                    </div>
+                    <div class="flex flex-1 flex-col p-4">
+                        <h4 class="text-lg font-bold">${tripData.tripName}</h4>
+                        <p class="mt-1 text-sm text-muted-light dark:text-muted-dark">
+                            <span class="font-medium">Travel Date:</span> ${travelDate}
+                        </p>
+                        <div class="mt-2 text-sm text-muted-light dark:text-muted-dark">
+                            ${allItems.length} item(s) planned
+                        </div>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="text-lg font-bold text-primary">${tripData.totalCost}</span>
+                            <a href="./trip-details.html?id=${tripId}" class="text-sm font-medium text-primary hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            const tripsContainer = document.getElementById('trips-container');
+            const loadingState = document.getElementById('loading-state');
+
+            if (user) {
+                // User is signed in, fetch their trips
+                try {
+                    const q = query(
+                        collection(db, "itineraries"),
+                        where("userId", "==", user.uid)
+                        // orderBy("createdAt", "desc") // Removed to avoid needing an index
+                    );
+                    const querySnapshot = await getDocs(q);
+
+                    loadingState.style.display = 'none'; // Hide loading message
+
+                    if (querySnapshot.empty) {
+                        tripsContainer.innerHTML = '<p class="col-span-full text-center text-muted-light dark:text-muted-dark">You have no saved trips yet. Go plan one!</p>';
+                    } else {
+                        const trips = [];
+                        querySnapshot.forEach(doc => trips.push({ id: doc.id, ...doc.data() }));
+                        // Sort the trips on the client-side
+                        trips.sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
+
+                        tripsContainer.innerHTML = trips.map(createTripCard).join('');
+                    }
+                } catch (error) {
+                    console.error("Error fetching trips: ", error);
+                    loadingState.textContent = "Could not load your trips. Please try again later.";
+                }
+            } else {
+                // No user is signed in.
+                loadingState.style.display = 'none';
+                tripsContainer.innerHTML = `
+                    <div class="col-span-full text-center p-8 bg-card-light dark:bg-card-dark rounded-lg">
+                        <h3 class="text-xl font-bold">Please Log In</h3>
+                        <p class="text-muted-light dark:text-muted-dark mt-2">Log in to see your saved trips and continue planning.</p>
+                        <a href="./login.html" class="mt-4 inline-block rounded-lg bg-primary px-6 py-2 text-sm font-bold text-white">Log In Now</a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+
+</html>

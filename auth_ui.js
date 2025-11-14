@@ -3,66 +3,56 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
 onAuthStateChanged(auth, async (user) => {
-    const loginBtn = document.getElementById('login-btn');
-    const signupBtn = document.getElementById('signup-btn');
-    const profileContainer = document.getElementById('profile-container');
-    const logoutBtn = document.getElementById('logout-btn');
+    // Find all relevant elements on the page, if they exist.
+    const loginButtons = document.querySelectorAll('#login-btn');
+    const signupButtons = document.querySelectorAll('#signup-btn');
+    const profileContainers = document.querySelectorAll('#profile-container');
+    const logoutButtons = document.querySelectorAll('#logout-btn');
+    const userNames = document.querySelectorAll('#user-name');
+    const userAvatars = document.querySelectorAll('#user-avatar');
 
     if (user) {
-        // User is signed in
-        const userNameSpan = document.getElementById('user-name');
-        const userAvatarDiv = document.getElementById('user-avatar');
-
-        // Hide login/signup buttons
-        if (loginBtn) loginBtn.classList.add('hidden');
-        if (signupBtn) signupBtn.classList.add('hidden');
-
-        // Show profile container
-        if (profileContainer) {
-            profileContainer.classList.remove('hidden');
-            profileContainer.classList.add('flex'); // Use flex to align items
-        }
-
-        // Get user data from Firestore
+        // User is signed in.
         try {
             const docRef = doc(db, "users", user.uid);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
                 const userData = docSnap.data();
-                if (userNameSpan) {
-                    userNameSpan.textContent = userData.fullName;
-                }
-                // You can set a real avatar URL here if you store one
-                if (userAvatarDiv) {
-                    userAvatarDiv.style.backgroundImage = `url('https://ui-avatars.com/api/?name=${encodeURIComponent(userData.fullName)}&background=random')`;
-                }
+                const fullName = userData.fullName;
+                // Display first name
+                const firstName = fullName.split(' ')[0];
+                userNames.forEach(el => el.textContent = firstName);
+                // Create a simple text-based avatar from user's initials
+                const initials = fullName.split(' ').map(n => n[0]).join('');
+                userAvatars.forEach(el => {
+                    el.style.backgroundImage = `url('https://ui-avatars.com/api/?name=${initials}&background=random&color=fff')`;
+                });
             } else {
-                console.log("No such document for user!");
-                if (userNameSpan) userNameSpan.textContent = user.email;
+                console.log("No such document!");
+                userNames.forEach(el => el.textContent = 'User');
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
-            if (userNameSpan) userNameSpan.textContent = user.email;
+            userNames.forEach(el => el.textContent = 'User');
         }
 
-        // Handle logout
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                signOut(auth).then(() => {
-                    window.location.href = './login.html';
-                }).catch((error) => {
-                    console.error('Sign Out Error', error);
-                });
+        // Show profile, hide login/signup
+        loginButtons.forEach(btn => btn.style.display = 'none');
+        signupButtons.forEach(btn => btn.style.display = 'none');
+        profileContainers.forEach(container => { container.style.display = 'flex'; container.classList.remove('hidden'); });
+
+        logoutButtons.forEach(btn => btn.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = './login.html';
+            }).catch((error) => {
+                console.error('Sign out error', error);
             });
-        }
+        }));
     } else {
-        // User is signed out
-        if (loginBtn) loginBtn.classList.remove('hidden');
-        if (signupBtn) signupBtn.classList.remove('hidden');
-        if (profileContainer) {
-            profileContainer.classList.add('hidden');
-            profileContainer.classList.remove('flex');
-        }
+        // User is signed out.
+        loginButtons.forEach(btn => btn.style.display = 'flex');
+        signupButtons.forEach(btn => btn.style.display = 'flex'); // Or 'block' depending on your layout
+        profileContainers.forEach(container => { container.style.display = 'none'; container.classList.add('hidden'); });
     }
 });

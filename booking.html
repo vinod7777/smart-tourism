@@ -7,6 +7,10 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -18,18 +22,18 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#008080",
-                        "secondary": "#E2725B",
-                        "background-light": "#F5F5DC",
-                        "background-dark": "#36454F",
-                        "text-light": "#36454F",
-                        "text-dark": "#F5F5DC",
-                        "subtle-light": "#D3D3D3",
-                        "subtle-dark": "#4a5a67",
-                        "card-light": "#FFFFFF",
-                        "card-dark": "#2d3a44",
-                        "accent-light": "#f0eade",
-                        "accent-dark": "#4a5a67",
+                        "primary": "#ee8c2b",
+                        "secondary": "#E2725B", // Kept for the save button
+                        "background-light": "#fcfaf8",
+                        "background-dark": "#1b140d",
+                        "text-light": "#1b140d",
+                        "text-dark": "#f3ede7",
+                        "subtle-light": "#f3ede7",
+                        "subtle-dark": "#393027",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2a221a",
+                        "accent-light": "#fcfaf8",
+                        "accent-dark": "#1b140d",
                     },
                     fontFamily: {
                         "display": ["Plus Jakarta Sans", "sans-serif"]
@@ -58,12 +62,12 @@
 <h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">CulturaTrip</h2>
 </div>
 <div class="hidden items-center gap-8 md:flex">
-<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Explore</a>
-<a class="text-sm font-medium leading-normal text-primary dark:text-primary" href="#">My Trips</a>
-<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Profile</a>
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="./index.html">Explore</a>
+<a class="text-sm font-medium leading-normal text-primary dark:text-primary" href="./profile.html">My Trips</a>
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="./profile.html">Profile</a>
 <a href="./login.html" id="login-btn" class="flex md:hidden">Log In</a>
 <a href="./registration.html" id="signup-btn" class="flex md:hidden">Sign Up</a>
-</div>
+</div> 
 <div class="flex flex-1 items-center justify-end gap-4">
 <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-secondary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90">
 <span class="truncate">Save Itinerary</span>
@@ -90,14 +94,14 @@
 <p class="pb-2 text-base font-medium leading-normal">Destination</p>
 <div class="relative">
 <span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-light/50 dark:text-text-dark/50">search</span>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark h-12 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 pl-10 pr-4 text-base font-normal leading-normal focus:border-primary focus:ring-1 focus:ring-primary" placeholder="e.g., Rome, Italy" value=""/>
+<input id="destination-search" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark h-12 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 pl-10 pr-4 text-base font-normal leading-normal focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Search for Jaipur, Goa, Delhi..." value=""/>
 </div>
 </label>
 <label class="flex flex-col">
 <p class="pb-2 text-base font-medium leading-normal">Travel Dates</p>
 <div class="relative">
 <span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-light/50 dark:text-text-dark/50">calendar_month</span>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark h-12 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 pl-10 pr-4 text-base font-normal leading-normal focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Select your dates" value=""/>
+<input id="travel-dates" type="date" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-subtle-light dark:border-subtle-dark bg-card-light dark:bg-card-dark h-12 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 pl-10 pr-4 text-base font-normal leading-normal focus:border-primary focus:ring-1 focus:ring-primary" value=""/>
 </div>
 </label>
 </div>
@@ -121,109 +125,30 @@
 </button>
 </div>
 <!-- ImageGrid: Card-Based Browsing -->
-<div class="grid flex-1 grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6 pt-6">
-<div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
-<div class="relative w-full">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A view of the Roman Forum ruins under a clear blue sky." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBV7z99k5U0iqC5l8aQJdo4sMBPATlAGk8tSve-Td698-JHvMn4KVXDKZ7MP33-_hMmIDfaKGreA1dYKDzyOBzbVV9r-xUNtCEQbaUo5uKi07lEakwzVeCyBC3HIg-Yyc0UpH2OxM5rsiASfPb_LfLVowMxEmVuX1FNXiIathkpUXB3nujIKkuA6-7fNLCdzEnIqRv41QoyDvswccnnEL-C8Z1JFsnPYsd95jew7Lb87vY7O_O-RcyXLhPjHx4NpmZhJl7E1wJ5iBw");'></div>
-<button class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-primary">
-<span class="material-symbols-outlined text-lg">add</span>
-</button>
-</div>
-<div>
-<p class="text-base font-bold leading-normal">Roman Forum Guided Tour</p>
-<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Rome, Italy</p>
-<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★★★★☆ (1,230) • $75</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
-<div class="relative w-full">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A large pan of paella with seafood and vegetables being cooked outdoors." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBbTwFS1QYKbMzYsa2_5296M0VqdnQv1pAjGC8N5dGAtFiG2ez3XHsCa1qiflyr_TxPgM6UgzljgUsmnh8fpPD-VUafkEJwnNaKaDoL6l_qPjSj3zvG8PXzJrwsvZ55gxzuGvwjmMdTpJwm7iv5qxFZZ3ybaU9W-g3qCfp1DZL2Z7-RaLJdoCawSZy05oKmoMpLaC_asikagjo4C2TCQJBab13MjVIo_iiheOD76BZzK2XNwWyjLgwvDmuk7RRRfbCyZSE4hZDs4gQ");'></div>
-<button class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-primary">
-<span class="material-symbols-outlined text-lg">add</span>
-</button>
-</div>
-<div>
-<p class="text-base font-bold leading-normal">Paella Cooking Class</p>
-<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Valencia, Spain</p>
-<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★★★★★ (890) • $90</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
-<div class="relative w-full">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="The elegant exterior of the Grand Hotel Miramare with a view of the sea." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBYML96_PHYMrEh-W6roAwLsIrlHyEp_Xl5bsyXLJ5m-oy4y6OgAG1PbfSwc68L0_PnM3hA-qnMigtIa_yoIqYPd3vKidGDORkh7aFhLAK6xSVpEGvk2ZMH9I6iqhJ18da2PAoIr10H2FQG-2ateNVdUt_3cXDg1Q4-NFv7SGYrLTIR_CV36ii5aF571nESrs5X2JzS215F12x8M86kgq0lkKdaG5P_V8GrK6JNmCnuY3tTuuqSHlFuy1VtfJait18puuDCWORhkSM");'></div>
-<button class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white backdrop-blur-sm">
-<span class="material-symbols-outlined text-lg">check</span>
-</button>
-</div>
-<div>
-<p class="text-base font-bold leading-normal">Grand Hotel Miramare</p>
-<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Santa Margherita, Italy</p>
-<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★★★★★ (950) • $350/night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
-<div class="relative w-full">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A traditional Japanese tea ceremony setting with matcha tea and sweets." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCK0vObpwhUBKDI1vAl21KcsOSJ-CYvBcCR3vZlOmwkAwr4gWX-RvUNVj8w6Cr2N3pN3oFH-yoT80PaWGMWk0nlMkepSpaa_WmMnt63d3ViJoVFpA7JaukbY0aU_mv6NxltT81qZrGi1g3H4LXPSc7wX1voYLlqismRhgWD8MjASxsBSsnBVm_xqmThDBJkDbudeIV0idC6Q_RlC24WSntaKp7fK7ZvOUOsLM4X9Ra1Y1PakmFeBAYVBwTASjx5P-1zzXx7x8uIhOc");'></div>
-<button class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-primary">
-<span class="material-symbols-outlined text-lg">add</span>
-</button>
-</div>
-<div>
-<p class="text-base font-bold leading-normal">Traditional Tea Ceremony</p>
-<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Kyoto, Japan</p>
-<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★★★★★ (1,540) • $60</p>
-</div>
-</div>
+<div id="experiences-grid" class="grid flex-1 grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6 pt-6">
+    <!-- Experience cards will be dynamically inserted here -->
 </div>
 </div>
 <!-- Right Panel: Itinerary and Map -->
 <div class="hidden w-2/5 flex-col bg-accent-light dark:bg-accent-dark lg:flex">
 <div class="flex-1 overflow-y-auto p-6">
-<h2 class="text-2xl font-bold">Your Itinerary: Rome</h2>
+<h2 id="itinerary-title" class="text-2xl font-bold">Your Itinerary</h2>
 <p class="pb-6 text-sm text-text-light/70 dark:text-text-dark/70">Drag and drop to reorder your plans.</p>
-<!-- Itinerary Item -->
-<div class="mb-4">
-<h3 class="font-bold text-lg mb-2">Day 1: Arrival &amp; Ancient Wonders</h3>
-<div class="space-y-3">
-<div class="flex items-start gap-4 rounded-lg bg-card-light dark:bg-card-dark p-4 shadow-sm">
-<span class="material-symbols-outlined mt-1 text-primary">drag_indicator</span>
-<div class="w-16 shrink-0 bg-center bg-no-repeat aspect-square bg-cover rounded-md" data-alt="Exterior view of the Grand Hotel Miramare" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDjPRYnKitV5BztBAPDHullETg1bUAgRAyntKjVE1LDE1eu_4QF4LEmDoRqjwLYF4wTq0KFqZpwWZZ4DfPqsHzJns0P8vvkgboYtxADqoQsqExdbAnmYaP4YJNBgbcoViGr3zOCMinPXA9YWAxbyH99YMi-qZesRU2ZgRemaaFGWIdjo0w042D9ziJVY-I-E-L-qCIXI1r_2RNwqFoiYfBH-o_e68vRlUFg_aUNCrw-ZTL2WeWLCMVVGh49YTImUvTT_DyYu97yaHU");'></div>
-<div class="flex-1">
-<p class="text-sm text-text-light/70 dark:text-text-dark/70">Afternoon</p>
-<p class="font-semibold">Check-in: Grand Hotel Miramare</p>
+<div id="itinerary-panel">
+    <!-- Itinerary items will be dynamically inserted here -->
 </div>
-<button class="text-text-light/50 dark:text-text-dark/50 hover:text-secondary dark:hover:text-secondary">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Empty State Example -->
-<div class="mt-4">
-<h3 class="font-bold text-lg mb-2">Day 2: Culinary &amp; Culture</h3>
-<div class="flex h-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-subtle-light dark:border-subtle-dark text-center">
-<span class="material-symbols-outlined text-4xl text-text-light/50 dark:text-text-dark/50">add_location_alt</span>
-<p class="font-semibold">Your adventure awaits!</p>
-<p class="text-sm text-text-light/70 dark:text-text-dark/70">Add an experience to plan your day.</p>
-</div>
-</div>
+
 </div>
 <!-- Map View Toggle -->
-<div class="relative h-64 shrink-0">
-<div class="h-full w-full bg-cover bg-center" data-location="Rome, Italy" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB4AKKzkRiVHZ1Q3GMs8Z0_JErTuHCKxVMu48RuNh4u1U9s2t1xWX1Wv1InhGx2Yv3vtnqA4doczIUkRLmXGNW-Z4mfvDleGKSqHG_1RXaTK2Ab5tzQ9kMcn0pdf-juPvFLVQqKagKIN2ck7sPHvjkFkgcTEjQcetV5gVYVmwriSiEujc_YqwcKidI9SYwimL9R7JJYkDkTCEPDAI0aLlhSsjeoMtjmyXAhF9BOG_nB_K4bU6HEVTj8MyXAD-bttRYPPVtbzUCvd7c');"></div>
-<button class="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-card-light dark:bg-card-dark px-4 py-2 text-sm font-semibold shadow-lg hover:bg-background-light dark:hover:bg-background-dark">
-<span class="material-symbols-outlined text-lg">map</span>
-                        Show Map
-                    </button>
-</div>
+<div id="map" class="h-64 shrink-0 w-full rounded-b-lg overflow-hidden border-t border-subtle-light dark:border-subtle-dark"></div>
 <!-- Summary & Booking Module -->
 <div class="shrink-0 border-t border-subtle-light/50 dark:border-subtle-dark/50 bg-card-light dark:bg-card-dark p-6">
 <div class="flex justify-between items-center mb-4">
 <p class="text-lg font-bold">Estimated Total</p>
-<p class="text-2xl font-black">$425.00</p>
+<p id="total-cost" class="text-2xl font-black">₹0</p>
 </div>
-<button class="flex w-full min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
-<span class="truncate">Proceed to Book</span>
+<button id="book-trip-btn" class="flex w-full min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+<span class="truncate">Book This Trip</span>
 <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 </div>
@@ -232,4 +157,355 @@
 </div>
 <script type="module" src="./firebase_config.js"></script>
 <script type="module" src="./auth_ui.js"></script>
+<script type="module">
+    import { db, auth } from './firebase_config.js';
+    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+    let map, markers = [];
+    let allExperiences = []; // This will hold all searchable places
+
+    // --- Data Sources (Simulating backend fetch) ---
+    // Using the same rich database as city-explorer.html
+    const internalDB = {
+        "jaipur": {
+            lat: 26.9124, lon: 75.7873, displayName: "Jaipur, Rajasthan",
+            places: [
+                { id: 'attr_jp_1', name: 'Hawa Mahal', type: 'Attraction', vicinity: 'Hawa Mahal Rd, Badi Choupad', rating: 4.8, user_ratings_total: 15000, price: 1000, location: { lat: 26.9239, lng: 75.8267 } },
+                { id: 'attr_jp_2', name: 'Amber Fort', type: 'Attraction', vicinity: 'Devisinghpura, Amer', rating: 4.9, user_ratings_total: 25000, price: 2500, location: { lat: 26.9855, lng: 75.8513 } },
+                { id: 'hotel_jp_1', name: 'Rambagh Palace', type: 'Hotel', vicinity: 'Bhawani Singh Rd, Rambagh', rating: 5.0, user_ratings_total: 3000, price: 45000, location: { lat: 26.8973, lng: 75.8095 } },
+                { id: 'hotel_jp_2', name: 'Zostel Jaipur', type: 'Hotel', vicinity: 'MI Road, Panch Batti', rating: 4.5, user_ratings_total: 1200, price: 3500, location: { lat: 26.9153, lng: 75.8091 } },
+                { id: 'food_jp_1', name: 'Laxmi Misthan Bhandar', type: 'Restaurant', vicinity: 'Johari Bazar Rd, Bapu Bazar', rating: 4.6, user_ratings_total: 8000, price: 1500, location: { lat: 26.9185, lng: 75.8245 } },
+                { id: 'food_jp_2', name: 'Rawat Misthan Bhandar', type: 'Restaurant', vicinity: 'Station Rd, Sindhi Camp', rating: 4.8, user_ratings_total: 9500, price: 800, location: { lat: 26.9213, lng: 75.7984 } }
+            ]
+        },
+        "goa": {
+            lat: 15.2993, lon: 74.1240, displayName: "Goa, India",
+            places: [
+                { id: 'attr_goa_1', name: 'Baga Beach', type: 'Attraction', vicinity: 'Baga, North Goa', rating: 4.6, user_ratings_total: 18000, price: 500, location: { lat: 15.5583, lng: 73.7525 } },
+                { id: 'attr_goa_2', name: 'Old Goa (Velha Goa)', type: 'Attraction', vicinity: 'Velha Goa, North Goa', rating: 4.8, user_ratings_total: 12000, price: 200, location: { lat: 15.5033, lng: 73.9117 } },
+                { id: 'hotel_goa_1', name: 'The Leela Goa', type: 'Hotel', vicinity: 'Mobor, Cavelossim', rating: 4.9, user_ratings_total: 2500, price: 30000, location: { lat: 15.1586, lng: 73.9572 } },
+                { id: 'food_goa_1', name: 'Britto\'s Bar & Restaurant', type: 'Restaurant', vicinity: 'Baga Beach, Calangute', rating: 4.5, user_ratings_total: 15000, price: 2500, location: { lat: 15.5601, lng: 73.7518 } }
+            ]
+        },
+        "delhi": {
+            lat: 28.7041, lon: 77.1025, displayName: "Delhi, NCT, India",
+            places: [
+                { id: 'attr_del_1', name: 'Qutub Minar', type: 'Attraction', vicinity: 'Mehrauli, New Delhi', rating: 4.8, user_ratings_total: 30000, price: 500, location: { lat: 28.5245, lng: 77.1855 } },
+                { id: 'attr_del_2', name: 'Humayun\'s Tomb', type: 'Attraction', vicinity: 'Mathura Road, Nizamuddin', rating: 4.9, user_ratings_total: 22000, price: 500, location: { lat: 28.5933, lng: 77.2507 } },
+                { id: 'hotel_del_1', name: 'The Imperial', type: 'Hotel', vicinity: 'Janpath Lane, Connaught Place', rating: 4.9, user_ratings_total: 2800, price: 25000, location: { lat: 28.6232, lng: 77.2186 } },
+                { id: 'food_del_1', name: 'Karim\'s', type: 'Restaurant', vicinity: 'Gali Kababian, Jama Masjid', rating: 4.7, user_ratings_total: 11000, price: 1200, location: { lat: 28.6498, lng: 77.2333 } }
+            ]
+        },
+        "srikakulam": {
+            lat: 18.2978, lon: 83.8988, displayName: "Srikakulam, Andhra Pradesh",
+            places: [
+                { id: 'attr_skl_1', name: 'Arasavalli Sun Temple', type: 'Attraction', vicinity: 'Arasavalli', rating: 4.9, user_ratings_total: 5000, price: 100, location: { lat: 18.2945, lng: 83.8732 } },
+                { id: 'attr_skl_2', name: 'Srikurmam Temple', type: 'Attraction', vicinity: 'Srikurmam Village', rating: 4.8, user_ratings_total: 3000, price: 100, location: { lat: 18.2667, lng: 84.0167 } },
+                { id: 'hotel_skl_1', name: 'Hotel Nagavali', type: 'Hotel', vicinity: 'Palakonda Road', rating: 4.0, user_ratings_total: 500, price: 2500, location: { lat: 18.3011, lng: 83.8999 } },
+                { id: 'food_skl_1', name: 'Hotel City Inn', type: 'Restaurant', vicinity: 'Near RTC Complex', rating: 4.3, user_ratings_total: 800, price: 800, location: { lat: 18.2965, lng: 83.9001 } },
+            ]
+        },
+        "araku": {
+            lat: 18.3325, lon: 82.8639, displayName: "Araku Valley, Andhra Pradesh",
+            places: [
+                { id: 'attr_ark_1', name: 'Borra Caves', type: 'Attraction', vicinity: 'Ananthagiri Hills', rating: 4.7, user_ratings_total: 12000, price: 200, location: { lat: 18.2808, lng: 83.0398 } },
+                { id: 'attr_ark_2', name: 'Katiki Waterfalls', type: 'Attraction', vicinity: 'Near Borra Caves', rating: 4.6, user_ratings_total: 5000, price: 150, location: { lat: 18.2931, lng: 83.0453 } },
+                { id: 'hotel_ark_1', name: 'Haritha Valley Resort', type: 'Hotel', vicinity: 'Near Padmapuram Gardens', rating: 4.1, user_ratings_total: 800, price: 3000, location: { lat: 18.3315, lng: 82.8790 } },
+                { id: 'food_ark_1', name: 'Bamboo Chicken Stall', type: 'Restaurant', vicinity: 'Chaparai Road', rating: 4.8, user_ratings_total: 2000, price: 500, location: { lat: 18.3350, lng: 82.8810 } },
+                { id: 'food_ark_2', name: 'Araku Coffee House', type: 'Restaurant', vicinity: 'Araku Main Road', rating: 4.6, user_ratings_total: 1500, price: 300, location: { lat: 18.3305, lng: 82.8715 } }
+            ]
+        },
+        "tekkali": {
+            lat: 18.6833, lon: 84.2333, displayName: "Tekkali, Andhra Pradesh",
+            places: [
+                { id: 'attr_tek_1', name: 'Jagannath Swamy Temple', type: 'Attraction', vicinity: 'Temple Street, Tekkali', rating: 4.7, user_ratings_total: 1500, price: 50, location: { lat: 18.6830, lng: 84.2330 } },
+                { id: 'attr_tek_2', name: 'Telineelapuram Bird Sanctuary', type: 'Attraction', vicinity: 'Near Tekkali', rating: 4.5, user_ratings_total: 800, price: 100, location: { lat: 18.5833, lng: 84.2167 } },
+                { id: 'hotel_tek_1', name: 'Hotel Varam', type: 'Hotel', vicinity: 'Main Road, Tekkali', rating: 4.0, user_ratings_total: 200, price: 2000, location: { lat: 18.6840, lng: 84.2340 } },
+                { id: 'food_tek_1', name: 'Ruchi Restaurant', type: 'Restaurant', vicinity: 'Main Road, Tekkali', rating: 4.1, user_ratings_total: 400, price: 600, location: { lat: 18.6845, lng: 84.2345 } }
+            ]
+        }
+    };
+
+    let currentItinerary = {
+        name: "Trip to Rome",
+        days: {
+            1: { title: "Day 1: Arrival & Ancient Wonders", items: [] },
+            2: { title: "Day 2: Culinary & Culture", items: [] }
+        }
+    };
+
+    // --- Map Functions ---
+    function initMap() {
+        if (map) return; // Already initialized
+        map = L.map('map').setView([22.5937, 78.9629], 5); // Default to India
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Fix for map not loading tiles correctly on initial load
+        setTimeout(() => map.invalidateSize(), 100);
+    }
+
+    function addMarkersToMap(items) {
+        if (!map) initMap();
+
+        // Clear existing markers
+        markers.forEach(marker => marker.remove());
+        markers = [];
+
+        if (!items || items.length === 0) {
+            return;
+        }
+
+        const latLngs = [];
+        items.forEach(item => {
+            if (!item.location || !item.location.lat || !item.location.lng) return;
+            const pos = [item.location.lat, item.location.lng];
+            const marker = L.marker(pos, { title: item.name }).addTo(map);
+            marker.bindPopup(`<b>${item.name}</b><br>${item.vicinity || item.type}`);
+            markers.push(marker);
+            latLngs.push(pos);
+        });
+
+        // Adjust map view to fit all markers
+        if (latLngs.length > 0) {
+            map.fitBounds(latLngs, { padding: [50, 50], maxZoom: 14 });
+        }
+    }
+
+    // --- UI Rendering Functions ---
+
+    function createExperienceCard(exp) {
+        const isAdded = Object.values(currentItinerary.days).some(day => day.items.some(item => item.id === exp.id));
+        const buttonHtml = isAdded ?
+            `<button disabled class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white backdrop-blur-sm transition-opacity"><span class="material-symbols-outlined text-lg">check</span></button>` :
+            `<button data-exp-id="${exp.id}" class="add-btn absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-primary transition-opacity"><span class="material-symbols-outlined text-lg">add</span></button>`;
+
+        const imageUrl = `https://source.unsplash.com/800x600/?${exp.name.split(' ')[0]},${exp.type}`;
+        // Add the imageUrl to the experience object if it doesn't have one, for the itinerary
+        if (!exp.imageUrl) exp.imageUrl = imageUrl;
+
+        return `
+            <div class="flex flex-col gap-3 rounded-xl bg-card-light dark:bg-card-dark p-3 shadow-sm transition-shadow hover:shadow-lg">
+                <div class="relative w-full">
+                    <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" style='background-image: url("${imageUrl}");'></div>
+                    ${buttonHtml}
+                </div>
+                <div>
+                    <p class="text-base font-bold leading-normal">${exp.name}</p>
+                    <p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">${exp.vicinity || exp.type}</p>
+                    <p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">★ ${exp.rating || 'N/A'} (${exp.user_ratings_total || 0}) • ₹${exp.price.toLocaleString('en-IN')}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderExperiences(experiences = allExperiences) {
+        const grid = document.getElementById('experiences-grid');
+        grid.innerHTML = experiences.map(createExperienceCard).join('');
+        addMarkersToMap(experiences);
+        addEventListenersToButtons();
+    }
+
+    function renderItinerary() {
+        const panel = document.getElementById('itinerary-panel');
+        let totalCost = 0;
+        panel.innerHTML = Object.entries(currentItinerary.days).map(([dayNumber, dayData]) => {
+            const itemsHtml = dayData.items.length > 0 ? dayData.items.map(item => {
+                totalCost += item.price;
+                const itemHtml = `
+                    <div class="flex items-start gap-4 rounded-lg bg-card-light dark:bg-card-dark p-4 shadow-sm">
+                        <span class="material-symbols-outlined mt-1 text-primary">drag_indicator</span>
+                        <div class="w-16 shrink-0 bg-center bg-no-repeat aspect-square bg-cover rounded-md" style='background-image: url("${item.imageUrl}");'></div>
+                        <div class="flex-1">
+                            <p class="text-sm text-text-light/70 dark:text-text-dark/70">${item.type}</p>
+                            <p class="font-semibold">${item.name}</p>
+                        </div>
+                        <button data-remove-id="${item.id}" class="remove-btn text-text-light/50 dark:text-text-dark/50 hover:text-secondary dark:hover:text-secondary">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                `;
+                return itemHtml;
+            }).join('') : `
+                <div class="flex h-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-subtle-light dark:border-subtle-dark text-center">
+                    <span class="material-symbols-outlined text-4xl text-text-light/50 dark:text-text-dark/50">add_location_alt</span>
+                    <p class="font-semibold">Your adventure awaits!</p>
+                    <p class="text-sm text-text-light/70 dark:text-text-dark/70">Add an experience to plan your day.</p>
+                </div>
+            `;
+
+            return `
+                <div class="mb-4">
+                    <h3 class="font-bold text-lg mb-2">${dayData.title}</h3>
+                    <div class="space-y-3">${itemsHtml}</div>
+                </div>
+            `;
+        }).join('');
+        
+        // Update total cost
+        document.getElementById('total-cost').textContent = `₹${totalCost.toLocaleString('en-IN')}`;
+        addMarkersToMap(Object.values(currentItinerary.days).flatMap(day => day.items));
+        addEventListenersToButtons();
+    }
+
+    // --- Event Handling ---
+
+    function handleAddItem(expId) {
+        const experience = allExperiences.find(exp => exp.id === expId);
+        if (experience) {
+            // For simplicity, add to Day 1. A real app would have a day selector.
+            currentItinerary.days[1].items.push(experience);
+            renderItinerary();
+            renderExperiences(); // Re-render to update the button state
+        }
+    }
+
+    function handleRemoveItem(expId) {
+        Object.keys(currentItinerary.days).forEach(day => {
+            currentItinerary.days[day].items = currentItinerary.days[day].items.filter(item => item.id !== expId);
+        });
+        renderItinerary();
+        renderExperiences(); // Re-render to update the button state
+    }
+
+    function addEventListenersToButtons() {
+        document.querySelectorAll('.add-btn').forEach(btn => {
+            btn.onclick = () => handleAddItem(btn.dataset.expId);
+        });
+        document.querySelectorAll('.remove-btn').forEach(btn => {
+            btn.onclick = () => handleRemoveItem(btn.dataset.removeId);
+        });
+    }
+
+    async function bookTrip() {
+        const user = auth.currentUser;
+        if (!user) {
+            alert("Please log in to save your itinerary.");
+            window.location.href = './login.html';
+            return;
+        }
+
+        const travelDate = document.getElementById('travel-dates').value;
+        if (!travelDate) {
+            alert("Please select a travel date before booking.");
+            return;
+        }
+
+        const totalCost = document.getElementById('total-cost').textContent;
+        const tripName = document.getElementById('itinerary-title').textContent.replace('Your Itinerary: ', '').replace('Your Itinerary', 'Unnamed Trip');
+
+        if (currentItinerary.days[1].items.length === 0 && currentItinerary.days[2].items.length === 0) {
+            alert("Please add at least one item to your itinerary before booking.");
+            return;
+        }
+
+        try {
+            const docRef = await addDoc(collection(db, "itineraries"), {
+                userId: user.uid,
+                tripName: tripName,
+                travelDate: travelDate,
+                itineraryData: currentItinerary, // Storing the whole structure
+                totalCost: totalCost,
+                createdAt: serverTimestamp()
+            });
+
+            // Send confirmation email using EmailJS
+            const allItems = Object.values(currentItinerary.days).flatMap(day => day.items);
+            const numericTotalCost = allItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+            const templateParams = {
+                to_name: user.displayName || 'Valued Customer',
+                to_email: user.email,
+                website_link: window.location.origin,
+                order_id: docRef.id,
+                // The new template expects an array of objects for the items
+                orders: allItems.map(item => ({
+                    name: item.name,
+                    image_url: item.imageUrl,
+                    units: 1, // Assuming 1 unit per item
+                    price: item.price.toLocaleString('en-IN')
+                })),
+                // The new template has separate cost fields
+                cost: {
+                    shipping: "0", // Add missing parameter
+                    tax: "0", // Add missing parameter
+                    total: numericTotalCost.toLocaleString('en-IN'),
+                },
+                email: user.email // Add missing parameter for the footer
+            };
+
+            await emailjs.send('service_6uizo77', 'template_725sefa', templateParams);
+
+            alert(`Trip to ${tripName} booked successfully! You can now view it in 'My Trips'.`);
+            window.location.href = './profile.html'; // Redirect to profile page
+        } catch (e) {
+            console.error("Error adding document: ", e);
+            alert("There was an error saving your itinerary. Please try again.");
+        }
+    }
+
+    function handleSearch() {
+        const query = document.getElementById('destination-search').value.trim().toLowerCase();
+        const itineraryTitle = document.getElementById('itinerary-title');
+
+        if (!query) {
+            itineraryTitle.textContent = "Your Itinerary";
+            allExperiences = [];
+            renderExperiences([]);
+            map.setView([22.5937, 78.9629], 5); // Reset map to India
+            return;
+        }
+
+        const foundCityKey = Object.keys(internalDB).find(key => key.includes(query));
+        if (foundCityKey) {
+            const cityData = internalDB[foundCityKey];
+            allExperiences = cityData.places;
+            itineraryTitle.textContent = `Your Itinerary: ${cityData.displayName}`;
+            map.setView([cityData.lat, cityData.lon], 12);
+            renderExperiences(allExperiences);
+        } else {
+            alert(`Location "${query}" not found in our database. Try Jaipur, Goa, or Delhi.`);
+        }
+    }
+
+    // --- Initial Load ---
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Check for items passed from the search-results page
+        const tripBuilderItems = localStorage.getItem('tripBuilderItems');
+        if (tripBuilderItems) {
+            const items = JSON.parse(tripBuilderItems);
+
+            items.forEach(item => {
+                // Add the full item object to the itinerary
+                if (item && !currentItinerary.days[1].items.some(i => i.id === item.id)) {
+                     currentItinerary.days[1].items.push(item);
+                }
+            });
+            localStorage.removeItem('tripBuilderItems'); // Clean up after use
+        }
+
+        // Initialize EmailJS with your Public Key
+        emailjs.init({
+            publicKey: "P97d8uvxM6gfkzz-t",
+        });
+
+        // Initial render is empty until a search is made
+        initMap();
+        renderExperiences([]);
+        renderItinerary();
+
+        const saveButton = document.querySelector('.bg-secondary');
+        saveButton.addEventListener('click', bookTrip); // Also connect the top save button
+
+        const bookButton = document.getElementById('book-trip-btn');
+        bookButton.addEventListener('click', bookTrip);
+
+        const searchInput = document.getElementById('destination-search');
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') handleSearch();
+        });
+    });
+</script>
 </body></html>

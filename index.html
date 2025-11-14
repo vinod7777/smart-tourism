@@ -49,16 +49,17 @@
 <div class="flex min-h-screen w-full flex-col">
 <!-- Top Navigation Bar -->
 <header class="sticky top-0 z-20 flex w-full items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 px-6 py-3 backdrop-blur-sm md:px-10">
-<div class="flex items-center gap-4">
+<a href="./index.html" class="flex items-center gap-4">
 <span class="material-symbols-outlined text-primary text-2xl">
                     travel_explore
                 </span>
 <h2 class="text-xl font-bold tracking-[-0.015em] text-text-light dark:text-text-dark">Cultura</h2>
-</div>
+</a>
 <div class="hidden items-center gap-9 md:flex">
-<a class="text-sm font-medium text-text-light dark:text-text-dark" href="#">Home</a>
-<a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="#">My Trips</a>
-<a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="#">Blog</a>
+<a class="text-sm font-medium text-text-light dark:text-text-dark" href="./index.html">Home</a>
+<a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="./profile.html">My Trips</a>
+<a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="./city-explorer.html">Search Location</a>
+<a class="text-sm font-medium text-muted-light dark:text-muted-dark" href="./booking.html">Book Trip</a>
 </div>
 <div class="flex items-center gap-2">
     <a href="./login.html" id="login-btn" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-text-light text-sm font-bold leading-normal tracking-[0.015em]">
@@ -86,7 +87,7 @@
 <div class="text-muted-light dark:text-muted-dark flex bg-card-light dark:bg-card-dark items-center justify-center pl-4 rounded-l-lg border border-border-light dark:border-border-dark border-r-0">
 <span class="material-symbols-outlined">search</span>
 </div>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-1 focus:ring-primary border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark h-full placeholder:text-muted-light dark:placeholder:text-muted-dark px-4 border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search destinations..." value=""/>
+<input id="search-input" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-1 focus:ring-primary border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark h-full placeholder:text-muted-light dark:placeholder:text-muted-dark px-4 border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search destinations..." value=""/>
 </div>
 </label>
 <!-- Accordion Filters -->
@@ -96,7 +97,7 @@
 <p class="text-sm font-medium text-text-light dark:text-text-dark">Interest</p>
 <span class="material-symbols-outlined text-text-light dark:text-text-dark group-open:rotate-180 transition-transform">expand_more</span>
 </summary>
-<div class="flex flex-col gap-2 pt-2">
+<div id="interest-filters" class="flex flex-col gap-2 pt-2">
 <label class="flex gap-x-3 items-center">
 <input checked="" class="h-5 w-5 rounded border-border-light dark:border-border-dark border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
 <p class="text-sm font-normal text-text-light dark:text-text-dark">History &amp; Heritage</p>
@@ -113,6 +114,10 @@
 <input class="h-5 w-5 rounded border-border-light dark:border-border-dark border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
 <p class="text-sm font-normal text-text-light dark:text-text-dark">Art &amp; Artisans</p>
 </label>
+<label class="flex gap-x-3 items-center">
+<input class="h-5 w-5 rounded border-border-light dark:border-border-dark border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<p class="text-sm font-normal text-text-light dark:text-text-dark">Nature</p>
+</label>
 </div>
 </details>
 <details class="flex flex-col border-t border-border-light dark:border-border-dark py-2 group">
@@ -127,12 +132,17 @@
 <p class="text-sm font-medium text-text-light dark:text-text-dark">Price Range</p>
 <span class="material-symbols-outlined text-text-light dark:text-text-dark group-open:rotate-180 transition-transform">expand_more</span>
 </summary>
-<!-- Content for Price Range filter -->
+<div id="price-range-filter" class="flex flex-col gap-2 pt-2">
+<div class="flex justify-between items-center text-sm text-muted-light dark:text-muted-dark">
+<span>₹0</span><span id="price-range-value">₹70000</span>
+</div>
+<input id="price-range-slider" type="range" min="0" max="70000" value="70000" class="w-full h-2 bg-border-light rounded-lg appearance-none cursor-pointer dark:bg-border-dark accent-primary"/>
+</div>
 </details>
 </div>
 <div class="mt-auto flex flex-col gap-2">
-<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 bg-primary text-text-light text-sm font-bold">Apply Filters</button>
-<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 text-sm font-medium text-muted-light dark:text-muted-dark">Reset</button>
+<button id="apply-filters-btn" class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 bg-primary text-text-light text-sm font-bold">Apply Filters</button>
+<button id="reset-filters-btn" class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 text-sm font-medium text-muted-light dark:text-muted-dark">Reset</button>
 </div>
 </aside>
 <!-- Main Content Area -->
@@ -140,7 +150,7 @@
 <!-- Hero Section -->
 <section class="relative flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-cover bg-center p-8 text-center text-white">
 <div class="absolute inset-0 bg-black/50 z-0"></div>
-<div class="absolute inset-0 bg-cover bg-center" data-alt="A vibrant, sunlit Italian coastal town with colorful houses built into the cliffside." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAuj52fR33bcl2j7R4mJMI-K3YHNBAcX3gkqQnHBXtRvFHE-w63v9eJYmf0owQBa-Y0zcQ0N8bAXUzEfLlFOMvmjNczWGPkL0W8ZBnoAE1Lcx5EWtcNi3RCMVv8PmyNAtLgaguSp8rZ8NLmZgjaOIwyoSSqxKREsQ88HjQ945gtaHiOxsHOPge7uCo37DMJHuLQqaOg1gDsvvTqYt5r3tBudhBUXp55kbmAWwWaQqW4wAQiGdHM-B2I1xe7xacpb4aI-GBOJ9Ps2qg')"></div>
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A vibrant, sunlit Italian coastal town with colorful houses built into the cliffside." style="background-image: url('https://source.unsplash.com/1600x900/?travel,culture,vibrant')"></div>
 <div class="relative z-10 flex flex-col items-center gap-4">
 <h1 class="text-4xl font-extrabold md:text-5xl">Your Authentic Cultural Journey Starts Here.</h1>
 <p class="max-w-xl text-lg text-white/90">Discover the world's richest history, food, and traditions.</p>
@@ -150,9 +160,6 @@
 <nav class="mt-8 border-b border-border-light dark:border-border-dark">
 <div class="flex items-center gap-6">
 <a class="border-b-2 border-primary py-3 text-sm font-semibold text-text-light dark:text-text-dark" href="#">Explore All</a>
-<a class="border-b-2 border-transparent py-3 text-sm font-medium text-muted-light dark:text-muted-dark hover:text-text-light dark:hover:text-text-dark" href="#">Destinations</a>
-<a class="border-b-2 border-transparent py-3 text-sm font-medium text-muted-light dark:text-muted-dark hover:text-text-light dark:hover:text-text-dark" href="#">Food Trails</a>
-<a class="border-b-2 border-transparent py-3 text-sm font-medium text-muted-light dark:text-muted-dark hover:text-text-light dark:hover:text-text-dark" href="#">Stays</a>
 </div>
 </nav>
 <!-- Content Grid Section -->
@@ -162,113 +169,38 @@
 <a class="text-sm font-medium text-primary hover:underline" href="#">See All</a>
 </div>
 <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="destinations-grid">
-<!-- Card 1 -->
-<div class="group flex cursor-pointer flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
-<div class="relative overflow-hidden">
-<img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="The Taj Mahal in Agra, India, reflected in its pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD034tjIKxo_IdFmv8DU3YfLqGqQpQWLVrED33QYbfnyw0TImyvIsZ6-AV3nUobz8CDY015Q3HeBUi_WKqn-THoxyXA_C9ohwZ1-AuKK-oNK0UEIgUygsDPfNUbiHNV-roGcFs87LFdPpoQ7SFG2KPBRyl5TXbZWrGUyBlTHu48BxZRtMEXu36A22XiXTtomsSIwfKNa5jfzAp40SsWG3m6Xp_kRQTgxj_LrKuxCqhHSQCvy_XETPmWeP1VYjKu6Oi1wB4Yy6iTlEQ"/>
-<button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
-<span class="material-symbols-outlined text-xl">favorite_border</span>
-</button>
-</div>
-<div class="flex flex-1 flex-col p-4">
-<h4 class="text-lg font-bold">The Taj Mahal, Agra</h4>
-<p class="mt-1 text-sm text-muted-light dark:text-muted-dark">An ivory-white marble mausoleum, a symbol of eternal love.</p>
-<div class="mt-4 flex flex-wrap items-center gap-2">
-<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">History</span>
-<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Architecture</span>
-<span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
-<span class="material-symbols-outlined !text-sm text-amber-500">star</span>4.9
-                                    </span>
-</div>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="group flex cursor-pointer flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
-<div class="relative overflow-hidden">
-<img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Hawa Mahal in Jaipur, the Pink City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjEoQFTbxYFgSiAhq_FoSZ2b6YL03qKHIfx6Gt16Mv1Xe4Hj-4zc7WZ3vFtBR1vYSYZxlzzJ6jsfPp0tOvWM0EhSJEQRIA3LXAtxU1Z12t7ThPvKvY-xczYt2CzlwMyQlJg3kKc_U8T6CGQVTA25O8yzMW3HyDreoi3gUYeORhj4SBkzJ16J5VMV54kxYvZfBk153taZqZkWPFWkCM3p0LNdDzQRl9_9SU_j8qxCHw07smWroMl0wwldsj2XxObAM9P4IabCBxEp4"/>
-<button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
-<span class="material-symbols-outlined text-xl">favorite_border</span>
-</button>
-</div>
-<div class="flex flex-1 flex-col p-4">
-<h4 class="text-lg font-bold">Jaipur, The Pink City</h4>
-<p class="mt-1 text-sm text-muted-light dark:text-muted-dark">Explore royal palaces and vibrant markets.</p>
-<div class="mt-4 flex flex-wrap items-center gap-2">
-<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">History</span>
-<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Culture</span>
-<span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
-<span class="material-symbols-outlined !text-sm text-amber-500">star</span>4.8
-                                    </span>
-</div>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="group flex cursor-pointer flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
-<div class="relative overflow-hidden">
-<img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Ghats along the Ganges river in Varanasi at sunrise" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcV0GlJt-rVnLNxaGZUFrbCJxSmk4gOrGoNW_PKZAbIoLFTDcH0yrxXAHVhbpDjIHh0x0itBASt1UGibElyq5JQzpn4mz2rW0ffYwqxxnhcF4q6TXmhCxE8TidRA0Y-0qMYIs8kc9l5CMT47EA4W23nKKKs089nrkNq9GrkGpjQcYw0JYfNw6WceM51OqMhdKtyuGJ13oDTVsZ_Ysx1KwfIb9Eca60jplwGL8OkCJsIOETfm-oX3Io5BkJn28YvHJlx6PaZAnWWJw"/>
-<button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
-<span class="material-symbols-outlined text-xl">favorite_border</span>
-</button>
-</div>
-<div class="flex flex-1 flex-col p-4">
-<h4 class="text-lg font-bold">Varanasi's Spiritual Ghats</h4>
-<p class="mt-1 text-sm text-muted-light dark:text-muted-dark">Experience the spiritual heart of India.</p>
-<div class="mt-4 flex flex-wrap items-center gap-2">
-<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Spiritual</span>
-<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Culture</span>
-<span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
-<span class="material-symbols-outlined !text-sm text-amber-500">star</span>4.9
-                                    </span>
-</div>
-</div>
-</div>
-<!-- Card 4 -->
-<div class="group flex cursor-pointer flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl">
-<div class="relative overflow-hidden">
-<img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Houseboat on the serene Kerala backwaters" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaCf8A6iabWoFkilI_ZwqUZwHyucWkQXXpnbwl0ovLz4mMN4HEA5-HTsWKpqfVAoiolouTT9wypapKOaYiV7fnn28cwdB0OPmL43e8lgWEQFpa9XSfyt50OuakLzXXoYpo1imXxWPuGcOrNc_XP7asQ_IAfwRNNUCe2kQ83I9-zB4EoCXahaRyTx_PXxWutKw9yPA6KoLE9bVX6i60sHytpqeXtqnN4HGT_hP4Ry1-FzImVK-JpJOYtO8X1TKKmVGg34bpQyKCdBg"/>
-<button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
-<span class="material-symbols-outlined text-xl">favorite_border</span>
-</button>
-</div>
-<div class="flex flex-1 flex-col p-4">
-<h4 class="text-lg font-bold">Kerala Backwaters</h4>
-<p class="mt-1 text-sm text-muted-light dark:text-muted-dark">Cruise through tranquil palm-fringed canals.</p>
-<div class="mt-4 flex flex-wrap items-center gap-2">
-<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Nature</span>
-<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Relaxation</span>
-<span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
-<span class="material-symbols-outlined !text-sm text-amber-500">star</span>4.8
-                                    </span>
-</div>
-</div>
-</div>
+<!-- Dynamic destination cards will be inserted here -->
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading destinations...</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading destinations...</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading destinations...</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading destinations...</div>
 </div>
 </section>
 <!-- Curated Food Trails Section -->
 <section class="mt-12">
 <div class="flex items-center justify-between">
 <h3 class="text-2xl font-bold">Curated Food Trails</h3>
-<a class="text-sm font-medium text-primary hover:underline" href="#">See All</a>
+<a class="text-sm font-medium text-primary hover:underline" href="./food.html">See All</a>
 </div>
-<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="food-trails-grid">
 <!-- Placeholder for food trail cards -->
-<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Tuscan Wine &amp; Dine</div>
-<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Tokyo Ramen Tour</div>
-<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Bangkok Street Food</div>
-<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Peruvian Ceviche Quest</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading food trails...</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading food trails...</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading food trails...</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading food trails...</div>
 </div>
 </section>
 <!-- Unique Stays Section -->
 <section class="mt-12">
 <div class="flex items-center justify-between">
 <h3 class="text-2xl font-bold">Unique Stays</h3>
-<a class="text-sm font-medium text-primary hover:underline" href="#">See All</a>
+<a class="text-sm font-medium text-primary hover:underline" href="./hotel.html">See All</a>
 </div>
-<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" id="stays-grid">
 <!-- Placeholder for accommodation cards -->
-<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Stay in a French Chateau</div>
-<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Japanese Ryokan Experience</div>
-<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Tuscan Farmhouse</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading stays...</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading stays...</div>
+<div class="h-64 rounded-lg bg-card-light dark:bg-card-dark shadow-sm flex items-center justify-center text-muted-light dark:text-muted-dark text-sm">Loading stays...</div>
 </div>
 </section>
 </main>
@@ -276,4 +208,299 @@
 </div>
 <script type="module" src="./firebase_config.js"></script>
 <script type="module" src="./auth_ui.js"></script>
+<script type="module">
+    import { db } from './firebase_config.js';
+    import { collection, getDocs, limit, query as firestoreQuery } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+ 
+    const OVERPASS_API_URL = "https://overpass-api.de/api/interpreter";
+    const DEFAULT_PLACEHOLDER_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='100%' height='100%' fill='%23e5e7eb'/%3E%3Ctext x='50%' y='50%' font-family='sans-serif' font-size='16px' fill='%239ca3af' dominant-baseline='middle' text-anchor='middle'%3EImage not available%3C/text%3E%3C/svg%3E";
+ 
+    /**
+     * Creates an HTML element for a destination card.
+     * @param {object} dest - The destination data.
+     * @returns {HTMLElement} The card element.
+     */
+    function createDestinationCard(dest) {
+        const card = document.createElement('a');
+        card.href = `./destination.html?id=${dest.id}`;
+        card.className = "group flex flex-col overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-sm transition-shadow duration-300 hover:shadow-xl";
+ 
+        const tagsHtml = dest.tags.map(tag => 
+            `<span class="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">${tag}</span>`
+        ).join('');
+ 
+        card.innerHTML = `
+            <div class="relative overflow-hidden">
+                <img class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105" src="${dest.imageUrl}" alt="${dest.altText}" onerror="this.onerror=null;this.src='${DEFAULT_PLACEHOLDER_IMAGE}';">
+                <button class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/40">
+                    <span class="material-symbols-outlined text-xl">favorite_border</span>
+                </button>
+            </div>
+            <div class="flex flex-1 flex-col p-4">
+                <h4 class="text-lg font-bold">${dest.name}</h4>
+                <p class="mt-1 text-sm text-muted-light dark:text-muted-dark">${dest.description}</p>
+                <div class="mt-auto pt-4 flex flex-wrap items-center gap-2">
+                    ${tagsHtml}
+                    <span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-text-light dark:text-text-dark">
+                        <span class="material-symbols-outlined !text-sm text-amber-500">star</span>${dest.rating}
+                    </span>
+                </div>
+            </div>
+        `;
+        return card;
+    }
+ 
+    /**
+     * Creates a simple overlay card for things like food trails and stays.
+     * @param {object} item - The item data.
+     * @returns {HTMLElement} The card element.
+     */
+    function createSimpleCard(item) {
+        const card = document.createElement('div');
+        card.className = "group relative h-64 flex items-end justify-start rounded-lg bg-card-light dark:bg-card-dark shadow-sm overflow-hidden p-4 text-white";
+        card.innerHTML = `
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('${item.imageUrl}')"></div>
+            <div class="relative z-10">
+                 <h4 class="text-lg font-bold">${item.name}</h4>
+                 <p class="text-sm text-white/80">${item.description}</p>
+            </div>
+        `;
+        return card;
+    }
+ 
+    /**
+     * Fetches data from the Overpass API.
+     * @param {string} query - The Overpass QL query part.
+     * @returns {Promise<Array>} A promise that resolves to an array of elements.
+     */
+    async function fetchOverpassData(query) {
+        let attempts = 0;
+        const maxAttempts = 3;
+        let delay = 1000; // Initial delay of 1 second
+
+        while (attempts < maxAttempts) {
+            try {
+                const response = await fetch(OVERPASS_API_URL, {
+                    method: 'POST',
+                    body: `[out:json];${query}`
+                });
+                if (!response.ok) {
+                    throw new Error(`Overpass API request failed: ${response.statusText}`);
+                }
+                const data = await response.json();
+                return data.elements;
+            } catch (error) {
+                attempts++;
+                console.error(`Attempt ${attempts} failed:`, error);
+                if (attempts === maxAttempts) throw error; // If it's the last attempt, re-throw the error
+                await new Promise(resolve => setTimeout(resolve, delay)); // Wait before retrying
+                delay *= 2; // Exponential backoff - double the delay for the next attempt
+            }
+        }
+    }
+ 
+    /**
+     * Renders a grid section using data from the Overpass API.
+     * @param {string} gridId - The ID of the grid container element.
+     * @param {string} overpassQuery - The Overpass QL query.
+     * @param {number} itemLimit - The maximum number of items to render.
+     * @param {string} placeholderImageQuery - The search term for Unsplash placeholder images.
+     */
+    async function renderOverpassSection(gridId, overpassQuery, itemLimit, placeholderImageQuery) {
+        const grid = document.getElementById(gridId);
+        // Initial state is already set by the static HTML placeholders
+        try {
+            const items = await fetchOverpassData(overpassQuery);
+            if (!items || items.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-muted-light dark:text-muted-dark">No items found via Overpass API.</p>`;
+                return;
+            }
+ 
+            grid.innerHTML = ''; // Clear loading placeholders
+            
+            // Shuffle and slice the results to get a random set
+            const randomItems = items.sort(() => 0.5 - Math.random()).slice(0, itemLimit);
+ 
+            randomItems.forEach((item, index) => {
+                const cardData = {
+                    name: item.tags.name || "Unnamed Place",
+                    description: item.tags.cuisine ? `Cuisine: ${item.tags.cuisine.split(';').map(c => c.charAt(0).toUpperCase() + c.slice(1)).join(', ')}` : (item.tags.amenity || item.tags.tourism || "Cultural Spot"),
+                    // Using a dynamic image service as OSM doesn't provide images
+                    imageUrl: `https://source.unsplash.com/800x600/?${placeholderImageQuery},${index}`
+                };
+                grid.append(createSimpleCard(cardData));
+            });
+        } catch (error) {
+            console.error(`Error fetching Overpass data for ${gridId}: `, error);
+            grid.innerHTML = `<p class="col-span-full text-center text-red-500">Could not load items. The external service may be temporarily unavailable.</p>`;
+        }
+    }
+ 
+    /**
+     * Renders a grid section using data from a Firestore collection.
+     * @param {string} collectionName - The name of the Firestore collection.
+     * @param {string} gridId - The ID of the grid container element.
+     * @param {Function} cardCreator - The function to create a card element.
+     * @param {number} itemLimit - The maximum number of items to render.
+     */
+    async function renderFirestoreSection(collectionName, gridId, cardCreator, itemLimit) {
+        const grid = document.getElementById(gridId);
+        // Initial state is already set by the static HTML placeholders
+        try {
+            const q = firestoreQuery(collection(db, collectionName), limit(itemLimit));
+            const querySnapshot = await getDocs(q);
+            if (querySnapshot.empty) {
+                grid.innerHTML = `<p class="col-span-full text-center text-muted-light dark:text-muted-dark">No items found in ${collectionName}.</p>`;
+                return;
+            }
+            grid.innerHTML = ''; // Clear loading placeholders
+            const cardElements = querySnapshot.docs.map(doc => cardCreator({ id: doc.id, ...doc.data() }));
+            grid.append(...cardElements);
+        } catch (error) {
+            console.error(`Error fetching ${collectionName}: `, error);
+            grid.innerHTML = `<p class="col-span-full text-center text-red-500">Error loading items. Please try again later.</p>`;
+        }
+    }
+ 
+    // --- Static Data for Development ---
+
+    const staticDestinations = [
+        {
+            id: 'dest1',
+            name: 'Jaipur, Rajasthan',
+            description: 'The Pink City, known for its stunning forts, palaces, and vibrant markets.',
+            imageUrl: 'https://source.unsplash.com/800x600/?jaipur,palace',
+            altText: 'Hawa Mahal in Jaipur',
+            tags: ['History & Heritage', 'Art & Artisans'],
+            rating: 4.9,
+            price: 28000
+        },
+        {
+            id: 'dest2',
+            name: 'Varanasi, Uttar Pradesh',
+            description: 'A spiritual city on the banks of the Ganges, with ancient rituals and narrow alleys.',
+            imageUrl: 'https://source.unsplash.com/800x600/?varanasi,ganges',
+            altText: 'Ghats of Varanasi at sunrise',
+            tags: ['History & Heritage', 'Local Lifestyle'],
+            rating: 4.8,
+            price: 12000
+        },
+        {
+            id: 'dest3',
+            name: 'Kerala Backwaters',
+            description: 'God\'s Own Country, famous for its serene backwaters and lush greenery.',
+            imageUrl: 'https://source.unsplash.com/800x600/?kerala,backwaters',
+            altText: 'A houseboat on the Kerala backwaters',
+            tags: ['Local Lifestyle', 'Nature'],
+            rating: 4.7,
+            price: 50000
+        },
+        {
+            id: 'dest4',
+            name: 'Goa',
+            description: 'A coastal paradise with beautiful beaches, Portuguese architecture, and a laid-back vibe.',
+            imageUrl: 'https://source.unsplash.com/800x600/?goa,beach',
+            altText: 'A sunny beach in Goa',
+            tags: ['Culinary Delights', 'History & Heritage'],
+            rating: 4.9,
+            price: 68000
+        }
+    ];
+
+    const staticFoodTrails = [
+        { name: 'Delhi Street Food Crawl', description: 'Explore the chaotic and delicious food scene of Old Delhi.', imageUrl: 'https://source.unsplash.com/800x600/?delhi,food' },
+        { name: 'Mumbai Vada Pav Trail', description: 'A journey to find the best Vada Pav in its city of origin.', imageUrl: 'https://source.unsplash.com/800x600/?mumbai,street,food' },
+        { name: 'Hyderabadi Biryani Quest', description: 'Savor the rich and aromatic flavors of authentic Hyderabadi Biryani.', imageUrl: 'https://source.unsplash.com/800x600/?biryani,food' },
+        { name: 'Kolkata Sweets Tour', description: 'Indulge in the legendary sweet shops and desserts of Kolkata.', imageUrl: 'https://source.unsplash.com/800x600/?kolkata,sweets' }
+    ];
+
+    const staticStays = [
+        { name: 'Kerala Houseboat', description: 'Float along the serene backwaters in a traditional Kettuvallam.', imageUrl: 'https://source.unsplash.com/800x600/?kerala,houseboat' },
+        { name: 'Rajasthan Haveli Stay', description: 'Stay in a historic, intricately carved mansion in the heart of Rajasthan.', imageUrl: 'https://source.unsplash.com/800x600/?rajasthan,haveli' },
+        { name: 'Himalayan Homestay', description: 'Experience tranquility and stunning mountain views in a cozy homestay.', imageUrl: 'https://source.unsplash.com/800x600/?himalayas,homestay' }
+    ];
+
+    function renderStaticGrid(gridId, data, cardCreator) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        grid.innerHTML = ''; // Clear loading placeholders
+        const cardElements = data.map(item => cardCreator(item));
+        grid.append(...cardElements);
+    }
+
+    function applyAllFilters() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        const filterCheckboxes = document.querySelectorAll('#interest-filters input[type="checkbox"]');
+        const maxPrice = document.getElementById('price-range-slider').value;
+        const selectedTags = [];
+        filterCheckboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                // Get the text from the <p> tag within the same <label>
+                const labelText = checkbox.nextElementSibling.textContent;
+                selectedTags.push(labelText);
+            }
+        });
+
+        const filteredDestinations = staticDestinations.filter(destination => {
+            const nameMatch = destination.name.toLowerCase().includes(searchTerm);
+            
+            // If no tags are selected, tag check should be true. Otherwise, check for a match.
+            const tagMatch = selectedTags.length === 0 || destination.tags.some(tag => selectedTags.includes(tag));
+
+            const priceMatch = destination.price <= maxPrice;
+
+            return nameMatch && tagMatch && priceMatch;
+        });
+
+        renderStaticGrid('destinations-grid', filteredDestinations, createDestinationCard);
+    }
+
+    // --- Initial data load ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        const filterCheckboxes = document.querySelectorAll('#interest-filters input[type="checkbox"]');
+        const priceSlider = document.getElementById('price-range-slider');
+        const priceValue = document.getElementById('price-range-value');
+        const applyBtn = document.getElementById('apply-filters-btn');
+        const resetBtn = document.getElementById('reset-filters-btn');
+
+        // Initial render with filters applied (all are checked by default in the HTML)
+        applyAllFilters();
+        renderStaticGrid('food-trails-grid', staticFoodTrails, createSimpleCard);
+        renderStaticGrid('stays-grid', staticStays, createSimpleCard);
+
+        // --- Event Listeners ---
+
+        // Change button to redirect to a search results page
+        applyBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                window.location.href = `./search-results.html?q=${encodeURIComponent(searchTerm)}`;
+            }
+        });
+
+        // Also apply filters when typing in search
+        searchInput.addEventListener('input', applyAllFilters);
+
+        // Update price value display and filter when slider moves
+        priceSlider.addEventListener('input', () => {
+            priceValue.textContent = `₹${parseInt(priceSlider.value).toLocaleString('en-IN')}`;
+            // We can call applyAllFilters directly for a live update
+            applyAllFilters();
+        });
+
+        // Reset all filters
+        resetBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            priceSlider.value = priceSlider.max;
+            priceValue.textContent = `₹${parseInt(priceSlider.max).toLocaleString('en-IN')}`;
+            // Re-apply filters to show all destinations
+            applyAllFilters();
+        });
+    });
+
+</script>
 </body></html>

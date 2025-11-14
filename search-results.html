@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Search Results - Cultura</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ee8c2b", "background-light": "#fcfaf8", "background-dark": "#1b140d", "text-light": "#1b140d", "text-dark": "#f3ede7", "card-light": "#ffffff", "card-dark": "#2a221a", "border-light": "#f3ede7", "border-dark": "#393027", "muted-light": "#9a734c", "muted-dark": "#a89078"
+                    },
+                    fontFamily: { "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+    <div class="flex min-h-screen w-full flex-col">
+        <!-- Header -->
+        <header class="sticky top-0 z-20 flex w-full items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 px-6 py-3 backdrop-blur-sm md:px-10">
+            <a href="./index.html" class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-2xl">travel_explore</span>
+                <h2 class="text-xl font-bold tracking-[-0.015em] text-text-light dark:text-text-dark">Cultura</h2>
+            </a>
+            <div class="flex items-center gap-2">
+                <a href="./login.html" id="login-btn" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-text-light text-sm font-bold">Log In</a>
+                <div id="profile-container" class="hidden items-center gap-2">
+                    <span id="user-name" class="text-sm font-medium"></span>
+                    <div id="user-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"></div>
+                    <button id="logout-btn" class="flex items-center justify-center h-10 px-2 text-muted-light dark:text-muted-dark hover:text-primary"><span class="material-symbols-outlined">logout</span></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="w-full flex-1 p-6 lg:p-10">
+            <h1 class="text-4xl font-extrabold">Build Your Trip to <span id="location-name" class="text-primary">...</span></h1>
+            <p class="mt-2 text-lg text-muted-light dark:text-muted-dark">Select the experiences you want to add to your itinerary.</p>
+
+            <!-- Attractions Section -->
+            <section class="mt-8">
+                <h2 class="text-2xl font-bold mb-4">Places to Visit</h2>
+                <div id="attractions-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Dynamic content here -->
+                </div>
+            </section>
+
+            <!-- Hotels Section -->
+            <section class="mt-12">
+                <h2 class="text-2xl font-bold mb-4">Places to Stay</h2>
+                <div id="hotels-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Dynamic content here -->
+                </div>
+            </section>
+
+            <!-- Food Section -->
+            <section class="mt-12">
+                <h2 class="text-2xl font-bold mb-4">Places to Eat</h2>
+                <div id="food-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Dynamic content here -->
+                </div>
+            </section>
+
+            <!-- Floating Action Button -->
+            <div class="sticky bottom-6 mt-8 flex justify-end">
+                <button id="proceed-btn" class="flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-lg font-bold text-white shadow-lg hover:bg-primary/90 transition-transform hover:scale-105">
+                    Proceed to Plan Trip <span id="selected-count" class="flex h-7 w-7 items-center justify-center rounded-full bg-white/30 text-sm">0</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="./firebase_config.js"></script>
+    <script type="module" src="./auth_ui.js"></script>
+    <script type="module">
+        // This data structure simulates a database. In a real app, you would fetch this from Firestore.
+        const destinationsData = [
+            {
+                id: 'dest1', name: 'Jaipur',
+                attractions: [
+                    { id: 'attr_jp_1', name: 'Hawa Mahal', description: 'The iconic "Palace of Winds" with its intricate honeycomb facade.', rating: 4.8, type: 'Attraction' },
+                    { id: 'attr_jp_2', name: 'Amber Fort', description: 'A majestic hilltop fort offering stunning views and rich history.', rating: 4.9, type: 'Attraction' },
+                    { id: 'attr_jp_3', name: 'City Palace', description: 'A sprawling complex of palaces, courtyards, and gardens.', rating: 4.7, type: 'Attraction' },
+                    { id: 'attr_jp_4', name: 'Jantar Mantar', description: 'An astronomical observatory with colossal stone instruments.', rating: 4.6, type: 'Attraction' },
+                    { id: 'attr_jp_5', name: 'Nahargarh Fort', description: 'Offers panoramic views of the city, especially at sunset.', rating: 4.7, type: 'Attraction' }
+                ],
+                hotels: [
+                    { id: 'hotel_jp_1', name: 'Rambagh Palace', description: 'An opulent former royal residence turned luxury hotel.', rating: 5.0, type: 'Hotel' },
+                    { id: 'hotel_jp_2', name: 'Zostel Jaipur', description: 'A vibrant and social hostel for budget travelers.', rating: 4.5, type: 'Hotel' },
+                    { id: 'hotel_jp_3', name: 'Samode Haveli', description: 'A traditional Indian mansion set in a verdant garden.', rating: 4.8, type: 'Hotel' },
+                    { id: 'hotel_jp_4', name: 'The Oberoi Rajvilas', description: 'A luxury resort set in 32 acres of landscaped gardens.', rating: 4.9, type: 'Hotel' }
+                ],
+                food: [
+                    { id: 'food_jp_1', name: 'Laxmi Misthan Bhandar', description: 'Famous for traditional Rajasthani sweets and thalis.', rating: 4.6, type: 'Food' },
+                    { id: 'food_jp_2', name: 'Rawat Misthan Bhandar', description: 'A must-visit for its legendary Pyaaz Kachori.', rating: 4.8, type: 'Food' },
+                    { id: 'food_jp_3', name: 'Chokhi Dhani', description: 'An ethnic village resort offering an authentic Rajasthani cultural and dining experience.', rating: 4.5, type: 'Food' },
+                    { id: 'food_jp_4', name: 'Tapri Central', description: 'A modern tea house with a great ambiance and snacks.', rating: 4.7, type: 'Food' }
+                ]
+            },
+            {
+                id: 'dest2', name: 'Varanasi',
+                attractions: [
+                    { id: 'attr_vns_1', name: 'Ganges River Ghats', description: 'The heart of Varanasi, bustling with rituals and life.', rating: 4.9, type: 'Attraction' },
+                    { id: 'attr_vns_2', name: 'Sarnath', description: 'The historic site where Buddha first taught the Dharma.', rating: 4.7, type: 'Attraction' },
+                    { id: 'attr_vns_3', name: 'Kashi Vishwanath Temple', description: 'One of the most famous Hindu temples dedicated to Lord Shiva.', rating: 4.8, type: 'Attraction' },
+                    { id: 'attr_vns_4', name: 'Manikarnika Ghat', description: 'The primary cremation ghat, a powerful place of Hindu ritual.', rating: 4.5, type: 'Attraction' }
+                ],
+                hotels: [
+                    { id: 'hotel_vns_1', name: 'Brijrama Palace', description: 'A heritage hotel on the banks of the Ganges.', rating: 4.8, type: 'Hotel' },
+                    { id: 'hotel_vns_2', name: 'GoStops Hostel', description: 'A clean and friendly hostel for backpackers near the ghats.', rating: 4.4, type: 'Hotel' },
+                    { id: 'hotel_vns_3', name: 'Taj Ganges, Varanasi', description: 'A 5-star hotel set in 40 acres of lush gardens.', rating: 4.6, type: 'Hotel' }
+                ],
+                food: [
+                    { id: 'food_vns_1', name: 'Kashi Chaat Bhandar', description: 'Famous for its delicious and varied street-side chaat.', rating: 4.7, type: 'Food' },
+                    { id: 'food_vns_2', name: 'Blue Lassi', description: 'An iconic shop serving dozens of lassi flavors for generations.', rating: 4.6, type: 'Food' },
+                    { id: 'food_vns_3', name: 'Deena Chaat Bhandar', description: 'Another legendary spot for authentic Banarasi chaat.', rating: 4.7, type: 'Food' }
+                ]
+            },
+            {
+                id: 'dest3', name: 'Kerala',
+                attractions: [
+                    { id: 'attr_kl_1', name: 'Alleppey (Alappuzha)', description: 'The hub of the backwaters, famous for houseboat cruises.', rating: 4.8, type: 'Attraction' },
+                    { id: 'attr_kl_2', name: 'Munnar Tea Gardens', description: 'Vast, rolling hills covered in emerald-green tea plantations.', rating: 4.9, type: 'Attraction' },
+                    { id: 'attr_kl_3', name: 'Fort Kochi', description: 'A charming seaside area known for its Dutch, Portuguese, and British colonial architecture.', rating: 4.7, type: 'Attraction' }
+                ],
+                hotels: [
+                    { id: 'hotel_kl_1', name: 'A traditional Houseboat', description: 'Stay overnight on the water for an immersive experience.', rating: 4.7, type: 'Hotel' },
+                    { id: 'hotel_kl_2', name: 'Kumarakom Lake Resort', description: 'A luxurious resort offering a blend of tradition and comfort.', rating: 4.9, type: 'Hotel' },
+                    { id: 'hotel_kl_3', name: 'Spice Village, Thekkady', description: 'An eco-resort modeled on a traditional tribal village.', rating: 4.8, type: 'Hotel' }
+                ],
+                food: [
+                    { id: 'food_kl_1', name: 'Karimeen Pollichathu', description: 'Pearl spot fish marinated in spices and baked in banana leaves.', rating: 4.9, type: 'Food' },
+                    { id: 'food_kl_2', name: 'Sadya on a Houseboat', description: 'A traditional vegetarian feast served on a banana leaf.', rating: 4.8, type: 'Food' },
+                    { id: 'food_kl_3', name: 'Appam and Stew', description: 'A classic Kerala breakfast of fluffy rice pancakes and a mild coconut-based stew.', rating: 4.7, type: 'Food' }
+                ]
+            },
+            {
+                id: 'dest4', name: 'Goa',
+                attractions: [
+                    { id: 'attr_goa_1', name: 'Baga Beach', description: 'One of Goa\'s most popular beaches, known for its shacks and nightlife.', rating: 4.6, type: 'Attraction' },
+                    { id: 'attr_goa_2', name: 'Old Goa (Velha Goa)', description: 'Home to magnificent Portuguese-era churches and cathedrals.', rating: 4.8, type: 'Attraction' },
+                    { id: 'attr_goa_3', name: 'Dudhsagar Falls', description: 'A majestic four-tiered waterfall located on the Mandovi River.', rating: 4.7, type: 'Attraction' },
+                    { id: 'attr_goa_4', name: 'Palolem Beach', description: 'A beautiful crescent-shaped beach known for its calm waters.', rating: 4.8, type: 'Attraction' }
+                ],
+                hotels: [
+                    { id: 'hotel_goa_1', name: 'The Leela Goa', description: 'A luxurious beach and riverside resort.', rating: 4.9, type: 'Hotel' },
+                    { id: 'hotel_goa_2', name: 'Artjuna Garden Cafe & Hostel', description: 'A bohemian-style hostel with a focus on wellness and community.', rating: 4.7, type: 'Hotel' },
+                    { id: 'hotel_goa_3', name: 'W Goa', description: 'A stylish, modern hotel overlooking Vagator Beach.', rating: 4.8, type: 'Hotel' }
+                ],
+                food: [
+                    { id: 'food_goa_1', name: 'Britto\'s Bar & Restaurant', description: 'An iconic beach shack on Baga known for its seafood.', rating: 4.5, type: 'Food' },
+                    { id: 'food_goa_2', name: 'Vindaloo at a local eatery', description: 'Try the famously fiery and flavorful Goan pork curry.', rating: 4.8, type: 'Food' },
+                    { id: 'food_goa_3', name: 'Fisherman\'s Wharf', description: 'A popular spot for authentic Goan cuisine and live music.', rating: 4.6, type: 'Food' }
+                ]
+            },
+            {
+                id: 'dest5', name: 'Delhi',
+                attractions: [
+                    { id: 'attr_del_1', name: 'Qutub Minar', description: 'A towering minaret and UNESCO World Heritage Site.', rating: 4.8, type: 'Attraction' },
+                    { id: 'attr_del_2', name: 'Humayun\'s Tomb', description: 'A stunning precursor to the Taj Mahal, with beautiful gardens.', rating: 4.9, type: 'Attraction' },
+                    { id: 'attr_del_3', name: 'India Gate', description: 'A war memorial archway in the heart of the city.', rating: 4.7, type: 'Attraction' },
+                    { id: 'attr_del_4', name: 'Chandni Chowk', description: 'A bustling, chaotic market in Old Delhi, perfect for exploring.', rating: 4.6, type: 'Attraction' }
+                ],
+                hotels: [
+                    { id: 'hotel_del_1', name: 'The Imperial', description: 'A historic luxury hotel from 1931 with a rich colonial heritage.', rating: 4.9, type: 'Hotel' },
+                    { id: 'hotel_del_2', name: 'The Lodhi', description: 'A modern, urban oasis known for its luxury and design.', rating: 4.8, type: 'Hotel' },
+                    { id: 'hotel_del_3', name: 'Andaz Delhi', description: 'A concept hotel by Hyatt near the airport, focusing on local art.', rating: 4.7, type: 'Hotel' }
+                ],
+                food: [
+                    { id: 'food_del_1', name: 'Karim\'s', description: 'Legendary Mughlai cuisine near Jama Masjid.', rating: 4.7, type: 'Food' },
+                    { id: 'food_del_2', name: 'Paranthe Wali Gali', description: 'A famous lane in Chandni Chowk for deep-fried parathas.', rating: 4.5, type: 'Food' },
+                    { id: 'food_del_3', 'name': 'Indian Accent', description: 'A world-renowned restaurant offering inventive Indian cuisine.', rating: 4.9, type: 'Food' }
+                ]
+            },
+            {
+                id: 'dest6', name: 'Mumbai',
+                attractions: [
+                    { id: 'attr_mum_1', name: 'Gateway of India', description: 'An iconic arch-monument overlooking the Arabian Sea.', rating: 4.8, type: 'Attraction' },
+                    { id: 'attr_mum_2', name: 'Marine Drive', description: 'A C-shaped boulevard along the coast, known as the Queen\'s Necklace.', rating: 4.9, type: 'Attraction' },
+                    { id: 'attr_mum_3', name: 'Elephanta Caves', description: 'A network of sculpted caves on an island in Mumbai Harbour.', rating: 4.6, type: 'Attraction' },
+                    { id: 'attr_mum_4', name: 'Dharavi Slum Tour', description: 'An insightful tour of one of Asia\'s largest slums.', rating: 4.8, type: 'Attraction' }
+                ],
+                hotels: [
+                    { id: 'hotel_mum_1', name: 'The Taj Mahal Palace', description: 'A world-renowned, iconic luxury hotel opposite the Gateway of India.', rating: 5.0, type: 'Hotel' },
+                    { id: 'hotel_mum_2', name: 'Abode Bombay', description: 'A quirky and stylish boutique hotel in Colaba.', rating: 4.7, type: 'Hotel' },
+                    { id: 'hotel_mum_3', name: 'Trident Nariman Point', description: 'A 5-star hotel offering panoramic views of Marine Drive.', rating: 4.8, type: 'Hotel' }
+                ],
+                food: [
+                    { id: 'food_mum_1', name: 'Vada Pav at a local stall', description: 'Mumbai\'s most famous and beloved street food.', rating: 4.9, type: 'Food' },
+                    { id: 'food_mum_2', name: 'Leopold Cafe', description: 'A historic and bustling cafe, popular with tourists and locals.', rating: 4.4, type: 'Food' },
+                    { id: 'food_mum_3', name: 'Bademiya Kebab', description: 'A legendary late-night spot for delicious kebabs.', rating: 4.6, type: 'Food' }
+                ]
+            }
+        ];
+
+        let selectedItems = new Set();
+
+        function createSelectableCard(item) {
+            const isSelected = selectedItems.has(item.id);
+            const ratingStars = '★'.repeat(Math.floor(item.rating || 0)) + '☆'.repeat(5 - Math.floor(item.rating || 0));
+
+            return `
+                <div data-item-id="${item.id}" class="selectable-card group cursor-pointer flex flex-col rounded-xl overflow-hidden bg-card-light dark:bg-card-dark shadow-md transition-all ${isSelected ? 'ring-4 ring-primary' : 'ring-0 ring-transparent'}">
+                    <div class="relative h-48">
+                        <img class="w-full h-full object-cover" src="https://source.unsplash.com/800x600/?${item.name.toLowerCase().replace(/ /g, ',')}" alt="${item.name}" loading="lazy"/>
+                        <div class="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm text-white">
+                            <span class="material-symbols-outlined text-lg">${isSelected ? 'check_circle' : 'add_circle'}</span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1">
+                        <h4 class="font-bold text-lg">${item.name}</h4>
+                        <p class="text-sm text-muted-light dark:text-muted-dark mt-1 flex-1">${item.description || 'A wonderful local experience.'}</p>
+                        ${item.rating ? `
+                            <div class="flex items-center gap-1 mt-2 text-amber-500">
+                                ${ratingStars}
+                                <span class="text-text-light dark:text-text-dark text-xs font-medium ml-1">${item.rating.toFixed(1)}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSection(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (data && data.length > 0) {
+                container.innerHTML = data.map(createSelectableCard).join('');
+            } else {
+                container.innerHTML = `<p class="text-muted-light dark:text-muted-dark col-span-full">No items found for this category.</p>`;
+            }
+        }
+
+        function updateSelection(cardElement) {
+            const itemId = cardElement.dataset.itemId;
+            if (!itemId) return;
+
+            if (selectedItems.has(itemId)) {
+                selectedItems.delete(itemId);
+            } else {
+                selectedItems.add(itemId);
+            }
+
+            // Just update the visual state of the clicked card instead of re-rendering everything
+            const icon = cardElement.querySelector('.material-symbols-outlined');
+            if (selectedItems.has(itemId)) {
+                cardElement.classList.add('ring-4', 'ring-primary');
+                cardElement.classList.remove('ring-0', 'ring-transparent');
+                if (icon) icon.textContent = 'check_circle';
+            } else {
+                cardElement.classList.remove('ring-4', 'ring-primary');
+                cardElement.classList.add('ring-0', 'ring-transparent');
+                if (icon) icon.textContent = 'add_circle';
+            }
+            document.getElementById('selected-count').textContent = selectedItems.size;
+        }
+
+        function initializePage(destination) {
+            renderSection('attractions-grid', destination.attractions);
+            renderSection('hotels-grid', destination.hotels);
+            renderSection('food-grid', destination.food);
+
+            document.querySelector('main').addEventListener('click', (e) => {
+                const card = e.target.closest('.selectable-card');
+                if (card) {
+                    updateSelection(card);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('q');
+
+            if (searchQuery) {
+                const locationNameEl = document.getElementById('location-name');
+                const capitalizedQuery = searchQuery.charAt(0).toUpperCase() + searchQuery.slice(1);
+                locationNameEl.textContent = capitalizedQuery;
+                document.title = `Build a Trip to ${capitalizedQuery} - Cultura`;
+
+                const destination = destinationsData.find(d => d.name.toLowerCase() === searchQuery.toLowerCase());
+
+                if (destination) {
+                    initializePage(destination);
+                } else {
+                    locationNameEl.textContent = "Not Found";
+                    const mainContent = document.querySelector('main');
+                    if (mainContent) {
+                        mainContent.innerHTML = `
+                            <h1 class="text-4xl font-extrabold">Location Not Found</h1>
+                            <p class="mt-2 text-lg text-muted-light dark:text-muted-dark">Sorry, we don't have detailed information for "${capitalizedQuery}" yet.</p>
+                            <a href="./index.html" class="mt-6 inline-block rounded-lg bg-primary px-6 py-3 text-lg font-bold text-white">Back to Home</a>
+                        `;
+                    }
+                }
+            } else {
+                const mainContent = document.querySelector('main');
+                if (mainContent) {
+                    mainContent.innerHTML = `
+                        <h1 class="text-4xl font-extrabold">No Location Searched</h1>
+                        <p class="mt-2 text-lg text-muted-light dark:text-muted-dark">Please search for a location from the homepage to begin building your trip.</p>
+                        <a href="./index.html" class="mt-6 inline-block rounded-lg bg-primary px-6 py-3 text-lg font-bold text-white">Back to Home</a>
+                    `;
+                }
+            }
+
+            document.getElementById('proceed-btn').addEventListener('click', () => {
+                if (selectedItems.size === 0) {
+                    alert("Please select at least one item to build your trip.");
+                    return;
+                }
+                // Store full item details in localStorage to pass to the booking page
+                const allItems = destinationsData.flatMap(d => [...d.attractions, ...d.hotels, ...d.food]);
+                const selectedItemDetails = Array.from(selectedItems).map(id => {
+                    return allItems.find(item => item.id === id);
+                }).filter(Boolean); // Filter out any undefined items
+
+                localStorage.setItem('tripBuilderItems', JSON.stringify(selectedItemDetails));
+                window.location.href = './booking.html';
+            });
+        });
+    </script>
+</body>
+
+</html>

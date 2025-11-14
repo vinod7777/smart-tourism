@@ -56,9 +56,9 @@
 <h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">Cultura</h2>
 </div>
 <nav class="hidden md:flex items-center gap-9">
-<a class="text-sm font-medium leading-normal hover:text-teal dark:hover:text-sand" href="#">Destinations</a>
-<a class="text-sm font-medium leading-normal hover:text-teal dark:hover:text-sand" href="#">My Trip</a>
-<a class="text-sm font-medium leading-normal hover:text-teal dark:hover:text-sand" href="#">Community</a>
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="./index.html">Home</a>
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="./profile.html">My Trips</a>
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="./city-explorer.html">Search Location</a>
 </nav>
 </div>
 <div class="flex flex-1 justify-end gap-4 items-center">
@@ -67,14 +67,14 @@
 <div class="text-charcoal-gray/60 dark:text-light-text/60 flex border-none bg-light-gray dark:bg-charcoal-gray/50 items-center justify-center pl-4 rounded-l-lg border-r-0">
 <span class="material-symbols-outlined">search</span>
 </div>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg focus:outline-0 focus:ring-2 focus:ring-teal dark:focus:ring-sand border-none bg-light-gray dark:bg-charcoal-gray/50 h-full placeholder:text-charcoal-gray/60 dark:placeholder:text-light-text/60 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg focus:outline-0 focus:ring-2 focus:ring-primary dark:focus:ring-primary border-none bg-light-gray dark:bg-charcoal-gray/50 h-full placeholder:text-charcoal-gray/60 dark:placeholder:text-light-text/60 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
 </div>
 </label>
 <div class="flex items-center gap-2">
     <a href="./login.html" id="login-btn" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-light-gray dark:bg-charcoal-gray/50 text-charcoal-gray dark:text-light-text text-sm font-bold leading-normal tracking-[0.015em] hover:bg-light-gray/80 dark:hover:bg-charcoal-gray/70">
         <span class="truncate">Log In</span>
     </a>
-    <a href="./registration.html" id="signup-btn" class="hidden md:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-sand text-charcoal-gray text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+    <a href="./registration.html" id="signup-btn" class="hidden md:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90">
         <span class="truncate">Sign Up</span>
     </a>
     <div id="profile-container" class="hidden items-center gap-2">
@@ -88,15 +88,15 @@
 <main class="layout-container flex h-full grow flex-col">
 <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 <!-- Hero Section Component -->
-<div class="@container">
+<div class="@container" id="hero-container">
 <div class="w-full">
-<div class="bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-xl min-h-[500px]" data-alt="Golden Pavilion Temple (Kinkaku-ji) in Kyoto surrounded by autumn foliage and reflected in a pond" style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 40%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuChojj8m7zx0by5kvmg-HbZW3AmTaXRK9rJtmuNI9c7qGmoXL8JMC_SBbf8jt19mwhDTRxdh-4Y3bmr3PqWpORUul8TdkLWPzjn1e9Hm8Z8_6BKj19pz3ffVbtmIvJyH3Xxz_2P7sFk-JCfjO11S4lOSpFU9AWqcb-4pMqzvT50y8tnJ3aw7PWfgIa08b3TVPVGTFtc_ZVy6EHrTlv_bnIDOAX2Vkr3E6bDKhKDBf3fVTDc_fAvtVO9iBNxLEixVhsl6RUpfFMciSo");'>
-<div class="p-8 text-white">
-<h1 class="text-5xl font-bold leading-tight tracking-tight">Kyoto, Japan</h1>
-<p class="mt-2 text-xl font-light">Where Ancient Traditions Meet Modern Wonders</p>
+<div id="hero-section" class="bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-xl min-h-[500px]" data-alt="Golden Pavilion Temple (Kinkaku-ji) in Kyoto surrounded by autumn foliage and reflected in a pond" style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 40%), url("https://source.unsplash.com/random/1600x900/?landmark,travel");'>
+<div id="hero-content" class="p-8 text-white">
+<h1 id="dest-name" class="text-5xl font-bold leading-tight tracking-tight"></h1>
+<p id="dest-tagline" class="mt-2 text-xl font-light"></p>
 <div class="mt-4 flex items-center gap-4 text-lg">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-sand !text-2xl">star</span>
+<div id="dest-rating" class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary !text-2xl">star</span>
 <span class="font-bold">4.8</span>
 <span class="text-white/80">(1,284 reviews)</span>
 </div>
@@ -113,18 +113,20 @@
 <div class="bg-white dark:bg-charcoal-gray/50 p-6 rounded-xl border border-light-gray dark:border-dark-subtle/20 shadow-sm">
 <h3 class="font-bold text-lg mb-4">Quick Navigation</h3>
 <ul class="space-y-3">
-<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-teal dark:hover:text-sand" href="#overview"><span class="material-symbols-outlined">description</span> Overview</a></li>
-<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-teal dark:hover:text-sand" href="#attractions"><span class="material-symbols-outlined">attractions</span> Attractions</a></li>
-<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-teal dark:hover:text-sand" href="#ar-vr"><span class="material-symbols-outlined">view_in_ar</span> AR/VR Previews</a></li>
-<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-teal dark:hover:text-sand" href="#reviews"><span class="material-symbols-outlined">rate_review</span> Reviews</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-primary dark:hover:text-primary" href="#overview"><span class="material-symbols-outlined">description</span> Overview</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-primary dark:hover:text-primary" href="#attractions"><span class="material-symbols-outlined">attractions</span> Attractions</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-primary dark:hover:text-primary" href="#ar-vr"><span class="material-symbols-outlined">view_in_ar</span> AR/VR Previews</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-primary dark:hover:text-primary" href="#hotels"><span class="material-symbols-outlined">hotel</span> Hotels</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-primary dark:hover:text-primary" href="#food"><span class="material-symbols-outlined">restaurant</span> Food</a></li>
+<li><a class="flex items-center gap-3 text-charcoal-gray dark:text-light-text hover:text-primary dark:hover:text-primary" href="#reviews"><span class="material-symbols-outlined">rate_review</span> Reviews</a></li>
 </ul>
 </div>
 <div class="bg-white dark:bg-charcoal-gray/50 p-6 rounded-xl border border-light-gray dark:border-dark-subtle/20 shadow-sm space-y-3">
-<button class="w-full flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-teal text-white text-md font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+<button class="w-full flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-md font-bold leading-normal tracking-[0.015em] hover:opacity-90">
 <span class="material-symbols-outlined">add_location_alt</span>
 <span class="truncate">Add to My Trip</span>
 </button>
-<button class="w-full flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-sand text-charcoal-gray text-md font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+<button class="w-full flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-primary/80 text-white text-md font-bold leading-normal tracking-[0.015em] hover:opacity-90">
 <span class="material-symbols-outlined">explore</span>
 <span class="truncate">Explore Tours</span>
 </button>
@@ -134,103 +136,25 @@
 </button>
 </div>
 <div class="rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm">
-<img class="w-full h-48 object-cover" data-alt="Map of Kyoto showing key districts and landmarks" data-location="Kyoto, Japan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4stKslytP7rUOi2nwhUyAODg859tbmfJPio7s3avM9IUFiyDuLfGuXV9pO9fB2FvcERaOu5dfVC-L-X-0wuSr3MTDdmJle1oUmkZk6fSIOSJIzhxfDWahiptUwW0zlz-97uuJBKnf3Vty3EejbC6Q8FSNfdlN8E3dCi19g8mtawivPCYKgJ3SNV_f0abpzwL47N_MF45yIJf5Z6bELC4aDPYm9hxpnxPq6mCaVnWzN5k6UQTfkrMRgU-fHfNUmYgdh4AyHunwoJs"/>
+<img id="map-image" class="w-full h-48 object-cover" data-alt="Map of a city" src="https://source.unsplash.com/800x600/?map,city"/>
 </div>
 </aside>
 <!-- Main Content -->
 <div class="lg:w-3/4">
 <!-- Overview Section -->
 <section class="scroll-mt-24" id="overview">
-<h2 class="text-3xl font-bold mb-4">Welcome to Kyoto</h2>
-<p class="text-charcoal-gray/80 dark:text-light-text/80 text-lg leading-relaxed">
-                                Explore the heart of Japan, a city that gracefully blends imperial history with modern marvels. From the serene temples and enchanting geishas of Gion to the vibrant energy of its contemporary cityscapes, Kyoto offers a journey through time. Discover ancient traditions, breathtaking natural beauty, and a culinary scene that will delight your senses.
+<h2 id="overview-heading" class="text-3xl font-bold mb-4"></h2>
+<p id="overview-text" class="text-charcoal-gray/80 dark:text-light-text/80 text-lg leading-relaxed">
+                                Loading destination details...
                             </p>
 </section>
 <!-- Tabbed Content Section -->
 <section class="mt-12 scroll-mt-24" id="attractions">
 <div class="pb-3">
-<div class="flex border-b border-light-gray dark:border-dark-subtle/20 px-4 gap-8">
-<a class="flex flex-col items-center justify-center border-b-[3px] border-b-teal text-teal pb-[13px] pt-4" href="#">
-<p class="text-sm font-bold leading-normal tracking-[0.015em]">Historical Facts</p>
-</a>
-<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-charcoal-gray/60 dark:text-light-text/60 hover:text-teal dark:hover:text-sand pb-[13px] pt-4" href="#">
-<p class="text-sm font-bold leading-normal tracking-[0.015em]">Natural Attractions</p>
-</a>
-<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-charcoal-gray/60 dark:text-light-text/60 hover:text-teal dark:hover:text-sand pb-[13px] pt-4" href="#">
-<p class="text-sm font-bold leading-normal tracking-[0.015em]">Adventure Activities</p>
-</a>
-<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-charcoal-gray/60 dark:text-light-text/60 hover:text-teal dark:hover:text-sand pb-[13px] pt-4" href="#">
-<p class="text-sm font-bold leading-normal tracking-[0.015em]">Food &amp; Lifestyle</p>
-</a>
+
 </div>
-</div>
-<div class="pt-6">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<!-- Content Card 1 -->
-<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
-<img class="w-full h-48 object-cover" data-alt="Fushimi Inari Shrine with its iconic red torii gates" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBJ0owYcGamXc3FV02PeoFZMli-BWzr7obU_0NeY_nE1_FDCf_Tr2MRYKVFb1R6BfGbJKPBDSt0mhb8EK1v-SFkioR_nOEVdqjG0CQv9sL77_vd9xJnbhessze2KlGc0VfkkF10M1dhNIyB4SFehwdRYybWsimvoQ78Za9RVxZXIVxeitiQgo4riGZQg5IYW-piYJh8_bsWU27J2nRVHOL7CGDTCFAkLEAAQJwOqDX80Ke6f7H6t_B-eafJQTWtv6_vt1jDsdtNAk"/>
-<div class="p-4">
-<h4 class="font-bold text-lg">Fushimi Inari Shrine</h4>
-<p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">Famous for its thousands of vibrant red torii gates that create a mesmerizing path up a mountain.</p>
-<div class="flex items-center gap-1 mt-2 text-sand">
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star_half</span>
-<span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">4.9</span>
-</div>
-</div>
-</div>
-<!-- Content Card 2 -->
-<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
-<img class="w-full h-48 object-cover" data-alt="Kiyomizu-dera Temple wooden stage overlooking cherry blossoms" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSEnjj7UkD2I3tcVUzyQ0lMqF9-0iCQdRClCO8-NMH2HcVE0zmEEydSaJSMRMfjuUNurtm_YUH2O2J7B0vYRDwAD6EYF7ru9cbn74MLmEER61yR0QC_TbjpthYDCmYY0FFMA_kOEC4qqh6trC3ahSPzkVExf2QUTEEsyGLKehp2MzfgrfWgA1t9ffNnDEdfBDL7bc7y5UK9ddFZtGk4hA6Jg_R8fGshoxt5rqLb9OP-hYVD9i4-ZjKiCnw1u0PwqUSp4YAvG2dqt8"/>
-<div class="p-4">
-<h4 class="font-bold text-lg">Kiyomizu-dera Temple</h4>
-<p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">A historic Buddhist temple known for its massive wooden stage, offering panoramic city views.</p>
-<div class="flex items-center gap-1 mt-2 text-sand">
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star_half</span>
-<span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">4.7</span>
-</div>
-</div>
-</div>
-<!-- Content Card 3 -->
-<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
-<img class="w-full h-48 object-cover" data-alt="Arashiyama Bamboo Grove with towering bamboo stalks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo7M7EjEUwLwRs3ggRGoOqoVojUsLm8B27Fkzrdp73C_0GHF7G0ykSi-NKRGGzo1RjhJx1en8UcV7Jr7OxNH6Dqyxa0JQRnxp3prglD_rhhGZG3zBJRB4KCgeylaNiPnLvXCpU442dNGwYwCUNqdKvaZHqKOh5bHPuV3DORJwvMSUw80dPLaLax-Kt-v1UGs_bOAae8bUKbPJ6B5L6L8HOQExV3FSQDzkBMo436Lsiq5AsZeR4FR4jrRVgLymxiBBHZsTRE_Jvuzo"/>
-<div class="p-4">
-<h4 class="font-bold text-lg">Arashiyama Bamboo Grove</h4>
-<p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">An ethereal bamboo forest that creates a tranquil, otherworldly walking experience.</p>
-<div class="flex items-center gap-1 mt-2 text-sand">
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">4.8</span>
-</div>
-</div>
-</div>
-<!-- Content Card 4 -->
-<div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
-<img class="w-full h-48 object-cover" data-alt="Traditional street in the Gion district at dusk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs4BIepfDDLpnKrpcmhWQrSdddmSKwbo3IOXcjRxRMPKksyQzvFpcqgEGDdX8KNQpxOSDgw4kaf_LA04zszTLnoX7Bg9MGzU5wjVCrTq8f4hgbZBzKC953jEXBP03lPHC8dz-2yibH_kH_Fpq_ZBEBwfOFzujrpwj59zMHsqvK9whMqkL5dYd7rCtifEan7tDmKqOohzMpNprGB6kBGBkIjhZMFm_UQWVaoUj6-fHu49Vxqy1_SLq2h8IBakriOqqLxQqbByDiIkY"/>
-<div class="p-4">
-<h4 class="font-bold text-lg">Gion District</h4>
-<p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">Kyoto's famous geisha district, filled with traditional wooden machiya houses and teahouses.</p>
-<div class="flex items-center gap-1 mt-2 text-sand">
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="material-symbols-outlined text-sm">star_half</span>
-<span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">4.6</span>
-</div>
-</div>
-</div>
-</div>
+<div class="pt-6" id="attractions-grid">
+    <!-- Dynamic attraction cards will be inserted here -->
 </div>
 </section>
 <!-- AR/VR Preview Module -->
@@ -239,26 +163,40 @@
 <p class="text-charcoal-gray/80 dark:text-light-text/80 text-lg leading-relaxed mb-6">
                                 Step inside Kyoto's most iconic landmarks before you even arrive. Launch our augmented and virtual reality experiences for a truly immersive preview.
                             </p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div id="ar-vr-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="relative rounded-xl overflow-hidden group">
-<img class="w-full h-60 object-cover" data-alt="Virtual walk through Gion District" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb8nPyvNAwWkK4trluLUVyaXuWaW2-7maiCUhsOp76PoggyDwx0kINbmY1-huAO2ii_lH_nFgVUHgMmdudaTc2-nG4YMVeMupvyt_-KL7mSxnY31IyHeeirjn6NLiGLNTyED3m-qbxCR-Vg7N-ib-0dAs_EOdqpHWPwVNUDVu1rOPTnX7fO4kKwx57vwaR6I4cBb8OGfkymFWPL5zx0kLnGagYlGH6ZpV2ynJ9KEwOtFlBEUcSwFmL0KvaSNWtRc4VXqypDO0ycqA"/>
+<img class="w-full h-60 object-cover" data-alt="Virtual walk through Gion District" src="https://source.unsplash.com/800x600/?virtual,reality,street"/>
 <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity">
 <h4 class="text-white text-lg font-bold text-center">Virtual Walk Through Gion District</h4>
-<button class="mt-4 flex items-center gap-2 px-4 py-2 bg-teal text-white rounded-lg font-semibold text-sm">
+<button class="mt-4 flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-semibold text-sm">
 <span class="material-symbols-outlined">vrpano</span> Launch VR Experience
                                         </button>
 </div>
 </div>
 <div class="relative rounded-xl overflow-hidden group">
-<img class="w-full h-60 object-cover" data-alt="AR overlay of Heian Jingu Shrine" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN8tQ2mhNSK8WzbTQ6gSR6RQtIBUJ477dTAvY6Ii72_LY7wy9z_rV1EvFbNWY8c0nsE2KCv5O-tOdoXewxe3GqmyR8Y2Hwavb-_WYiyIBjvD0W47YJXva8Bv1FVeM0W9LXmmVh5kdlMwdvV11PoKGxpSni9oLZMPERHYjhZhed6VfTdk6qWnv2tSZLuyp8qd8Xzcp8T49zP-u507sC76ILJiIy2uqHzWuNWM0WITZHVfKaS4a9sKwE1zm3uJTSh86g7vPS4IDLhIg"/>
+<img class="w-full h-60 object-cover" data-alt="AR overlay of a shrine" src="https://source.unsplash.com/800x600/?shrine,augmented-reality"/>
 <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity">
 <h4 class="text-white text-lg font-bold text-center">AR Overlay of Heian Jingu Shrine</h4>
-<button class="mt-4 flex items-center gap-2 px-4 py-2 bg-teal text-white rounded-lg font-semibold text-sm">
+<button class="mt-4 flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-semibold text-sm">
 <span class="material-symbols-outlined">view_in_ar</span> View in AR
                                         </button>
 </div>
 </div>
 </div>
+</section>
+<!-- Hotels Section -->
+<section class="mt-12 scroll-mt-24" id="hotels">
+    <h2 class="text-3xl font-bold mb-4">Where to Stay</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="hotels-grid">
+        <!-- Dynamic hotel cards will be inserted here -->
+    </div>
+</section>
+<!-- Food Section -->
+<section class="mt-12 scroll-mt-24" id="food">
+    <h2 class="text-3xl font-bold mb-4">What to Eat</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="food-grid">
+        <!-- Dynamic food cards will be inserted here -->
+    </div>
 </section>
 <!-- User Reviews & Ratings Component -->
 <section class="mt-12 scroll-mt-24" id="reviews">
@@ -268,29 +206,29 @@
 <div class="flex flex-col gap-2">
 <p class="text-4xl font-black leading-tight tracking-[-0.033em]">4.8</p>
 <div class="flex gap-0.5">
-<span class="material-symbols-outlined text-sand">star</span>
-<span class="material-symbols-outlined text-sand">star</span>
-<span class="material-symbols-outlined text-sand">star</span>
-<span class="material-symbols-outlined text-sand">star</span>
-<span class="material-symbols-outlined text-sand">star_half</span>
+<span class="material-symbols-outlined text-primary">star</span>
+<span class="material-symbols-outlined text-primary">star</span>
+<span class="material-symbols-outlined text-primary">star</span>
+<span class="material-symbols-outlined text-primary">star</span>
+<span class="material-symbols-outlined text-primary">star_half</span>
 </div>
 <p class="text-charcoal-gray/70 dark:text-light-text/70 text-base font-normal leading-normal">Based on 1,284 reviews</p>
 </div>
 <div class="grid min-w-[200px] max-w-[400px] flex-1 grid-cols-[20px_1fr_40px] items-center gap-y-3">
 <p class="text-sm font-normal leading-normal">5</p>
-<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 85%;"></div></div>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-primary" style="width: 85%;"></div></div>
 <p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">85%</p>
 <p class="text-sm font-normal leading-normal">4</p>
-<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 10%;"></div></div>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-primary" style="width: 10%;"></div></div>
 <p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">10%</p>
 <p class="text-sm font-normal leading-normal">3</p>
-<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 3%;"></div></div>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-primary" style="width: 3%;"></div></div>
 <p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">3%</p>
 <p class="text-sm font-normal leading-normal">2</p>
-<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 1%;"></div></div>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-primary" style="width: 1%;"></div></div>
 <p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">1%</p>
 <p class="text-sm font-normal leading-normal">1</p>
-<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-sand" style="width: 1%;"></div></div>
+<div class="flex h-2 flex-1 overflow-hidden rounded-full bg-light-gray dark:bg-charcoal-gray"><div class="rounded-full bg-primary" style="width: 1%;"></div></div>
 <p class="text-charcoal-gray/60 dark:text-light-text/60 text-sm font-normal leading-normal text-right">1%</p>
 </div>
 </div>
@@ -303,4 +241,175 @@
 </div>
 <script type="module" src="./firebase_config.js"></script>
 <script type="module" src="./auth_ui.js"></script>
+<script type="module">
+    // Data source for destinations (in a real app, this would come from a shared module or API)
+    const destinationsData = [
+        {
+            id: 'dest1',
+            name: 'Jaipur, Rajasthan',
+            tagline: 'The Pink City of Palaces and Forts',
+            description: 'Jaipur, the capital of Rajasthan, is a city steeped in history and culture. Known as the Pink City for its distinctively colored buildings, it offers a stunning display of royal heritage through its magnificent forts, opulent palaces, and vibrant markets.',
+            imageUrl: 'https://source.unsplash.com/random/1600x900/?jaipur,palace',
+            altText: 'Hawa Mahal in Jaipur',
+            tags: ['History & Heritage', 'Art & Artisans'],
+            rating: 4.9,
+            price: 28000,
+            attractions: [
+                { name: 'Hawa Mahal', description: 'The iconic "Palace of Winds" with its intricate honeycomb facade.', imageUrl: 'https://source.unsplash.com/random/800x600/?hawa-mahal', rating: 4.8 },
+                { name: 'Amber Fort', description: 'A majestic hilltop fort offering stunning views and rich history.', imageUrl: 'https://source.unsplash.com/random/800x600/?amber-fort', rating: 4.9 },
+                { name: 'City Palace', description: 'A sprawling complex of palaces, courtyards, and gardens.', imageUrl: 'https://source.unsplash.com/random/800x600/?jaipur-city-palace', rating: 4.7 },
+                { name: 'Jantar Mantar', description: 'An astronomical observatory with colossal stone instruments.', imageUrl: 'https://source.unsplash.com/random/800x600/?jantar-mantar-jaipur', rating: 4.6 }
+            ],
+            hotels: [
+                { name: 'Rambagh Palace', description: 'An opulent former royal residence turned luxury hotel.', imageUrl: 'https://source.unsplash.com/random/800x600/?rambagh-palace', rating: 5.0 },
+                { name: 'Zostel Jaipur', description: 'A vibrant and social hostel for budget travelers.', imageUrl: 'https://source.unsplash.com/random/800x600/?hostel-india', rating: 4.5 }
+            ],
+            food: [
+                { name: 'Laxmi Misthan Bhandar', description: 'Famous for traditional Rajasthani sweets and thalis.', imageUrl: 'https://source.unsplash.com/random/800x600/?indian-sweets', rating: 4.6 },
+                { name: 'Rawat Misthan Bhandar', description: 'A must-visit for its legendary Pyaaz Kachori.', imageUrl: 'https://source.unsplash.com/random/800x600/?kachori-food', rating: 4.8 }
+            ]
+        },
+        {
+            id: 'dest2',
+            name: 'Varanasi, Uttar Pradesh',
+            tagline: 'The Spiritual Heart of India',
+            description: 'Varanasi is one of the world\'s oldest continually inhabited cities and a major spiritual hub. Situated on the banks of the sacred River Ganges, it is a place of pilgrimage, ancient rituals, and profound cultural experiences found within its labyrinthine alleys.',
+            imageUrl: 'https://source.unsplash.com/random/1600x900/?varanasi,ganges',
+            altText: 'Ghats of Varanasi at sunrise',
+            tags: ['History & Heritage', 'Local Lifestyle'],
+            rating: 4.8,
+            price: 12000,
+            attractions: [
+                { name: 'Ganges River Ghats', description: 'The heart of Varanasi, bustling with rituals and life.', imageUrl: 'https://source.unsplash.com/random/800x600/?varanasi-ghat', rating: 4.9 },
+                { name: 'Sarnath', description: 'The historic site where Buddha first taught the Dharma.', imageUrl: 'https://source.unsplash.com/random/800x600/?sarnath-stupa', rating: 4.7 }
+            ],
+            hotels: [
+                { name: 'Brijrama Palace', description: 'A heritage hotel on the banks of the Ganges.', imageUrl: 'https://source.unsplash.com/random/800x600/?varanasi-hotel', rating: 4.8 },
+                { name: 'GoStops Hostel', description: 'A clean and friendly hostel for backpackers.', imageUrl: 'https://source.unsplash.com/random/800x600/?hostel-common-room', rating: 4.4 }
+            ],
+            food: [
+                { name: 'Kashi Chaat Bhandar', description: 'Famous for its delicious and varied street-side chaat.', imageUrl: 'https://source.unsplash.com/random/800x600/?indian-chaat', rating: 4.7 },
+                { name: 'Blue Lassi', description: 'An iconic shop serving dozens of lassi flavors for generations.', imageUrl: 'https://source.unsplash.com/random/800x600/?lassi-drink', rating: 4.6 }
+            ]
+        },
+        {
+            id: 'dest3',
+            name: 'Kerala Backwaters',
+            tagline: 'Tranquility on the Waterways',
+            description: 'Often called "God\'s Own Country," the Kerala backwaters are a serene network of lakes, canals, and lagoons. A journey on a traditional houseboat offers a unique glimpse into a tranquil way of life, surrounded by lush greenery and picturesque villages.',
+            imageUrl: 'https://source.unsplash.com/random/1600x900/?kerala,backwaters',
+            altText: 'A houseboat on the Kerala backwaters',
+            tags: ['Local Lifestyle', 'Nature'],
+            rating: 4.7,
+            price: 50000,
+            attractions: [
+                { name: 'Alleppey (Alappuzha)', description: 'The hub of the backwaters, famous for houseboat cruises.', imageUrl: 'https://source.unsplash.com/random/800x600/?alleppey-houseboat', rating: 4.8 },
+                { name: 'Kumarakom Bird Sanctuary', description: 'A paradise for bird watchers on the banks of Vembanad Lake.', imageUrl: 'https://source.unsplash.com/random/800x600/?kerala-birds', rating: 4.6 }
+            ],
+            hotels: [
+                { name: 'Kumarakom Lake Resort', description: 'A luxurious resort offering a blend of tradition and comfort.', imageUrl: 'https://source.unsplash.com/random/800x600/?kerala-resort', rating: 4.9 },
+                { name: 'A traditional Houseboat', description: 'Stay overnight on the water for an immersive experience.', imageUrl: 'https://source.unsplash.com/random/800x600/?kerala-houseboat-interior', rating: 4.7 }
+            ],
+            food: [
+                { name: 'Karimeen Pollichathu', description: 'Pearl spot fish marinated in spices and baked in banana leaves.', imageUrl: 'https://source.unsplash.com/random/800x600/?kerala-fish-dish', rating: 4.9 },
+                { name: 'Sadya on a Houseboat', description: 'A traditional vegetarian feast served on a banana leaf.', imageUrl: 'https://source.unsplash.com/random/800x600/?kerala-sadya', rating: 4.8 }
+            ]
+        },
+        {
+            id: 'dest4',
+            name: 'Goa',
+            tagline: 'Sun, Sand, and Portuguese Charm',
+            description: 'Goa is a coastal paradise renowned for its beautiful beaches, vibrant nightlife, and laid-back atmosphere. Its unique culture is a blend of Indian and Portuguese influences, visible in its architecture, cuisine, and festive spirit.',
+            imageUrl: 'https://source.unsplash.com/random/1600x900/?goa,beach',
+            altText: 'A sunny beach in Goa',
+            tags: ['Culinary Delights', 'History & Heritage'],
+            rating: 4.9,
+            price: 68000,
+            attractions: [
+                { name: 'Baga Beach', description: 'One of Goa\'s most popular beaches, known for its shacks and nightlife.', imageUrl: 'https://source.unsplash.com/random/800x600/?goa-baga-beach', rating: 4.6 },
+                { name: 'Old Goa (Velha Goa)', description: 'Home to magnificent Portuguese-era churches and cathedrals.', imageUrl: 'https://source.unsplash.com/random/800x600/?old-goa-church', rating: 4.8 }
+            ],
+            hotels: [
+                { name: 'The Leela Goa', description: 'A luxurious beach and riverside resort.', imageUrl: 'https://source.unsplash.com/random/800x600/?goa-luxury-resort', rating: 4.9 },
+                { name: 'Artjuna Garden Cafe & Hostel', description: 'A bohemian-style hostel with a focus on wellness and community.', imageUrl: 'https://source.unsplash.com/random/800x600/?goa-hostel-cafe', rating: 4.7 }
+            ],
+            food: [
+                { name: 'Britto\'s Bar & Restaurant', description: 'An iconic beach shack on Baga known for its seafood.', imageUrl: 'https://source.unsplash.com/random/800x600/?goa-beach-shack', rating: 4.5 },
+                { name: 'Vindaloo at a local eatery', description: 'Try the famously fiery and flavorful Goan pork curry.', imageUrl: 'https://source.unsplash.com/random/800x600/?pork-vindaloo', rating: 4.8 }
+            ]
+        }
+    ];
+
+    function createInfoCard(item) {
+        const ratingStars = '★'.repeat(Math.floor(item.rating)) + '☆'.repeat(5 - Math.floor(item.rating));
+        return `
+            <div class="bg-white dark:bg-charcoal-gray/50 rounded-xl overflow-hidden border border-light-gray dark:border-dark-subtle/20 shadow-sm transition-shadow hover:shadow-lg">
+                <img class="w-full h-48 object-cover" src="https://source.unsplash.com/800x600/?${item.name.split(' ')[0]}" alt="${item.name}"/>
+                <div class="p-4">
+                    <h4 class="font-bold text-lg">${item.name}</h4>
+                    <p class="text-sm text-charcoal-gray/70 dark:text-light-text/70 mt-1">${item.description}</p>
+                    <div class="flex items-center gap-1 mt-2 text-primary">
+                        ${'★'.repeat(Math.floor(item.rating))}${'☆'.repeat(5 - Math.floor(item.rating))}
+                        <span class="text-charcoal-gray dark:text-light-text text-xs font-medium ml-1">${item.rating}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderSection(containerId, data, cardCreator) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        if (data && data.length > 0) {
+            container.innerHTML = data.map(cardCreator).join('');
+        } else {
+            container.innerHTML = `<p class="text-charcoal-gray/70 dark:text-light-text/70 col-span-full">Information coming soon for this section.</p>`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Get the destination ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const destinationId = urlParams.get('id');
+
+        // 2. Find the corresponding destination data
+        const destination = destinationsData.find(d => d.id === destinationId);
+
+        if (destination) {
+            // 3. Update the page content with the destination data
+            document.title = `Cultura - ${destination.name}`;
+            
+            // Hero section
+            const heroDiv = document.getElementById('hero-section');
+            heroDiv.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 40%), url("https://source.unsplash.com/1600x900/?${destination.name.split(',')[0]},landmark")`;
+            heroDiv.dataset.alt = destination.altText;
+            document.getElementById('dest-name').textContent = destination.name;
+            document.getElementById('dest-tagline').textContent = destination.tagline;
+            document.querySelector('#dest-rating .font-bold').textContent = destination.rating;
+
+            // Update map image
+            const mapImg = document.getElementById('map-image');
+            mapImg.src = `https://source.unsplash.com/800x600/?map,${destination.name.split(',')[0]},city`;
+
+            // Update AR/VR images
+            const arVrImages = document.querySelectorAll('#ar-vr-grid img');
+            if(arVrImages[0]) arVrImages[0].src = `https://source.unsplash.com/800x600/?${destination.attractions[0]?.name || destination.name.split(',')[0]}`;
+            if(arVrImages[1]) arVrImages[1].src = `https://source.unsplash.com/800x600/?${destination.attractions[1]?.name || destination.name.split(',')[0]},shrine`;
+
+            // Overview section
+            document.getElementById('overview-heading').textContent = `Welcome to ${destination.name.split(',')[0]}`;
+            document.getElementById('overview-text').textContent = destination.description;
+
+            // Render dynamic sections
+            renderSection('attractions-grid', destination.attractions, createInfoCard);
+            renderSection('hotels-grid', destination.hotels, createInfoCard);
+            renderSection('food-grid', destination.food, createInfoCard);
+        } else {
+            // Handle case where destination is not found
+            document.getElementById('overview-heading').textContent = 'Destination Not Found';
+            document.getElementById('overview-text').textContent = 'The destination you are looking for could not be found. Please return to the homepage and try again.';
+        }
+    });
+</script>
 </body></html>

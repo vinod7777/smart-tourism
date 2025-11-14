@@ -3,7 +3,7 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CulturaStay - Stays in Kyoto</title>
+<title>CulturaStay - Stays in India</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -54,14 +54,14 @@
 <header class="sticky top-0 z-50 w-full border-b border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
 <div class="mx-auto flex max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
 <div class="flex items-center gap-8">
-<div class="flex items-center gap-3 text-text-light dark:text-text-dark">
+<a href="./index.html" class="flex items-center gap-3 text-text-light dark:text-text-dark">
 <div class="size-6 text-primary">
 <svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z"></path>
 </svg>
 </div>
 <h2 class="text-text-light dark:text-text-dark text-lg font-bold leading-tight tracking-[-0.015em]">CulturaStay</h2>
-</div>
+</a>
 <nav class="hidden md:flex items-center gap-9">
 <a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Explore</a>
 <a class="text-primary dark:text-primary text-sm font-bold leading-normal" href="#">Stays</a>
@@ -118,10 +118,17 @@
 <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">storefront</span>
 <p class="text-primary font-bold text-sm leading-normal">Accommodation Type</p>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark group" href="#">
-<span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary group-hover:text-primary">payments</span>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Price Range</p>
-</a>
+<div class="flex flex-col px-3 py-2">
+    <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary">payments</span>
+        <p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Price Range</p>
+    </div>
+    <div id="price-range-filter" class="flex flex-col gap-2 pt-2">
+        <div class="flex justify-between items-center text-xs text-text-light-secondary dark:text-text-dark-secondary">
+            <span>₹0</span><span id="price-range-value">₹80000</span></div>
+        <input id="price-range-slider" type="range" min="0" max="80000" value="80000" class="w-full h-2 bg-border-light rounded-lg appearance-none cursor-pointer dark:bg-border-dark accent-primary"/>
+    </div>
+</div>
 <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark group" href="#">
 <span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary group-hover:text-primary">auto_awesome</span>
 <p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Amenities</p>
@@ -138,8 +145,8 @@
 <!-- PageHeading -->
 <div class="flex flex-wrap justify-between gap-3 p-4">
 <div class="flex min-w-72 flex-col gap-1">
-<p class="text-text-light dark:text-text-dark text-4xl font-black leading-tight tracking-[-0.033em]">Stays in Kyoto, Japan</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal">250+ stays found</p>
+<p class="text-text-light dark:text-text-dark text-4xl font-black leading-tight tracking-[-0.033em]">Stays in India</p>
+<p id="stays-count" class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal">Loading stays...</p>
 </div>
 </div>
 <!-- Tabs -->
@@ -160,79 +167,8 @@
 </div>
 </div>
 <!-- ImageGrid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-4">
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Exterior view of The Silk Road Inn" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDijETLXtP7QJo2g7lVmNhvwsNqtkwv2y5qORszj5CqRsRwcOLDZbXMoyZm6OEo2yLocrGwfnMVUIWLbXJrP2IBiUQQOBRN_cFZPuAVsR-yErpaaHvs9zrIvdv5xkibY-DtNVbibUe22wRLyqFBe54UnS4UdC2joNrc7u0-Yc3Q1bZQ-l1Gvo3udv_dF1CO5GN2ynsgMSVSVqt_lSKKvwx2iDeN_aUQC2AGPsFr6fqlLpSXJlYiyl27jUyjBQNZFxj0bmh1NT07TOA");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">The Silk Road Inn</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Restored 18th-century merchant house</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$150 / night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Ocean view from Azure Coast Resort" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCicuh-2pW2gRPtHLLolVUV5dJxNr4YgKJWXhTpaISCj8w3lJzMGMH1Prr9yPB3Z64X5h7sOI4Jdal6Wk17uI-8mks71SRUG2uF33Yy7avAsk5A-RvndDw3rNCV0jqfelejawdGO-EMWb9EqhAh-aetnveftjEYptONRO_VM3q3fj_5W4O3xW14_cPqFRXAWQfEFW960zgHUTIUz0apArppgIFQ9KP-sRSbSCMHe34CEK0afGb0yfsP-4nbbrxpsLO_6C2V6j3GYd4");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Azure Coast Resort</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">5-star luxury with panoramic ocean views</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$450 / night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Cabin in a bamboo forest" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCktFdZa35Y7ZbCFJBZ4XSjfdYV4M_w5FKwO7I6b_a6mqd8JYkffMWV9z07zSYQRuekSEqiDqgF2JeTrv0BR-nzM3v-ICv5WMHHe15ihGAvt1ct3dbbakL5xRfhN1SYxvyd2LFGjB_uScQuWFcXUS7bF66Hvu3zVypjhSGXFezZ9NM-ou_u8zXdF7IW9W-gKm33tVSpUoTZE_GycDP-WdGEzCE5cEchgeBhEyn7aMmUTHKcOM2Xo1OG8JBEFcaO_a5i7aVLC0tpOQU");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Bamboo Grove Eco-Lodge</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Sustainable living in nature's embrace</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$180 / night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Common area of a modern hostel" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhOxV4TeOcBH8k44EpnVaAhihIYH7K3gmSRNCGDa9X1bdiMwDDnFIcTadmtngVoEwhLSaGPrpJEXp7au3NInW5JwNq-wi1NucOyFMHcPmmlqXgKNXkz1QtZR5wDxYwyZ6ZQqyP2xvSQFydNhwok5gQ-eXZU7HkYcQ9XEWpfMwwU8ThMNDQ5yXyI7PIez-9BT3FddaSM1ILS6tdZRutiVP0X4gPGrwmvmjikFQCxlIw86cwardImEEhX6Hxvl15RSxF3aXM3VuYHaw");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Wanderer's Hub Hostel</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Meet fellow travelers in a friendly atmosphere</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$40 / night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Grand hotel with historic architecture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVm_ggQpEGh-7gnGBCYYBcUqJ-dnKPy_QPz94t8cH4OZBpOm-SMb7vb5Uyhh1t8IfQMCpB3NLPYZ8KmOROaVYTCUWI2e7le7ScJuMs1kLPyxBbCP3kpgUNF0c4afnYYbl78crLmxu4LnuV3E0wHbgGopDM8MWkRsh4ZtxGWx8MDuFMrBDpgwtEmS4aee44Pp_U087NgjxdUa4GmZ-QCJwcrYgewccoOQrZPAW20hkND5jDoEzd7-uJtmj9XEpYyx9XhrEfpG8Dyyc");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Imperial Heritage Hotel</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Experience history in a Meiji-era building</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$250 / night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Modern spa and resort" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMWAdUvDPp02wkg634STkE7LVR16nMx9-jAcNQO-agg8zo1VLUndphqoKRpDRuZZAAQe5kbfdofSmLDd4rsI1526DXM2s4DIYHNcOuogGVh_ilXSj5Dv72fPjvKLiJQGNCLi2CgxASUzsMGVvtaeOgIlvGjlonOc8Y8n_x0U5aFB43a1iwa-I7iOsVTTcsCgHHZC0EIqqFWKlCCsROs--3ufn3H0bIG1h_vrV7ItaYNlmHfKdhOyIYgSj1pGxnNoTHGhk0Kt8Kiyw");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Skyline Resort &amp; Spa</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Unwind with top-tier amenities and service</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$380 / night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Clean and simple budget room" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB0kYaey5zai5d6BwUTEe82NxeJhLCsZ5O_6eNVPRkjv9a1mdkBfyLv5WLGKmIbuA5x3gh72rbhSRmK1hI35kT9IAijlaQO3ArXR_607BIrKRaXUMxYjLTfZLKgatuv7GcuaQxu6pTDxBb2OVt57tBTddL-HgBKRkPt5Vw-nzq54DU4lGI1eJ-VpuXiUT72vBwllar-BFjHL3Frw39iqEA_0GLyHhVSZ8p8Gp_km-cb_xfuSlbxzlsCJGXlkNH6wqMtdzPZxXwZaAk");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Kyoto Budget Stays</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Clean, simple, and centrally located</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$60 / night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Elegant hotel lobby with sakura theme" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDq50TSvjfg9ZJZx0AsIAbJLys9XUb7vDxCpQHOY3_TGy98xQ4YmlRPTXnfrgyZmdXfgTVoGlYhFmxWe_l4rbO_tom-Jm648M4DCG0yMK8ItjjQW_0AXisYcS2J8YrVyH6ZISvDl3EEFwCVvtusGqb_apThPXHFVc0v4OFp6AoCTmyNO3rSuBS5b7QwBUxr6oDEmiYNzV-XU5DjLXjRUsYXwBSgBU8oOtBNqyswb4zRfroV5MrW8x6k3piL_1nCvangb8QtOAKc8tU");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">The Grand Sakura</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Unparalleled elegance and classic luxury</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$500 / night</p>
-</div>
-</div>
-<div class="flex flex-col gap-3 pb-3 group">
-<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" data-alt="Traditional Japanese guesthouse in Gion" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBTZpLMJKf8a6RKB9hTWEpHy2G_DztJ7T6Pw502GVyF29-kQqSbcSpc_SYlmlrTrFOn3FElXdnMENsAefLehIdB14rIcqzkgS13b2AwYH8hTW-cFtdB_PjTiK85GgSQGVRzb4i-kx6zNtZqEmeT27fkQWtdrg1HrNyR4n9fsoQmpLtJpdAcOFA-C0WwSpkNosnDfyUPllYVOlbXO7TFsisB_iDvmGcdSfegyjZ8BIfvrHqq5OjZd_bNgOLtXpQabcw-HImdxm96RtY");'></div>
-<div>
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">Gion Corner Guesthouse</p>
-<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Authentic stay in the heart of the Geisha district</p>
-<p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">$120 / night</p>
-</div>
-</div>
+<div id="hotel-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-4">
+    <!-- Hotel cards will be dynamically inserted here -->
 </div>
 </div>
 </div>
@@ -240,4 +176,73 @@
 </div>
 <script type="module" src="./firebase_config.js"></script>
 <script type="module" src="./auth_ui.js"></script>
+<script type="module">
+    const staticHotels = [
+        { name: 'The Oberoi Amarvilas', location: 'Agra', description: 'Luxury hotel with uninterrupted views of the Taj Mahal.', price: 60000, imageUrl: 'https://source.unsplash.com/800x600/?taj+mahal,hotel' },
+        { name: 'Taj Lake Palace', location: 'Udaipur', description: 'A floating palace in the middle of Lake Pichola.', price: 75000, imageUrl: 'https://source.unsplash.com/800x600/?udaipur,palace,hotel' },
+        { name: 'The Leela Palace', location: 'New Delhi', description: 'Modern palace hotel in the diplomatic enclave.', price: 35000, imageUrl: 'https://source.unsplash.com/800x600/?delhi,luxury,hotel' },
+        { name: 'Wildflower Hall', location: 'Shimla', description: 'A fairytale resort in the Himalayas.', price: 50000, imageUrl: 'https://source.unsplash.com/800x600/?shimla,resort' },
+        { name: 'Coconut Lagoon', location: 'Kumarakom', description: 'Heritage backwater resort in Kerala.', price: 20000, imageUrl: 'https://source.unsplash.com/800x600/?kerala,resort' },
+        { name: 'Ahilya by the Sea', location: 'Goa', description: 'A serene and stylish seaside property.', price: 30000, imageUrl: 'https://source.unsplash.com/800x600/?goa,villa' },
+        { name: 'Zostel', location: 'Jaipur', description: 'Vibrant and social backpacker hostel.', price: 3500, imageUrl: 'https://source.unsplash.com/800x600/?jaipur,hostel' },
+        { name: 'The Imperial', location: 'New Delhi', description: 'A historic luxury hotel from 1931.', price: 32000, imageUrl: 'https://source.unsplash.com/800x600/?delhi,heritage,hotel' },
+        { name: 'Suryagarh', location: 'Jaisalmer', description: 'A magnificent fortress in the Thar Desert.', price: 45000, imageUrl: 'https://source.unsplash.com/800x600/?jaisalmer,fort' }
+    ];
+
+    function createHotelCard(hotel) {
+        const card = document.createElement('div');
+        card.className = 'flex flex-col gap-3 pb-3 group';
+        card.innerHTML = `
+            <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl overflow-hidden transform group-hover:scale-105 transition-transform duration-300" style='background-image: url("${hotel.imageUrl}");'></div>
+            <div>
+                <p class="text-text-light dark:text-text-dark text-base font-bold leading-normal">${hotel.name}</p>
+                <p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">${hotel.description}</p>
+                <p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal mt-1">₹${hotel.price.toLocaleString('en-IN')} / night</p>
+            </div>
+        `;
+        return card;
+    }
+
+    function renderHotels(hotels) {
+        const grid = document.getElementById('hotel-grid');
+        const countElement = document.getElementById('stays-count');
+        
+        grid.innerHTML = ''; // Clear existing cards
+
+        if (hotels.length === 0) {
+            grid.innerHTML = `<p class="col-span-full text-center text-text-light-secondary dark:text-text-dark-secondary">No stays match your criteria.</p>`;
+            countElement.textContent = '0 stays found';
+            return;
+        }
+
+        const cardElements = hotels.map(createHotelCard);
+        grid.append(...cardElements);
+        countElement.textContent = `${hotels.length} stays found`;
+    }
+
+    function applyPriceFilter() {
+        const maxPrice = document.getElementById('price-range-slider').value;
+        const filteredHotels = staticHotels.filter(hotel => hotel.price <= maxPrice);
+        renderHotels(filteredHotels);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const priceSlider = document.getElementById('price-range-slider');
+        const priceValue = document.getElementById('price-range-value');
+        const applyFiltersBtn = document.querySelector('button.mt-6');
+
+        // Initial render
+        renderHotels(staticHotels);
+
+        // Event listener for the price slider
+        priceSlider.addEventListener('input', () => {
+            priceValue.textContent = `₹${parseInt(priceSlider.value).toLocaleString('en-IN')}`;
+        });
+
+        // Event listener for the apply button
+        applyFiltersBtn.addEventListener('click', () => {
+            applyPriceFilter();
+        });
+    });
+</script>
 </body></html>
