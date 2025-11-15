@@ -151,6 +151,7 @@
 <section class="relative flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-cover bg-center p-8 text-center text-white">
 <div class="absolute inset-0 bg-black/50 z-0"></div>
 <div class="absolute inset-0 bg-cover bg-center" data-alt="A vibrant, sunlit Italian coastal town with colorful houses built into the cliffside." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAuj52fR33bcl2j7R4mJMI-K3YHNBAcX3gkqQnHBXtRvFHE-w63v9eJYmf0owQBa-Y0zcQ0N8bAXUzEfLlFOMvmjNczWGPkL0W8ZBnoAE1Lcx5EWtcNi3RCMVv8PmyNAtLgaguSp8rZ8NLmZgjaOIwyoSSqxKREsQ88HjQ945gtaHiOxsHOPge7uCo37DMJHuLQqaOg1gDsvvTqYt5r3tBudhBUXp55kbmAWwWaQqW4wAQiGdHM-B2I1xe7xacpb4aI-GBOJ9Ps2qg')"></div>
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A vibrant, sunlit Italian coastal town with colorful houses built into the cliffside." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAuj52fR33bcl2j7R4mJMI-K3YHNBAcX3gkqQnHBXtRvFHE-w63v9eJYmf0owQBa-Y0zcQ0N8bAXUzEfLlFOMvmjNczWGPkL0W8ZBnoAE1Lcx5EWtcNi3RCMVv8PmyNAtLgaguSp8rZ8NLmZgjaOIwyoSSqxKREsQ88HjQ945gtaHiOxsHOPge7uCo37DMJHuLQqaOg1gDsvvTqYt5r3tBudhBUXp55kbmAWwWaQqW4wAQiGdHM-B2I1xe7xacpb4aI-GBOJ9Ps2qg&quot;)"></div>
 <div class="relative z-10 flex flex-col items-center gap-4">
 <h1 class="text-4xl font-extrabold md:text-5xl">Your Authentic Cultural Journey Starts Here.</h1>
 <p class="max-w-xl text-lg text-white/90">Discover the world's richest history, food, and traditions.</p>
@@ -260,6 +261,7 @@
         card.className = "group relative h-64 flex items-end justify-start rounded-lg bg-card-light dark:bg-card-dark shadow-sm overflow-hidden p-4 text-white";
         card.innerHTML = `
             <div class="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('${item.imageUrl}')"></div>
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url(&quot;${item.imageUrl}&quot;)"></div>
             <div class="relative z-10">
                  <h4 class="text-lg font-bold">${item.name}</h4>
                  <p class="text-sm text-white/80">${item.description}</p>

@@ -26,7 +26,7 @@ onAuthStateChanged(auth, async (user) => {
                 // Create a simple text-based avatar from user's initials
                 const initials = fullName.split(' ').map(n => n[0]).join('');
                 userAvatars.forEach(el => {
-                    el.style.backgroundImage = `url('https://ui-avatars.com/api/?name=${initials}&background=random&color=fff')`;
+                    el.style.backgroundImage = `url("https://ui-avatars.com/api/?name=${initials}&background=random&color=fff")`;
                 });
             } else {
                 console.log("No such document!");
